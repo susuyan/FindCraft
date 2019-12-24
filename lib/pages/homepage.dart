@@ -1,155 +1,242 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:find_craft/widgets/navigation_dot_bar.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+class HomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    Widget titleSection = Container(
-      padding: const EdgeInsets.all(32),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    'Oeschinen Lake Campground',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Text(
-                  'Kandersteg, Switzerland',
-                  style: TextStyle(color: Colors.grey[500]),
-                )
-              ],
-            ),
-          ),
-          Column(children: <Widget>[FavoriteWidget()]),
-        ],
-      ),
-    );
-
-    Column _buildButtonColumn(Color color, IconData icon, String label) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: color),
-          Container(
-            margin: const EdgeInsets.only(top: 8),
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: color,
-              ),
-            ),
-          ),
-        ],
-      );
-    }
-
-    Color color = Theme.of(context).primaryColor;
-
-    Widget buttonSection = Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildButtonColumn(color, Icons.call, 'CALL'),
-          _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
-          _buildButtonColumn(color, Icons.share, 'SHARE'),
-        ],
-      ),
-    );
-
-    Widget textSection = Container(
-      padding: const EdgeInsets.all(32),
-      child: Text(
-        'Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese '
-        'Alps. Situated 1,578 meters above sea level, it is one of the '
-        'larger Alpine Lakes. A gondola ride from Kandersteg, followed by a '
-        'half-hour walk through pastures and pine forest, leads you to the '
-        'lake, which warms to 20 degrees Celsius in the summer. Activities '
-        'enjoyed here include rowing, and riding the summer toboggan run.',
-        softWrap: true,
-      ),
-    );
-
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: ListView(
-        children: <Widget>[
-          Image.asset(
-            'images/lake.jpeg',
-            width: 600,
-            height: 240,
-            fit: BoxFit.cover,
-          ),
-          titleSection,
-          buttonSection,
-          textSection
-        ],
-      ),
-    );
-  }
-}
-
-class FavoriteWidget extends StatefulWidget {
-  @override
-  _FavoriteWidgetState createState() => _FavoriteWidgetState();
-}
-
-class _FavoriteWidgetState extends State<FavoriteWidget> {
-  bool _isFavorited = true;
-  int _favoriteCount = 41;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          padding: EdgeInsets.all(0),
-          child: IconButton(
-            icon: (_isFavorited ? Icon(Icons.star) : Icon(Icons.star_border)),
-            color: Colors.red[500],
-            onPressed: _toggleFavorite,
+class _HomePageState extends State<HomePage> {
+  Widget sectionHeader = Container(
+    height: 240,
+    color: Color(0xFF166DE8),
+    child: Stack(
+      children: <Widget>[
+        Positioned(
+          top: 80,
+          left: 20,
+          child: Text(
+            '找个工',
+            style: TextStyle(color: Colors.white, fontSize: 12),
           ),
         ),
-        SizedBox(
-          width: 18,
+        Padding(
+          padding: EdgeInsets.only(bottom: 35),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: Image(
+              image: AssetImage('assets/images/home_header_bg.png'),
+            ),
+          ),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: 50,
           child: Container(
-            child: Text('$_favoriteCount'),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20))),
+            alignment: Alignment.bottomCenter,
+          ),
+        ),
+        Container(
+          alignment: Alignment.bottomLeft,
+          padding: EdgeInsets.only(left: 20, bottom: 15),
+          child: Text(
+            '推荐',
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ],
+    ),
+  );
+
+  Widget sectionRecommend = Container(
+    height: 115,
+    color: Colors.white,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        TagsView(),
+        Container(
+          height: 10,
+          color: Color(0xFFF8F8F8),
+        )
+      ],
+    ),
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: Stack(
+          children: <Widget>[
+            ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                sectionHeader,
+                sectionRecommend,
+                MoreHeaderView(),
+                OrderItem(),
+                OrderItem(),
+                OrderItem(),
+                OrderItem(),
+                MoreHeaderView(),
+                CraftCell(),
+                CraftCell(),
+                CraftCell(),
+                CraftCell(),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: BottomNavigationDotBar(
+              items: <BottomNavigationDotBarItem>[
+                BottomNavigationDotBarItem(
+                  icon: Icons.map,
+                ),
+              ],
+            ),
+            )
+          ],
+        ),
+      ),
     );
   }
+}
 
-  void _toggleFavorite() {
-    setState(() {
-      if (_isFavorited) {
-        _favoriteCount -= 1;
-        _isFavorited = false;
-      } else {
-        _favoriteCount += 1;
-        _isFavorited = true;
+class TagsView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> _createTags(List<String> tags) {
+      var _tagArr = List<Widget>();
+
+      for (var item in tags) {
+        _tagArr.add(Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [Color(0xFF253364), Color(0xFF3C4A7C)])),
+          constraints: BoxConstraints(
+              maxWidth: window.physicalSize.width / 8, minHeight: 40),
+          child: Center(
+            child: Text(
+              '$item',
+              style: TextStyle(color: Colors.white, fontSize: 12),
+            ),
+          ),
+        ));
       }
-    });
+
+      return _tagArr;
+    }
+
+    return Container(
+      padding: EdgeInsets.fromLTRB(20, 0, 0, 15),
+      child: Wrap(
+        spacing: 15,
+        runSpacing: 10,
+        children: _createTags(['找木工', '找瓦工', '找水电工', '维修安装', '接个人活']),
+      ),
+    );
+  }
+}
+
+class MoreHeaderView extends StatefulWidget {
+  @override
+  _MoreHeaderViewState createState() => _MoreHeaderViewState();
+}
+
+class _MoreHeaderViewState extends State<MoreHeaderView> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 20, right: 20, top: 0),
+      height: 40,
+      color: Colors.white,
+      child: Row(
+        children: <Widget>[Text('精选雇主'), Spacer(), Text('更多')],
+      ),
+    );
+  }
+}
+
+class OrderItem extends StatefulWidget {
+  @override
+  _OrderItemState createState() => _OrderItemState();
+}
+
+class _OrderItemState extends State<OrderItem> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 20, right: 20),
+      color: Colors.white,
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Column(
+                children: <Widget>[Text('朝阳区青年路'), Text('2019-12-12')],
+              ),
+              Spacer(),
+              Text('北京')
+            ],
+          ),
+          Container(
+            height: 1,
+            color: Colors.red,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class CraftCell extends StatefulWidget {
+  @override
+  _CraftCellState createState() => _CraftCellState();
+}
+
+class _CraftCellState extends State<CraftCell> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                height: 50,
+                width: 50,
+                color: Colors.red,
+              ),
+              Column(
+                children: <Widget>[
+                  Text('小名'),
+                ],
+              ),
+              Spacer(),
+              Text('北京')
+            ],
+          ),
+          Container(
+            height: 1,
+            color: Colors.red,
+          )
+        ],
+      ),
+    );
   }
 }

@@ -137,8 +137,8 @@ class _NavibackButtonState extends State<NavibackButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(11, 0, 20, 20),
-      child: FlatButton(
+      padding: EdgeInsets.zero,
+      child: CupertinoButton(
         onPressed: () {
           Navigator.pop(context);
         },
