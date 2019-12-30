@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:find_craft/widgets/navigation_dot_bar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -87,25 +86,9 @@ class _HomePageState extends State<HomePage> {
                 sectionRecommend,
                 MoreHeaderView(),
                 OrderItem(),
-                OrderItem(),
-                OrderItem(),
-                OrderItem(),
                 MoreHeaderView(),
                 CraftCell(),
-                CraftCell(),
-                CraftCell(),
-                CraftCell(),
               ],
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: BottomNavigationDotBar(
-              items: <BottomNavigationDotBarItem>[
-                BottomNavigationDotBarItem(
-                  icon: Icons.map,
-                ),
-              ],
-            ),
             )
           ],
         ),

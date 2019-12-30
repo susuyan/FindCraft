@@ -2,13 +2,20 @@ library navigation_dot_bar;
 
 import 'package:flutter/material.dart';
 
+
 class BottomNavigationDotBar extends StatefulWidget {
   final List<BottomNavigationDotBarItem> items;
   final Color activeColor;
   final Color color;
+  final Color backgroundColor;
+
 
   const BottomNavigationDotBar(
-      {@required this.items, this.activeColor, this.color, Key key})
+      {@required this.items,
+      this.activeColor,
+      this.color,
+      this.backgroundColor,
+      Key key})
       : super(key: key);
 
   @override
@@ -19,7 +26,7 @@ class _BottomNavigationDotBarState extends State<BottomNavigationDotBar> {
   GlobalKey _keyBottomBar = GlobalKey();
   double _numPositionBase, _numDifferenceBase, _positionLeftIndicatorDot;
   int _indexPageSelected = 0;
-  Color _color, _activeColor;
+  Color _color, _activeColor,_backgroundColor;
 
   @override
   void initState() {
@@ -28,7 +35,9 @@ class _BottomNavigationDotBarState extends State<BottomNavigationDotBar> {
   }
 
   _afterLayout(_) {
-    _color = Color(0xFF283254) ?? Colors.black45;
+    _color = widget.color ?? Colors.black45;
+    _backgroundColor = widget.backgroundColor ?? Colors.white;
+
     _activeColor = widget.activeColor ?? Theme.of(context).primaryColor;
     final sizeBottomBar =
         (_keyBottomBar.currentContext.findRenderObject() as RenderBox).size;
@@ -40,40 +49,35 @@ class _BottomNavigationDotBarState extends State<BottomNavigationDotBar> {
   }
 
   @override
-  Widget build(BuildContext context) => Stack(
-        children: <Widget>[          
-          Container(
-            padding: EdgeInsets.fromLTRB(14, 15, 14, 20),
-            child: Material(
-                elevation: 5.0,
-                color: Color(0xFF283254),
-                shadowColor: Color(0x66001459),
-                borderRadius: BorderRadius.circular(29),
-                clipBehavior: Clip.hardEdge,
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  child: Stack(
-                    key: _keyBottomBar,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 12),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: _createNavigationIconButtonList(
-                                widget.items.asMap())),
-                      ),
-                      AnimatedPositioned(
-                          child: CircleAvatar(
-                              radius: 2.5, backgroundColor: _activeColor),
-                          duration: Duration(milliseconds: 400),
-                          curve: Curves.fastOutSlowIn,
-                          left: _positionLeftIndicatorDot,
-                          bottom: 0),
-                    ],
+  Widget build(BuildContext context) => Container(
+        padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
+        child: Material(
+            elevation: 5,
+            color: _backgroundColor,
+            shadowColor: Color(0x66001459),
+            borderRadius: BorderRadius.circular(29),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 12),
+              child: Stack(
+                key: _keyBottomBar,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 12),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: _createNavigationIconButtonList(
+                            widget.items.asMap())),
                   ),
-                )),
-          )
-        ],
+                  AnimatedPositioned(
+                      child: CircleAvatar(
+                          radius: 2.5, backgroundColor: _activeColor),
+                      duration: Duration(milliseconds: 400),
+                      curve: Curves.fastOutSlowIn,
+                      left: _positionLeftIndicatorDot,
+                      bottom: 0),
+                ],
+              ),
+            )),
       );
 
   List<_NavigationIconButton> _createNavigationIconButtonList(
