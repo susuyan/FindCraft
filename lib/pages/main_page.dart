@@ -142,29 +142,65 @@ class BlurImagePage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 203),
             child: Container(
-            height: 70,
-            width: 200,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(35)),
-                gradient: LinearGradient(
-                  colors: [Color(0xFF1F8FE5), Color(0xFF3BA7FD)],
-                  begin: FractionalOffset(0.5, 0),
-                  end: FractionalOffset(0.5, 1)
-                )),
-          ),
+              height: 70,
+              width: 200,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(35)),
+                  gradient: LinearGradient(
+                      colors: [Color(0xFF1F8FE5), Color(0xFF3BA7FD)],
+                      begin: FractionalOffset(0.5, 0),
+                      end: FractionalOffset(0.5, 1))),
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(left: 25),
+                    child: Image.asset('assets/images/worker_icon.png'),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        '发布需求',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                      Text('我要发布用工信息', style: TextStyle(fontSize: 12))
+                    ],
+                  )
+                ],
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 112),
             child: Container(
-            height: 70,
-            width: 200,
-            decoration: BoxDecoration(
+              height: 70,
+              width: 200,
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(35)),
                 color: Color(0xFF563BFD),
-                ),
+              ),
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(left: 25),
+                    child: Image.asset('assets/images/owner_icon.png'),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        '找个工',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                      Text('我要找个人施工', style: TextStyle(fontSize: 12))
+                    ],
+                  )
+                ],
+              ),
+            ),
           ),
-          ),
-
         ],
       ),
     );

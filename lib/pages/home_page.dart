@@ -1,5 +1,9 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:find_craft/common/common_style.dart';
+import 'package:find_craft/helper/screen_helper.dart';
+import 'package:find_craft/widgets/avatar.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -145,16 +149,24 @@ class _MoreHeaderViewState extends State<MoreHeaderView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20, right: 20, top: 0),
-      height: 40,
+      padding: EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
+      height: 62,
       color: Colors.white,
       child: Row(
-        children: <Widget>[Text('精选雇主'), Spacer(), Text('更多')],
+        children: <Widget>[
+          Text(
+            '精选雇主',
+            style: CommonStyle.black12_bold,
+          ),
+          Spacer(),
+          Text('更多',style: CommonStyle.black12,)
+        ],
       ),
     );
   }
 }
 
+/// 精选雇主 Item
 class OrderItem extends StatefulWidget {
   @override
   _OrderItemState createState() => _OrderItemState();
@@ -169,17 +181,35 @@ class _OrderItemState extends State<OrderItem> {
       child: Column(
         children: <Widget>[
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Column(
-                children: <Widget>[Text('朝阳区青年路'), Text('2019-12-12')],
+crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                 Text(
+                      '朝阳区青年路',
+                      style: CommonStyle.black12,
+                    ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      '2019-12-12',
+                      style: CommonStyle.black12,
+                    ),
+                  )
+                ],
               ),
               Spacer(),
-              Text('北京')
+              Text('北京',style: CommonStyle.black12,)
             ],
           ),
+          SizedBox(
+            height: 12,
+          ),
           Container(
-            height: 1,
-            color: Colors.red,
+            height: 0.5,
+            color: Color(0x80A0A0A0),
           )
         ],
       ),
@@ -196,30 +226,76 @@ class _CraftCellState extends State<CraftCell> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        children: <Widget>[
-          Row(
+      height: 100,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        margin: EdgeInsets.only(top: 12, left: 20, right: 20, bottom: 12),
+        child: Padding(
+          padding: EdgeInsets.only(left: 15, right: 15, top: 13, bottom: 13),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Container(
+              FLAvatar(
                 height: 50,
                 width: 50,
-                color: Colors.red,
+                radius: 25,
+                color: Colors.blue,
+                text: 'TE',
+                textStyle: TextStyle(color: Colors.white),
               ),
-              Column(
-                children: <Widget>[
-                  Text('小名'),
-                ],
+              SizedBox(
+                width: 10,
               ),
-              Spacer(),
-              Text('北京')
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('小名'),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.bottomLeft,
+                        child: CraftTags(
+                          tags: ['木工', '水电', '吊顶'],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Text('北京'),
+              )
             ],
           ),
-          Container(
-            height: 1,
-            color: Colors.red,
-          )
-        ],
+        ),
       ),
+    );
+  }
+}
+
+class CraftTags extends StatelessWidget {
+  const CraftTags({Key key, this.tags}) : super(key: key);
+
+  final List<String> tags;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 4,
+      children: tags.map<Widget>((tag) {
+        return Container(
+          padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+          decoration: BoxDecoration(
+              color: Color(0xFF8D9DB5), borderRadius: BorderRadius.circular(3)),
+          child: Text(
+            '$tag',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+          ),
+        );
+      }).toList(),
     );
   }
 }
