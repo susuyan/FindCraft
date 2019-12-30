@@ -1,6 +1,8 @@
 import 'dart:ffi';
 import 'dart:ui';
 
+import 'package:find_craft/application.dart';
+import 'package:find_craft/route/routes.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'home_page.dart';
@@ -66,46 +68,12 @@ class RedeemConfirmationScreen extends StatelessWidget {
   }
 }
 
-class ModalPage extends StatefulWidget {
-  const ModalPage({Key key, this.child}) : super(key: key);
-
-  final Widget child;
-
-  static Void showModalBottom(BuildContext context, Widget page) {
-    showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)),
-        ),
-        builder: (context) {
-          return page;
-        });
-
-    return null;
-  }
-
+class BlurImagePage extends StatefulWidget {
   @override
-  _ModalPageState createState() => _ModalPageState();
+  _BlurImagePageState createState() => _BlurImagePageState();
 }
 
-class _ModalPageState extends State<ModalPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height - 100),
-          child: this.widget.child,
-        ),
-      ],
-    );
-  }
-}
-
-class BlurImagePage extends StatelessWidget {
+class _BlurImagePageState extends State<BlurImagePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -141,33 +109,38 @@ class BlurImagePage extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 203),
-            child: Container(
-              height: 70,
-              width: 200,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(35)),
-                  gradient: LinearGradient(
-                      colors: [Color(0xFF1F8FE5), Color(0xFF3BA7FD)],
-                      begin: FractionalOffset(0.5, 0),
-                      end: FractionalOffset(0.5, 1))),
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 25),
-                    child: Image.asset('assets/images/worker_icon.png'),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        '发布需求',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                      Text('我要发布用工信息', style: TextStyle(fontSize: 12))
-                    ],
-                  )
-                ],
+            child: GestureDetector(
+              onTap: () {
+                Application.router.navigateTo(context, Routes.workerPublish, replace: true);
+              },
+              child: Container(
+                height: 70,
+                width: 200,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(35)),
+                    gradient: LinearGradient(
+                        colors: [Color(0xFF1F8FE5), Color(0xFF3BA7FD)],
+                        begin: FractionalOffset(0.5, 0),
+                        end: FractionalOffset(0.5, 1))),
+                child: Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Image.asset('assets/images/worker_icon.png'),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          '发布需求',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                        Text('我要发布用工信息', style: TextStyle(fontSize: 12))
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

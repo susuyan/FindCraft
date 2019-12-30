@@ -1,7 +1,7 @@
-
+import 'package:find_craft/widgets/modal_body.dart';
 import 'package:flutter/material.dart';
 
-/// 业主发布 
+/// 业主发布
 class OwnerPublshPage extends StatefulWidget {
   OwnerPublshPage({Key key}) : super(key: key);
 
@@ -12,8 +12,6 @@ class OwnerPublshPage extends StatefulWidget {
 class _OwnerPublshPageState extends State<OwnerPublshPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-
-    );
+    return ModalBody();
   }
 }

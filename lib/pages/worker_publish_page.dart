@@ -1,3 +1,5 @@
+import 'package:find_craft/application.dart';
+import 'package:find_craft/widgets/modal_body.dart';
 import 'package:flutter/material.dart';
 
 /// 工人发布
@@ -11,6 +13,21 @@ class WorkerPublishPage extends StatefulWidget {
 class _WorkerPublishPageState extends State<WorkerPublishPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+        body: Dismissible(
+      direction: DismissDirection.vertical,
+      key: Key('key'),
+      onDismissed: (direction) {
+        Navigator.of(context).pop();
+      },
+      child: Center(
+        child: FlatButton(
+          onPressed: () {
+            Application.router.pop(context);
+          },
+          child: Text('返回'),
+        ),
+      ),
+    ));
   }
 }
