@@ -14,6 +14,7 @@ class Routes {
   static const requirementsDetails = '/requirements_details';
   static const craftList = '/craft_list';
   static const craftDetails = '/craft_details';
+  static const workGallery = '/work_gallery';
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
@@ -36,5 +37,7 @@ class Routes {
     router.define(craftList, handler: craftListHandler);
 
     router.define(craftDetails, handler: craftDetailsHandler);
+
+    router.define(workGallery, handler: workgalleryHandler);
   }
 }

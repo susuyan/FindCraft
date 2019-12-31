@@ -5,6 +5,7 @@ import 'package:find_craft/pages/requirements_page.dart';
 import 'package:find_craft/pages/requiriments_details_page.dart';
 import 'package:find_craft/pages/select_city_page.dart';
 import 'package:find_craft/pages/craft_list_page.dart';
+import 'package:find_craft/pages/work_gallery_page.dart';
 import 'package:find_craft/pages/worker_publish_page.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -47,4 +48,9 @@ var craftListHandler =
 var craftDetailsHandler =
     Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
   return CraftDetailsPage();
+});
+
+var workgalleryHandler =
+    Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
+  return WorkGalleryPage();
 });

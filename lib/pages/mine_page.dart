@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:find_craft/application.dart';
+import 'package:find_craft/common/common_style.dart';
+import 'package:find_craft/widgets/avatar.dart';
+import 'package:find_craft/widgets/craft_tag_view.dart';
 import 'package:flutter/material.dart';
 import 'package:find_craft/route/routes.dart';
 
@@ -12,14 +15,48 @@ class _MinePageState extends State<MinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FlatButton(
-        onPressed: () {
-          Application.router.navigateTo(context, Routes.selectCity);
-        },
-        child: Text('按钮'),
+      appBar: AppBar(
+        title: Text('我的'),
       ),
-      body: Column(
-        children: <Widget>[_createHeader()],
+      body: Container(
+        padding: EdgeInsets.zero,
+        child: ListView(
+          children: <Widget>[
+            _createHeader(),
+            Container(
+              height: 69,
+              color: Colors.white,
+              alignment: Alignment.center,
+              child: _createEditButton(),
+            ),
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(left: 40),
+                  child: Text(
+                    '施工图',
+                    style: CommonStyle.black12,
+                  ),
+                ),
+                Spacer(),
+                Padding(
+                  padding: EdgeInsets.only(top: 34, right: 20, bottom: 17),
+                  child: GestureDetector(
+                    onTap: () {
+                      // Todo: 上传图片
+                      Application.router
+                          .navigateTo(context, Routes.workGallery);
+                    },
+                    child: Image(
+                      image: AssetImage('assets/images/upload_icon.png'),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            _createWorkGallery()
+          ],
+        ),
       ),
     );
   }
@@ -39,10 +76,20 @@ class _MinePageState extends State<MinePage> {
             ),
           ),
           Positioned(
-            height: 216,
+            top: 46,
+            child: Container(
+              height: 120,
+              width: 120,
+              decoration: BoxDecoration(
+                  color: Color(0x51A0FAaa),
+                  borderRadius: BorderRadius.circular(60)),
+            ),
+          ),
+          Positioned(
+            height: 157,
             left: 0,
             right: 0,
-            bottom: -59,
+            bottom: 0,
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -56,23 +103,32 @@ class _MinePageState extends State<MinePage> {
                   ]),
             ),
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: _createSettingsButton(),
+          Positioned(
+            bottom: 109,
+            child: FLAvatar(
+              height: 110,
+              width: 110,
+              radius: 55,
+              color: Colors.blue,
+              text: 'TE',
+              textStyle: TextStyle(color: Colors.white),
             ),
           ),
           Positioned(
-            bottom: -31,
-            child: FlatButton(
-              color: Colors.red,
-              onPressed: () {
-                print('helloworld');
-                _testLogin();
-              },
-              child: Text('编辑信息'),
+            bottom: 68,
+            child: Text('小名'),
+          ),
+          Positioned(
+            bottom: 25,
+            child: CraftTagsView(
+              tags: ['吊顶'],
             ),
+          ),
+          // 设置按钮
+          Positioned(
+            bottom: 110,
+            right: 20,
+            child: _createSettingsButton(),
           )
         ],
       );
@@ -82,7 +138,8 @@ class _MinePageState extends State<MinePage> {
         width: 64,
         height: 31,
         decoration: BoxDecoration(
-            color: Color(0xFF3388FF), borderRadius: BorderRadius.circular(8)),
+            color: Color(0xFF3388FF).withAlpha(20),
+            borderRadius: BorderRadius.circular(8)),
         child: Stack(
           children: <Widget>[
             Positioned(
@@ -95,11 +152,12 @@ class _MinePageState extends State<MinePage> {
                 image: AssetImage('assets/images/settings_icon.png'),
               ),
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: EdgeInsets.only(right: 20),
-                child: Text('设置'),
+            Positioned(
+              right: 10,
+              bottom: 8,
+              child: Text(
+                '设置',
+                style: CommonStyle.blue12,
               ),
             )
           ],
@@ -107,14 +165,54 @@ class _MinePageState extends State<MinePage> {
       );
 
 // 编辑信息
-  Widget _createEditButton() => FlatButton(
-        color: Colors.red,
-        onPressed: () {
-          print('helloworld');
-          _testLogin();
-        },
-        child: Text('编辑信息'),
+  _createEditButton() => GestureDetector(
+        child: Container(
+          height: 31,
+          width: 84,
+          decoration: BoxDecoration(
+              color: Color(0xFF3388FF).withAlpha(20),
+              borderRadius: BorderRadius.circular(8)),
+          child: Center(
+            child: Text(
+              '编辑信息',
+              style: CommonStyle.blue12,
+            ),
+          ),
+        ),
       );
+
+  _createWorkGallery() {
+    return SizedBox(
+      height: 160,
+      child: ListView(
+        padding: EdgeInsets.only(left: 20, right: 20),
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(right: 8, left: 0),
+            decoration: BoxDecoration(
+                color: Colors.red, borderRadius: BorderRadius.circular(8)),
+            width: 130,
+            height: 170,
+          ),
+          Container(
+            margin: EdgeInsets.only(right: 8, left: 0),
+            decoration: BoxDecoration(
+                color: Colors.red, borderRadius: BorderRadius.circular(8)),
+            width: 130,
+            height: 150,
+          ),
+          Container(
+            margin: EdgeInsets.only(right: 8, left: 0),
+            decoration: BoxDecoration(
+                color: Colors.red, borderRadius: BorderRadius.circular(8)),
+            width: 130,
+            height: 170,
+          ),
+        ],
+      ),
+    );
+  }
 
   _testLogin() async {
     Dio dio = Dio();
