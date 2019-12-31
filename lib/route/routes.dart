@@ -11,6 +11,7 @@ class Routes {
   static const ownerPublish = '/wonerPublish';
   static const selectCity = '/select_City';
   static const requirements = '/requirements';
+  static const workerList= '/worker_list';
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
@@ -27,5 +28,7 @@ class Routes {
     router.define(selectCity, handler: selectCityHandler);
 
     router.define(requirements, handler: requirementsHandler);
+
+    router.define(workerList, handler: workerListHandler);
   }
 }

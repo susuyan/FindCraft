@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:find_craft/application.dart';
 import 'package:find_craft/common/common_style.dart';
 import 'package:find_craft/route/routes.dart';
-import 'package:find_craft/widgets/avatar.dart';
+import 'package:find_craft/widgets/craft_cell.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -84,7 +84,10 @@ class _HomePageState extends State<HomePage> {
                 ),
                 OrderItem(),
                 MoreHeaderView(
-                  title: '师傅',
+                  title: '师傅列表',
+                  morePressed: (){
+                    Application.router.navigateTo(context, Routes.workerList);
+                  },
                 ),
                 CraftCell(),
               ],
@@ -188,64 +191,7 @@ class _OrderItemState extends State<OrderItem> {
   }
 }
 
-class CraftCell extends StatefulWidget {
-  @override
-  _CraftCellState createState() => _CraftCellState();
-}
 
-class _CraftCellState extends State<CraftCell> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        margin: EdgeInsets.only(top: 12, left: 20, right: 20, bottom: 12),
-        child: Padding(
-          padding: EdgeInsets.only(left: 15, right: 15, top: 13, bottom: 13),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              FLAvatar(
-                height: 50,
-                width: 50,
-                radius: 25,
-                color: Colors.blue,
-                text: 'TE',
-                textStyle: TextStyle(color: Colors.white),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('小名'),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.bottomLeft,
-                        child: CraftTags(
-                          tags: ['木工', '水电', '吊顶'],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Text('北京'),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class RecommendTags extends StatelessWidget {
   const RecommendTags({this.tags, Key key}) : super(key: key);
@@ -292,26 +238,4 @@ class RecommendTags extends StatelessWidget {
   }
 }
 
-class CraftTags extends StatelessWidget {
-  const CraftTags({Key key, this.tags}) : super(key: key);
 
-  final List<String> tags;
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 4,
-      children: tags.map<Widget>((tag) {
-        return Container(
-          padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-          decoration: BoxDecoration(
-              color: Color(0xFF8D9DB5), borderRadius: BorderRadius.circular(3)),
-          child: Text(
-            '$tag',
-            style: TextStyle(color: Colors.white, fontSize: 12),
-          ),
-        );
-      }).toList(),
-    );
-  }
-}
