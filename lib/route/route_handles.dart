@@ -16,41 +16,41 @@ var rootHandler = Handler(
 });
 
 var homeHandler =
-    Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
+    Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return HomePage();
 });
 
 var workPublishHandler =
-    Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
+    Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return WorkerPublishPage();
 });
 
 var selectCityHandler =
-    Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
+    Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return SelectCityPage();
 });
 
 var requirementsHandler =
-    Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
+    Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return RequirementsPage();
 });
 
 var requimentsDetailsHandler =
-    Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
+    Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return RequirementsDetailsPage();
 });
 
 var craftListHandler =
-    Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
+    Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return CraftListPage();
 });
 
 var craftDetailsHandler =
-    Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
+    Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return CraftDetailsPage();
 });
 
 var workgalleryHandler =
-    Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
+    Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return WorkGalleryPage();
 });

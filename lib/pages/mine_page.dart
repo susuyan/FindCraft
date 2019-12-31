@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:find_craft/application.dart';
 import 'package:find_craft/common/common_style.dart';
 import 'package:find_craft/widgets/avatar.dart';
@@ -212,12 +211,5 @@ class _MinePageState extends State<MinePage> {
         ],
       ),
     );
-  }
-
-  _testLogin() async {
-    Dio dio = Dio();
-    Response response = await dio.get(
-        'http://zhaogegong.beituokj.com/api/employer/',
-        queryParameters: {"token": "41a780c48462c401937219496a182a0f"});
   }
 }

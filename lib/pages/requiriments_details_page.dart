@@ -1,7 +1,6 @@
 import 'package:find_craft/common/common_style.dart';
 import 'package:find_craft/widgets/avatar.dart';
 import 'package:find_craft/widgets/contack_info.dart';
-import 'package:find_craft/widgets/gray_background.dart';
 import 'package:flutter/material.dart';
 
 class RequirementsDetailsPage extends StatefulWidget {

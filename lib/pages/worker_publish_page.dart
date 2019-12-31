@@ -1,5 +1,4 @@
 import 'package:find_craft/application.dart';
-import 'package:find_craft/widgets/modal_body.dart';
 import 'package:flutter/material.dart';
 
 /// 工人发布
