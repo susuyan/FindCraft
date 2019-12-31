@@ -91,10 +91,14 @@ class _HomePageState extends State<HomePage> {
                 MoreHeaderView(
                   title: '师傅列表',
                   morePressed: () {
-                    Application.router.navigateTo(context, Routes.workerList);
+                    Application.router.navigateTo(context, Routes.craftList);
                   },
                 ),
-                CraftCell(),
+                CraftCell(
+                  didSelect: () {
+                    Application.router.navigateTo(context, Routes.craftDetails);
+                  },
+                ),
               ],
             )
           ],

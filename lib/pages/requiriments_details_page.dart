@@ -1,5 +1,6 @@
 import 'package:find_craft/common/common_style.dart';
 import 'package:find_craft/widgets/avatar.dart';
+import 'package:find_craft/widgets/contack_info.dart';
 import 'package:find_craft/widgets/gray_background.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,9 @@ class _RequirementsDetailsPageState extends State<RequirementsDetailsPage> {
           padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: ListView(
             children: <Widget>[
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Center(
                 child: FLAvatar(
                   height: 140,
@@ -72,38 +75,9 @@ class _RequirementsDetailsPageState extends State<RequirementsDetailsPage> {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-            info,
-            style: CommonStyle.black12,
-          ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class ContactInfo extends StatefulWidget {
-  ContactInfo({this.icon, this.info, Key key}) : super(key: key);
-  final IconData icon;
-  final String info;
-  @override
-  _ContactInfoState createState() => _ContactInfoState();
-}
-
-class _ContactInfoState extends State<ContactInfo> {
-  @override
-  @override
-  Widget build(BuildContext context) {
-    return GrayBackground(
-      child: Row(
-        children: <Widget>[
-          Icon(this.widget.icon),
-          SizedBox(
-            width: 20,
-          ),
-          Text(
-            this.widget.info,
-            style: CommonStyle.black12,
+              info,
+              style: CommonStyle.black12,
+            ),
           )
         ],
       ),

@@ -11,8 +11,9 @@ class Routes {
   static const ownerPublish = '/wonerPublish';
   static const selectCity = '/select_City';
   static const requirements = '/requirements';
-  static const workerList = '/worker_list';
   static const requirementsDetails = '/requirements_details';
+  static const craftList = '/craft_list';
+  static const craftDetails = '/craft_details';
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
@@ -32,6 +33,8 @@ class Routes {
 
     router.define(requirementsDetails, handler: requimentsDetailsHandler);
 
-    router.define(workerList, handler: workerListHandler);
+    router.define(craftList, handler: craftListHandler);
+
+    router.define(craftDetails, handler: craftDetailsHandler);
   }
 }

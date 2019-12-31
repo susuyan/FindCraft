@@ -1,3 +1,4 @@
+import 'package:find_craft/pages/craft_details_page.dart';
 import 'package:find_craft/pages/home_page.dart';
 import 'package:find_craft/pages/main_page.dart';
 import 'package:find_craft/pages/requirements_page.dart';
@@ -38,7 +39,12 @@ var requimentsDetailsHandler =
   return RequirementsDetailsPage();
 });
 
-var workerListHandler =
+var craftListHandler =
     Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
   return CraftListPage();
+});
+
+var craftDetailsHandler =
+    Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
+  return CraftDetailsPage();
 });
