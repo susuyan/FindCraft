@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:find_craft/application.dart';
 import 'package:find_craft/common/common_style.dart';
-import 'package:find_craft/helper/screen_helper.dart';
+import 'package:find_craft/route/routes.dart';
 import 'package:find_craft/widgets/avatar.dart';
 import 'package:flutter/material.dart';
 
@@ -60,21 +60,6 @@ class _HomePageState extends State<HomePage> {
     ),
   );
 
-  Widget sectionRecommend = Container(
-    height: 115,
-    color: Colors.white,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        TagsView(),
-        Container(
-          height: 10,
-          color: Color(0xFFF8F8F8),
-        )
-      ],
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,10 +72,20 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 sectionHeader,
-                sectionRecommend,
-                MoreHeaderView(),
+                RecommendTags(tags: ['找木工', '找瓦工', '找水电工', '维修安装', '接个人活']),
+                Container(
+                  height: 10,
+                ),
+                MoreHeaderView(
+                  title: '业主需求',
+                  morePressed: () {
+                    Application.router.navigateTo(context, Routes.requirements);
+                  },
+                ),
                 OrderItem(),
-                MoreHeaderView(),
+                MoreHeaderView(
+                  title: '师傅',
+                ),
                 CraftCell(),
               ],
             )
@@ -101,50 +96,17 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class TagsView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> _createTags(List<String> tags) {
-      var _tagArr = List<Widget>();
-
-      for (var item in tags) {
-        _tagArr.add(Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [Color(0xFF253364), Color(0xFF3C4A7C)])),
-          constraints: BoxConstraints(
-              maxWidth: window.physicalSize.width / 8, minHeight: 40),
-          child: Center(
-            child: Text(
-              '$item',
-              style: TextStyle(color: Colors.white, fontSize: 12),
-            ),
-          ),
-        ));
-      }
-
-      return _tagArr;
-    }
-
-    return Container(
-      padding: EdgeInsets.fromLTRB(20, 0, 0, 15),
-      child: Wrap(
-        spacing: 15,
-        runSpacing: 10,
-        children: _createTags(['找木工', '找瓦工', '找水电工', '维修安装', '接个人活']),
-      ),
-    );
-  }
-}
-
 class MoreHeaderView extends StatefulWidget {
+  const MoreHeaderView({this.title, this.morePressed, Key key})
+      : super(key: key);
+  final String title;
+  final Function morePressed;
+
   @override
   _MoreHeaderViewState createState() => _MoreHeaderViewState();
 }
 
+/// 更多 Header
 class _MoreHeaderViewState extends State<MoreHeaderView> {
   @override
   Widget build(BuildContext context) {
@@ -155,11 +117,17 @@ class _MoreHeaderViewState extends State<MoreHeaderView> {
       child: Row(
         children: <Widget>[
           Text(
-            '精选雇主',
+            this.widget.title,
             style: CommonStyle.black12_bold,
           ),
           Spacer(),
-          Text('更多',style: CommonStyle.black12,)
+          GestureDetector(
+            onTap: this.widget.morePressed,
+            child: Text(
+              '更多',
+              style: CommonStyle.black12,
+            ),
+          )
         ],
       ),
     );
@@ -184,12 +152,12 @@ class _OrderItemState extends State<OrderItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Column(
-crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                 Text(
-                      '朝阳区青年路',
-                      style: CommonStyle.black12,
-                    ),
+                  Text(
+                    '朝阳区青年路',
+                    style: CommonStyle.black12,
+                  ),
                   Container(
                     padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
                     alignment: Alignment.bottomLeft,
@@ -201,7 +169,10 @@ crossAxisAlignment: CrossAxisAlignment.start,
                 ],
               ),
               Spacer(),
-              Text('北京',style: CommonStyle.black12,)
+              Text(
+                '北京',
+                style: CommonStyle.black12,
+              )
             ],
           ),
           SizedBox(
@@ -271,6 +242,51 @@ class _CraftCellState extends State<CraftCell> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class RecommendTags extends StatelessWidget {
+  const RecommendTags({this.tags, Key key}) : super(key: key);
+  final List<String> tags;
+
+  @override
+  Widget build(BuildContext context) {
+    var _boxSize = MediaQuery.of(context).size;
+    var _minWidth = (_boxSize.width - 30 - 40) / 3;
+
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Wrap(
+            spacing: 15,
+            runSpacing: 15,
+            children: tags.map<Widget>((tag) {
+              return Container(
+                alignment: Alignment.center,
+                constraints: BoxConstraints(
+                    maxWidth: _minWidth, minWidth: _minWidth, minHeight: 44),
+                decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(5),
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [Color(0xFF3C4A7C), Color(0xFF253364)])),
+                child: Text(
+                  '$tag',
+                  style: CommonStyle.white12,
+                ),
+              );
+            }).toList(),
+          )
+        ],
       ),
     );
   }

@@ -2,19 +2,19 @@ library navigation_dot_bar;
 
 import 'package:flutter/material.dart';
 
-
 class BottomNavigationDotBar extends StatefulWidget {
   final List<BottomNavigationDotBarItem> items;
   final Color activeColor;
   final Color color;
   final Color backgroundColor;
-
+  final Function addPressed;
 
   const BottomNavigationDotBar(
       {@required this.items,
       this.activeColor,
       this.color,
       this.backgroundColor,
+      this.addPressed,
       Key key})
       : super(key: key);
 
@@ -26,7 +26,7 @@ class _BottomNavigationDotBarState extends State<BottomNavigationDotBar> {
   GlobalKey _keyBottomBar = GlobalKey();
   double _numPositionBase, _numDifferenceBase, _positionLeftIndicatorDot;
   int _indexPageSelected = 0;
-  Color _color, _activeColor,_backgroundColor;
+  Color _color, _activeColor, _backgroundColor;
 
   @override
   void initState() {
@@ -75,6 +75,19 @@ class _BottomNavigationDotBarState extends State<BottomNavigationDotBar> {
                       curve: Curves.fastOutSlowIn,
                       left: _positionLeftIndicatorDot,
                       bottom: 0),
+                  Positioned(
+                      bottom: 1,
+                      child: Center(
+                        widthFactor: 10,
+                        child: GestureDetector(
+                          onTap: this.widget.addPressed,
+                          child: ImageIcon(
+                            AssetImage('assets/images/tab_add_icon.png'),
+                            color: _activeColor,
+                            size: 35,
+                          ),
+                        ),
+                      ))
                 ],
               ),
             )),

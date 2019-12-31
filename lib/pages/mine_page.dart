@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:find_craft/application.dart';
 import 'package:flutter/material.dart';
+import 'package:find_craft/route/routes.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -11,7 +13,9 @@ class _MinePageState extends State<MinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FlatButton(
-        onPressed: () {_testLogin();},
+        onPressed: () {
+          Application.router.navigateTo(context, Routes.selectCity);
+        },
         child: Text('按钮'),
       ),
       body: Column(
@@ -117,6 +121,5 @@ class _MinePageState extends State<MinePage> {
     Response response = await dio.get(
         'http://zhaogegong.beituokj.com/api/employer/',
         queryParameters: {"token": "41a780c48462c401937219496a182a0f"});
-    
   }
 }

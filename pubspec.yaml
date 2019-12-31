@@ -65,6 +65,8 @@ flutter:
     - assets/images/mine_header_bg.png
     - assets/images/settings_icon.png
     - assets/images/upload_icon.png
+    - assets/images/tab_add_icon.png
+    - assets/images/filter_arrow_icon.png
   #  - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

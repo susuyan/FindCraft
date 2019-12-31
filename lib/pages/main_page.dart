@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:find_craft/application.dart';
@@ -27,6 +26,11 @@ class _MainPageState extends State<MainPage> {
         color: Colors.white,
         activeColor: Colors.white,
         backgroundColor: Color(0xFF283254),
+        addPressed: () {
+          Navigator.of(context).push(PageRouteBuilder(
+              opaque: false,
+              pageBuilder: (BuildContext context, _, __) => BlurImagePage()));
+        },
         items: <BottomNavigationDotBarItem>[
           BottomNavigationDotBarItem(
               icon: Icons.home,
@@ -36,14 +40,7 @@ class _MainPageState extends State<MainPage> {
                   _currentIndex = 0;
                 });
               }),
-          BottomNavigationDotBarItem(
-              icon: Icons.add,
-              onTap: () {
-                Navigator.of(context).push(PageRouteBuilder(
-                    opaque: false,
-                    pageBuilder: (BuildContext context, _, __) =>
-                        BlurImagePage()));
-              }),
+          BottomNavigationDotBarItem(icon: IconData(0), onTap: () {}),
           BottomNavigationDotBarItem(
               icon: Icons.perm_identity,
               onTap: () {
@@ -111,7 +108,8 @@ class _BlurImagePageState extends State<BlurImagePage> {
             padding: EdgeInsets.only(bottom: 203),
             child: GestureDetector(
               onTap: () {
-                Application.router.navigateTo(context, Routes.workerPublish, replace: true);
+                Application.router
+                    .navigateTo(context, Routes.workerPublish, replace: true);
               },
               child: Container(
                 height: 70,
@@ -179,3 +177,5 @@ class _BlurImagePageState extends State<BlurImagePage> {
     );
   }
 }
+
+

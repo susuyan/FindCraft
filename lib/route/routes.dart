@@ -4,8 +4,13 @@ import 'package:fluro/fluro.dart';
 
 class Routes {
   static const root = '/';
+  static const main = '/main';
   static const home = '/home';
+  static const splash = '/splash';
   static const workerPublish = '/worker_publish';
+  static const ownerPublish = '/wonerPublish';
+  static const selectCity = '/select_City';
+  static const requirements = '/requirements';
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
@@ -15,6 +20,12 @@ class Routes {
 
     router.define(root, handler: rootHandler);
 
+    router.define(home, handler: homeHandler);
+
     router.define(workerPublish, handler: workPublishHandler);
+
+    router.define(selectCity, handler: selectCityHandler);
+
+    router.define(requirements, handler: requirementsHandler);
   }
 }
