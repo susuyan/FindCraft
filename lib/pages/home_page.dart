@@ -82,10 +82,15 @@ class _HomePageState extends State<HomePage> {
                     Application.router.navigateTo(context, Routes.requirements);
                   },
                 ),
-                OrderItem(),
+                OrderItem(
+                  didSelect: () {
+                    Application.router
+                        .navigateTo(context, Routes.requirementsDetails);
+                  },
+                ),
                 MoreHeaderView(
                   title: '师傅列表',
-                  morePressed: (){
+                  morePressed: () {
                     Application.router.navigateTo(context, Routes.workerList);
                   },
                 ),
@@ -139,6 +144,12 @@ class _MoreHeaderViewState extends State<MoreHeaderView> {
 
 /// 精选雇主 Item
 class OrderItem extends StatefulWidget {
+  const OrderItem({
+    this.didSelect,
+    Key key,
+  }) : super(key: key);
+  final Function didSelect;
+
   @override
   _OrderItemState createState() => _OrderItemState();
 }
@@ -146,52 +157,53 @@ class OrderItem extends StatefulWidget {
 class _OrderItemState extends State<OrderItem> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 20, right: 20),
-      color: Colors.white,
-      child: Column(
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    '朝阳区青年路',
-                    style: CommonStyle.black12,
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
-                    alignment: Alignment.bottomLeft,
-                    child: Text(
-                      '2019-12-12',
+    return GestureDetector(
+      onTap: this.widget.didSelect,
+      child: Container(
+        padding: EdgeInsets.only(left: 20, right: 20),
+        color: Colors.white,
+        child: Column(
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      '朝阳区青年路',
                       style: CommonStyle.black12,
                     ),
-                  )
-                ],
-              ),
-              Spacer(),
-              Text(
-                '北京',
-                style: CommonStyle.black12,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Container(
-            height: 0.5,
-            color: Color(0x80A0A0A0),
-          )
-        ],
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        '2019-12-12',
+                        style: CommonStyle.black12,
+                      ),
+                    )
+                  ],
+                ),
+                Spacer(),
+                Text(
+                  '北京',
+                  style: CommonStyle.black12,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 0.5,
+              color: Color(0x80A0A0A0),
+            )
+          ],
+        ),
       ),
     );
   }
 }
-
-
 
 class RecommendTags extends StatelessWidget {
   const RecommendTags({this.tags, Key key}) : super(key: key);
@@ -237,5 +249,3 @@ class RecommendTags extends StatelessWidget {
     );
   }
 }
-
-

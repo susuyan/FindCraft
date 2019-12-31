@@ -1,6 +1,7 @@
 import 'package:find_craft/pages/home_page.dart';
 import 'package:find_craft/pages/main_page.dart';
 import 'package:find_craft/pages/requirements_page.dart';
+import 'package:find_craft/pages/requiriments_details_page.dart';
 import 'package:find_craft/pages/select_city_page.dart';
 import 'package:find_craft/pages/craft_list_page.dart';
 import 'package:find_craft/pages/worker_publish_page.dart';
@@ -30,6 +31,11 @@ var selectCityHandler =
 var requirementsHandler =
     Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
   return RequirementsPage();
+});
+
+var requimentsDetailsHandler =
+    Handler(handlerFunc: (BuildContext, Map<String, List<String>> params) {
+  return RequirementsDetailsPage();
 });
 
 var workerListHandler =
