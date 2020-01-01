@@ -70,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
           height: 50,
           margin: EdgeInsets.fromLTRB(40, 15, 40, 10),
           decoration: BoxDecoration(
+              color: Colors.red,
               border: Border.all(color: Color(0x47FFFFFF)),
               borderRadius: BorderRadius.all(Radius.circular(6))),
           alignment: Alignment.center,
@@ -114,19 +115,20 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/images/login_bg.png'),
-              fit: BoxFit.fill)),
+        body: GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
       child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/login_bg.png'),
+                fit: BoxFit.fill)),
+        child: ListView(
           children: <Widget>[
             SizedBox(
               height: kToolbarHeight,
             ),
-            navBack,
             loginTitle,
             loginForm,
             loginButton,

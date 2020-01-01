@@ -1,4 +1,5 @@
 import 'package:find_craft/application.dart';
+import 'package:find_craft/pages/login/loginpage.dart';
 import 'package:find_craft/pages/main_page.dart';
 import 'package:find_craft/route/routes.dart';
 import 'package:fluro/fluro.dart';
@@ -15,6 +16,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MainPage());
+    return MaterialApp(home: LoginPage());
   }
 }
