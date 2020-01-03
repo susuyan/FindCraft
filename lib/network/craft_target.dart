@@ -1,8 +1,10 @@
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:find_craft/network/Task.dart';
+
 import 'package:find_craft/network/api.dart';
 import 'package:find_craft/network/noya.dart';
+import 'package:find_craft/network/target_type.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class CraftTarget extends TargetType {
@@ -43,17 +45,16 @@ class CraftTarget extends TargetType {
         compact: true,
         maxWidth: 90);
 
-    var cookieJar = CookieJar();
-
     return [log];
   }
-}
 
-abstract class TargetType {
-  String get baseUrl;
-  String get path;
-  HttpMethod get method;
-  Map<String, String> get headers;
-  Map<String, dynamic> get parameters;
-  List<Interceptor> get interceptors;
+  @override
+  Task get task {
+    switch (api.path) {
+      case API.login:
+        return Task.multipart;
+      default:
+        return Task.normal;
+    }
+  }
 }

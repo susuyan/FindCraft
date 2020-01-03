@@ -1,15 +1,16 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+
+import 'package:find_craft/network/Task.dart';
 import 'package:find_craft/network/craft_target.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:find_craft/network/target_type.dart';
+import 'package:find_craft/repositories/models/base_model.dart';
 
 import 'api.dart';
 
 void main() async {
   Network.request(CraftTarget(API.loginAPI));
-  // Dio dio = Dio();
-  // dio.interceptors.add(PrettyDioLogger());
-  // dio.post('http://zhaogegong.beituokj.com/api/login/',
-  //     queryParameters: {'user_phone': '', 'user_pwd': '123'});
 }
 
 class Network {
@@ -20,12 +21,25 @@ class Network {
     dio.options.baseUrl = targetType.baseUrl;
     dio.options.method = targetType.method.value;
     dio.options.queryParameters = targetType.parameters;
-    // dio.options.contentType = 'application/json';
   }
 
   static void request<T extends TargetType>(T targetType) async {
     setupDio(targetType);
 
-    await dio.request(targetType.path);
+    Response response;
+
+    switch (targetType.task) {
+      case Task.multipart:
+        response = await dio.request(targetType.path,
+            data: FormData.fromMap(targetType.parameters));
+        break;
+      default:
+        response = await dio.request(targetType.path,
+            queryParameters: targetType.parameters);
+    }
+    var d = jsonDecode(response.toString());
+    var b = BaseModel.fromJson(d);
+
+    print(b.msg);
   }
 }

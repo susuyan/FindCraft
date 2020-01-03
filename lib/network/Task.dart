@@ -1,0 +1,1 @@
+enum Task { normal, multipart }

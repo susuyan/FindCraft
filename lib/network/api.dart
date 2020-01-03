@@ -13,5 +13,5 @@ class API {
       API(login, params: {'user_phone': '13581850764', 'user_pwd': '123'});
 
   static final homeCraftAPI =
-      API(homeCraft, params: {'token': 'c3a1b67b485f659a7980ab9ade7fd096'});
+      API(homeCraft, params: {'token': 'd538640ac68a5122855b04367f98f2b0'});
 }
