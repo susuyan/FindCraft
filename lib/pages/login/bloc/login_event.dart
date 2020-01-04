@@ -3,7 +3,10 @@ import 'package:meta/meta.dart';
 
 abstract class LoginEvent extends Equatable {
   const LoginEvent();
+  List<Object> get props => [];
 }
+
+class FormLoad extends LoginEvent {}
 
 class LoginButtonPressed extends LoginEvent {
   final String username;

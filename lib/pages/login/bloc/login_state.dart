@@ -8,7 +8,11 @@ abstract class LoginState extends Equatable {
   List<Object> get props => [];
 }
 
-class LoginInitial extends LoginState {}
+class LoginInitial extends LoginState {
+  final bool isVerify;
+
+  LoginInitial(this.isVerify);
+}
 
 class LoginLoading extends LoginState {}
 
