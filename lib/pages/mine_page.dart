@@ -133,33 +133,38 @@ class _MinePageState extends State<MinePage> {
       );
 
 // 设置按钮
-  Widget _createSettingsButton() => Container(
-        width: 64,
-        height: 31,
-        decoration: BoxDecoration(
-            color: Color(0xFF3388FF).withAlpha(20),
-            borderRadius: BorderRadius.circular(8)),
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              top: 8,
-              left: 9,
-              bottom: 8,
-              child: Image(
-                width: 15,
-                height: 15,
-                image: AssetImage('assets/images/settings_icon.png'),
+  Widget _createSettingsButton() => GestureDetector(
+        onTap: () {
+          Application.router.navigateTo(context, Routes.settings);
+        },
+        child: Container(
+          width: 64,
+          height: 31,
+          decoration: BoxDecoration(
+              color: Color(0xFF3388FF).withAlpha(20),
+              borderRadius: BorderRadius.circular(8)),
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                top: 8,
+                left: 9,
+                bottom: 8,
+                child: Image(
+                  width: 15,
+                  height: 15,
+                  image: AssetImage('assets/images/settings_icon.png'),
+                ),
               ),
-            ),
-            Positioned(
-              right: 10,
-              bottom: 8,
-              child: Text(
-                '设置',
-                style: CommonStyle.blue12,
-              ),
-            )
-          ],
+              Positioned(
+                right: 10,
+                bottom: 8,
+                child: Text(
+                  '设置',
+                  style: CommonStyle.blue12,
+                ),
+              )
+            ],
+          ),
         ),
       );
 

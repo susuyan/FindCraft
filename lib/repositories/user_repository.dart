@@ -1,17 +1,26 @@
+import 'package:find_craft/network/api.dart';
+import 'package:find_craft/network/craft_target.dart';
+import 'package:find_craft/network/network.dart';
+
+import 'package:find_craft/pages/login/bloc/login_event.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'models/user_model.dart';
 
 class UserRepository {
   Future<String> authenticate({
     @required String username,
     @required String password,
   }) async {
-    await Future.delayed(Duration(seconds: 1));
-    return 'token';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
   }
 
   Future<void> deleteToken() async {
     /// delete from keystore/keychain
-    await Future.delayed(Duration(seconds: 1));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
     return;
   }
 
@@ -23,7 +32,19 @@ class UserRepository {
 
   Future<bool> hasToken() async {
     /// read from keystore/keychain
-    await Future.delayed(Duration(seconds: 1));
-    return false;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey('token');
   }
+
+  static Future<int> requestLogin(LoginButtonPressed event) async =>
+      Network.request(
+          CraftTarget(API(API.login, params: {
+            'user_phone': event.username,
+            'user_pwd': event.password
+          })), success: (json) async {
+        UserModel model = UserModel.fromJson(json);
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', model.token);
+      });
 }

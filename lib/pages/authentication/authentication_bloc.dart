@@ -7,10 +7,7 @@ import 'package:meta/meta.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final UserRepository userRepository;
-
-  AuthenticationBloc({@required this.userRepository})
-      : assert(userRepository != null);
+  final UserRepository userRepository = UserRepository();
 
   @override
   AuthenticationState get initialState => AuthenticationUnauthenticated();
@@ -31,7 +28,7 @@ class AuthenticationBloc
 
     if (event is LoggedIn) {
       yield AuthenticationLoading();
-      await userRepository.persistToken(event.token);
+      // await userRepository.persistToken(event.token);
       yield AuthenticationAuthenticated();
     }
 
