@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:find_craft/application.dart';
+import 'package:find_craft/pages/home/home_page.dart';
 import 'package:find_craft/route/routes.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'home_page.dart';
 import 'mine_page.dart';
 import 'package:flutter/material.dart';
 import 'package:find_craft/widgets/navigation_dot_bar.dart';
@@ -54,7 +54,6 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
 
 class BlurImagePage extends StatefulWidget {
   @override
@@ -168,5 +167,3 @@ class _BlurImagePageState extends State<BlurImagePage> {
     );
   }
 }
-
-

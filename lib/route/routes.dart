@@ -10,9 +10,9 @@ class Routes {
   static const workerPublish = '/worker_publish';
   static const ownerPublish = '/wonerPublish';
   static const selectCity = '/select_City';
-  static const requirements = '/requirements';
+  static const requirements = '/home/requirements';
   static const requirementsDetails = '/requirements_details';
-  static const craftList = '/craft_list';
+  static const craftList = '/home/craft_list';
   static const craftDetails = '/craft_details';
   static const workGallery = '/work_gallery';
   static const settings = '/settings';

@@ -2,7 +2,9 @@ import 'package:find_craft/network/api.dart';
 import 'package:find_craft/network/craft_target.dart';
 import 'package:find_craft/network/network.dart';
 
-import 'package:find_craft/pages/login/bloc/login_event.dart';
+import 'package:find_craft/pages/login/login_bloc/login_event.dart';
+import 'package:find_craft/pages/login/login_bloc/login_state.dart';
+import 'package:find_craft/pages/login/sign_bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,15 +38,24 @@ class UserRepository {
     return prefs.containsKey('token');
   }
 
-  static Future<int> requestLogin(LoginButtonPressed event) async =>
-      Network.request(
-          CraftTarget(API(API.login, params: {
-            'user_phone': event.username,
-            'user_pwd': event.password
-          })), success: (json) async {
-        UserModel model = UserModel.fromJson(json);
+  static Future<void> storeToken(UserModel model) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', model.token);
+  }
 
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('token', model.token);
-      });
+  static Future<UserModel> requestLogin(
+    LoginButtonPressed event,
+  ) async {
+    var api = API(API.login,
+        params: {'user_phone': event.username, 'user_pwd': event.password});
+    var result = await Network.share.request(api);
+
+    return UserModel.fromJson(result.get());
+  }
+
+  static requestSign(SignButtonPressed event, Function() success,
+      Function(String error) failure) async {
+    var api = API(API.sign,
+        params: {'user_phone': event.username, 'user_pwd': event.password});
+  }
 }

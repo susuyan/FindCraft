@@ -2,9 +2,13 @@ import 'dart:ui';
 
 import 'package:find_craft/application.dart';
 import 'package:find_craft/common/common_style.dart';
+import 'package:find_craft/pages/home/home_bloc.dart';
+import 'package:find_craft/pages/home/home_event.dart';
+import 'package:find_craft/pages/home/home_state.dart';
 import 'package:find_craft/route/routes.dart';
 import 'package:find_craft/widgets/craft_cell.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,6 +16,64 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => HomeBloc()..add(HomeLoadOrder()),
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          return Scaffold(
+            body: SafeArea(
+              top: false,
+              bottom: false,
+              child: Stack(
+                children: <Widget>[
+                  ListView(
+                    padding: EdgeInsets.zero,
+                    children: <Widget>[
+                      sectionHeader,
+                      RecommendTags(
+                          tags: ['找木工', '找瓦工', '找水电工', '维修安装', '接个人活']),
+                      Container(
+                        height: 10,
+                      ),
+                      MoreHeaderView(
+                        title: '业主需求',
+                        morePressed: () {
+                          Application.router
+                              .navigateTo(context, Routes.requirements);
+                        },
+                      ),
+                      OrderItem(
+                        didSelect: () {
+                          Application.router
+                              .navigateTo(context, Routes.requirementsDetails);
+                        },
+                      ),
+                      MoreHeaderView(
+                        title: '师傅列表',
+                        morePressed: () {
+                          Application.router
+                              .navigateTo(context, Routes.craftList);
+                        },
+                      ),
+                      CraftCell(
+                        didSelect: () {
+                          Application.router
+                              .navigateTo(context, Routes.craftDetails);
+                        },
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   Widget sectionHeader = Container(
     height: 240,
     color: Color(0xFF166DE8),
@@ -59,53 +121,6 @@ class _HomePageState extends State<HomePage> {
       ],
     ),
   );
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: Stack(
-          children: <Widget>[
-            ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                sectionHeader,
-                RecommendTags(tags: ['找木工', '找瓦工', '找水电工', '维修安装', '接个人活']),
-                Container(
-                  height: 10,
-                ),
-                MoreHeaderView(
-                  title: '业主需求',
-                  morePressed: () {
-                    Application.router.navigateTo(context, Routes.requirements);
-                  },
-                ),
-                OrderItem(
-                  didSelect: () {
-                    Application.router
-                        .navigateTo(context, Routes.requirementsDetails);
-                  },
-                ),
-                MoreHeaderView(
-                  title: '师傅列表',
-                  morePressed: () {
-                    Application.router.navigateTo(context, Routes.craftList);
-                  },
-                ),
-                CraftCell(
-                  didSelect: () {
-                    Application.router.navigateTo(context, Routes.craftDetails);
-                  },
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 class MoreHeaderView extends StatefulWidget {

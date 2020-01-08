@@ -4,6 +4,7 @@ import 'package:find_craft/network/Task.dart';
 import 'package:find_craft/network/api.dart';
 import 'package:find_craft/network/noya.dart';
 import 'package:find_craft/network/target_type.dart';
+
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class CraftTarget extends TargetType {
@@ -14,7 +15,7 @@ class CraftTarget extends TargetType {
   String get baseUrl => API.base;
 
   @override
-  Map<String, String> get headers => {};
+  Map<String, String> get headers => {'Connection':'keep-alive'};
 
   @override
   Map<String, dynamic> get parameters =>
@@ -27,6 +28,7 @@ class CraftTarget extends TargetType {
   HttpMethod get method {
     switch (api.path) {
       case API.login:
+      case API.sign:
         return HttpMethod.POST;
       default:
         return HttpMethod.GET;
@@ -50,10 +52,10 @@ class CraftTarget extends TargetType {
   @override
   Task get task {
     switch (api.path) {
-      case API.login:
-        return Task.multipart;
       default:
-        return Task.normal;
+        return Task.multipart;
     }
   }
+
+  
 }

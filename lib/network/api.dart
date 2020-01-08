@@ -8,6 +8,8 @@ class API {
 
   static const homeCraft = '/masterworker';
   static const login = 'login/';
+  static const sign = 'create/';
+  static const employer = 'employer/';
 
   static final loginAPI =
       API(login, params: {'user_phone': '13581850764', 'user_pwd': '123'});

@@ -1,7 +1,7 @@
 import 'package:bmprogresshud/progresshud.dart';
 import 'package:find_craft/common/common_style.dart';
 import 'package:find_craft/pages/authentication/bloc.dart';
-import 'package:find_craft/pages/login/bloc/bloc.dart';
+import 'package:find_craft/pages/login/login_bloc/bloc.dart';
 
 import 'package:find_craft/pages/login/signpage.dart';
 
