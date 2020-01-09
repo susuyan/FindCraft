@@ -3,15 +3,15 @@ import 'package:find_craft/widgets/avatar.dart';
 import 'package:find_craft/widgets/contack_info.dart';
 import 'package:flutter/material.dart';
 
-class RequirementsDetailsPage extends StatefulWidget {
-  RequirementsDetailsPage({Key key}) : super(key: key);
+class DemandDetailsPage extends StatefulWidget {
+  DemandDetailsPage({Key key}) : super(key: key);
 
   @override
-  _RequirementsDetailsPageState createState() =>
-      _RequirementsDetailsPageState();
+  _DemandDetailsPageState createState() =>
+      _DemandDetailsPageState();
 }
 
-class _RequirementsDetailsPageState extends State<RequirementsDetailsPage> {
+class _DemandDetailsPageState extends State<DemandDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

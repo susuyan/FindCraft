@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                           '精选业主',
                           morePressed: () {
                             Application.router.navigateTo(
-                                context, Routes.requirements,
+                                context, Routes.demandList,
                                 transition: TransitionType.cupertino);
                           },
                         ),
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
             order: order,
             didSelected: () {
               Application.router.navigateTo(
-                                context, Routes.requirementsDetails,
+                                context, Routes.demandDetails,
                                 transition: TransitionType.cupertino);
             },
           );

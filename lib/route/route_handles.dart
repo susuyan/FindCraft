@@ -1,9 +1,11 @@
 import 'package:find_craft/pages/craft_details_page.dart';
+import 'package:find_craft/pages/demand/demand_details_page.dart';
+import 'package:find_craft/pages/demand/demand_list_page.dart';
+
+
 import 'package:find_craft/pages/home/home_page.dart';
 import 'package:find_craft/pages/main/main_page.dart';
 
-import 'package:find_craft/pages/requirements_page.dart';
-import 'package:find_craft/pages/requiriments_details_page.dart';
 import 'package:find_craft/pages/select_city_page.dart';
 import 'package:find_craft/pages/craft_list_page.dart';
 import 'package:find_craft/pages/settings_page.dart';
@@ -34,12 +36,12 @@ var selectCityHandler = Handler(
 
 var requirementsHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return RequirementsPage();
+  return DemandListPage();
 });
 
 var requimentsDetailsHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return RequirementsDetailsPage();
+  return DemandDetailsPage();
 });
 
 var craftListHandler = Handler(

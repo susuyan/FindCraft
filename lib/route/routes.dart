@@ -8,9 +8,9 @@ class Routes {
   static const splash = '/splash';
   static const workerPublish = '/worker_publish';
   static const ownerPublish = '/wonerPublish';
-  static const selectCity = '/select_City';
-  static const requirements = '/home/requirements';
-  static const requirementsDetails = '/requirements_details';
+  static const selectCity = '/select_city';
+  static const demandList = '/home/demand_list';
+  static const demandDetails = '/demand_details';
 
   static const craftList = '/home/craft_list';
   static const craftDetails = '/craft_details';
@@ -31,9 +31,9 @@ class Routes {
 
     router.define(selectCity, handler: selectCityHandler);
 
-    router.define(requirements, handler: requirementsHandler);
+    router.define(demandList, handler: requirementsHandler);
 
-    router.define(requirementsDetails, handler: requimentsDetailsHandler);
+    router.define(demandDetails, handler: requimentsDetailsHandler);
 
     router.define(craftList, handler: craftListHandler);
 

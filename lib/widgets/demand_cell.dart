@@ -1,47 +1,21 @@
 import 'package:find_craft/common/common_style.dart';
-import 'package:find_craft/widgets/filtration_header.dart';
+import 'package:find_craft/repositories/models/demand_models.dart';
 import 'package:flutter/material.dart';
 
-class RequirementsPage extends StatefulWidget {
-  const RequirementsPage({Key key}) : super(key: key);
-
-  @override
-  _RequirementsPageState createState() => _RequirementsPageState();
-}
-
-class _RequirementsPageState extends State<RequirementsPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('需求列表'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          FiltrationHeader(),
-          Expanded(
-            child: ListView(
-              children: <Widget>[RequirementCell()],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
 /// 需求列表
-class RequirementCell extends StatefulWidget {
-  const RequirementCell({
+class DemandCell extends StatefulWidget {
+  const DemandCell({
     Key key,
+    this.demand,
   }) : super(key: key);
 
+  final DemandModel demand;
+
   @override
-  _RequirementCellState createState() => _RequirementCellState();
+  _DemandCellState createState() => _DemandCellState();
 }
 
-class _RequirementCellState extends State<RequirementCell> {
+class _DemandCellState extends State<DemandCell> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -60,11 +34,15 @@ class _RequirementCellState extends State<RequirementCell> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    '海淀区空调移机',
+                    this.widget.demand != null ? this.widget.demand.title : '',
                     style: CommonStyle.black12,
                   ),
                   Spacer(),
-                  Text('2019.06.16 12:00', style: CommonStyle.black12)
+                  Text(
+                      this.widget.demand != null
+                          ? this.widget.demand.changeData
+                          : '',
+                      style: CommonStyle.black12)
                 ],
               ),
               Spacer(),
@@ -85,5 +63,3 @@ class _RequirementCellState extends State<RequirementCell> {
     );
   }
 }
-
-

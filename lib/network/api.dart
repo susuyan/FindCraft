@@ -27,8 +27,13 @@ class API {
   static const orderList = '/listrelease';
   // 师傅详情
   static const craftDetails = '/workerinfo';
-  // 业主详情
-  static const orderDetails = '/demandinfo';
+
+  // 需求列表
+  static const demandList = '/listrelease';
+  // 需求详情
+  static const demandDetails = '/demandinfo';
+
+
 
   // 我的
   static const mine = '/role';
