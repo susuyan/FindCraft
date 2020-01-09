@@ -31,7 +31,8 @@ class App extends StatelessWidget {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
         if (state is AuthenticationAuthenticated) {
-          return MaterialApp(home: MainPage());
+          return MaterialApp(
+              home: MainPage(), onGenerateRoute: Application.router.generator);
         }
 
         if (state is AuthenticationUnauthenticated) {

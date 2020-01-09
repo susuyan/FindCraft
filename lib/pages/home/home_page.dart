@@ -8,8 +8,10 @@ import 'package:find_craft/repositories/models/home_order_models.dart';
 import 'package:find_craft/route/routes.dart';
 import 'package:find_craft/widgets/home_craft_cell.dart';
 import 'package:find_craft/widgets/home_header.dart';
+import 'package:find_craft/widgets/home_order_cell.dart';
 import 'package:find_craft/widgets/home_recommend.dart';
 import 'package:find_craft/widgets/home_section_more.dart';
+import 'package:fluro/fluro.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,20 +22,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Widget _createCraft(HomeState state) {
-    if (state is LoadedCraft) {
-      return Column(
-        children: state.craftList.map<Widget>((craft) {
-          return CraftCell(
-            craft: craft,
-          );
-        }).toList(),
-      );
-    }
-
-    return Container();
-  }
-
   @override
   void initState() {
     super.initState();
@@ -58,26 +46,34 @@ class _HomePageState extends State<HomePage> {
                       children: <Widget>[
                         HomeHeader(),
                         HomeRecommend(
-                            tags: ['找木工', '找瓦工', '找水电工', '维修安装', '接个人活']),
+                          tags: ['找木工', '找瓦工', '找水电工', '维修安装', '接个人活'],
+                          onPressedTag: () {
+                            Application.router.navigateTo(
+                                context, Routes.craftList,
+                                transition: TransitionType.cupertino);
+                          },
+                        ),
                         SizedBox(
                           height: 10,
                         ),
                         HomeSectionMore(
                           '精选业主',
                           morePressed: () {
-                            Application.router
-                                .navigateTo(context, Routes.requirements);
+                            Application.router.navigateTo(
+                                context, Routes.requirements,
+                                transition: TransitionType.cupertino);
                           },
                         ),
-                        // OrderItems(state),
+                        _createOrder(state, context),
                         HomeSectionMore(
                           '师傅列表',
                           morePressed: () {
-                            Application.router
-                                .navigateTo(context, Routes.craftList);
+                            Application.router.navigateTo(
+                                context, Routes.craftList,
+                                transition: TransitionType.cupertino);
                           },
                         ),
-                        _createCraft(state)
+                        _createCraft(state, context)
                       ],
                     )
                   ],
@@ -86,5 +82,42 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ));
+  }
+
+  _createOrder(HomeState state, BuildContext context) {
+    if (state is LoadedOrder) {
+      return Column(
+        children: state.orderList.map<Widget>((order) {
+          return HomeOrderCell(
+            order: order,
+            didSelected: () {
+              Application.router.navigateTo(
+                                context, Routes.requirementsDetails,
+                                transition: TransitionType.cupertino);
+            },
+          );
+        }).toList(),
+      );
+    }
+
+    return Container();
+  }
+
+  _createCraft(HomeState state, BuildContext context) {
+    if (state is LoadedCraft) {
+      return Column(
+        children: state.craftList.map<Widget>((craft) {
+          return CraftCell(
+            craft: craft,
+            didSelected: () {
+              Application.router.navigateTo(context, Routes.craftDetails,
+                  transition: TransitionType.cupertino);
+            },
+          );
+        }).toList(),
+      );
+    }
+
+    return Container();
   }
 }

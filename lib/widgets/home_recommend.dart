@@ -2,8 +2,10 @@ import 'package:find_craft/common/common_style.dart';
 import 'package:flutter/material.dart';
 
 class HomeRecommend extends StatelessWidget {
-  const HomeRecommend({this.tags, Key key}) : super(key: key);
+  const HomeRecommend({this.tags, Key key, this.onPressedTag})
+      : super(key: key);
   final List<String> tags;
+  final Function onPressedTag;
 
   @override
   Widget build(BuildContext context) {
@@ -22,20 +24,23 @@ class HomeRecommend extends StatelessWidget {
             spacing: 15,
             runSpacing: 15,
             children: tags.map<Widget>((tag) {
-              return Container(
-                alignment: Alignment.center,
-                constraints: BoxConstraints(
-                    maxWidth: _minWidth, minWidth: _minWidth, minHeight: 44),
-                decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(5),
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [Color(0xFF3C4A7C), Color(0xFF253364)])),
-                child: Text(
-                  '$tag',
-                  style: CommonStyle.white12,
+              return GestureDetector(
+                onTap: onPressedTag,
+                child: Container(
+                  alignment: Alignment.center,
+                  constraints: BoxConstraints(
+                      maxWidth: _minWidth, minWidth: _minWidth, minHeight: 44),
+                  decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(5),
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [Color(0xFF3C4A7C), Color(0xFF253364)])),
+                  child: Text(
+                    '$tag',
+                    style: CommonStyle.white12,
+                  ),
                 ),
               );
             }).toList(),

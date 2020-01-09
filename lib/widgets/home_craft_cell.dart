@@ -5,10 +5,10 @@ import 'avatar.dart';
 import 'craft_tag_view.dart';
 
 class CraftCell extends StatefulWidget {
-  const CraftCell({this.craft, this.didSelect, Key key}) : super(key: key);
+  const CraftCell({this.craft, this.didSelected, Key key}) : super(key: key);
 
   final HomeCraftModel craft;
-  final Function didSelect;
+  final Function didSelected;
 
   @override
   _CraftCellState createState() => _CraftCellState();
@@ -36,7 +36,7 @@ class _CraftCellState extends State<CraftCell> {
     }
 
     return GestureDetector(
-      onTap: this.widget.didSelect,
+      onTap: this.widget.didSelected,
       child: Container(
         height: 100,
         child: Card(

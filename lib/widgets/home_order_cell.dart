@@ -1,12 +1,14 @@
 import 'package:find_craft/common/common_style.dart';
+import 'package:find_craft/repositories/models/home_order_models.dart';
 import 'package:flutter/material.dart';
 
 /// 精选雇主 Item
 class HomeOrderCell extends StatefulWidget {
   const HomeOrderCell({
-    this.didSelect,
+    this.didSelected, this.order,
   });
-  final Function didSelect;
+  final Function didSelected;
+  final HomeOrderModel order;
 
   @override
   _HomeOrderCellState createState() => _HomeOrderCellState();
@@ -16,7 +18,7 @@ class _HomeOrderCellState extends State<HomeOrderCell> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: this.widget.didSelect,
+      onTap: this.widget.didSelected,
       child: Container(
         padding: EdgeInsets.only(left: 20, right: 20),
         color: Colors.white,

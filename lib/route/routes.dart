@@ -4,7 +4,6 @@ import 'package:fluro/fluro.dart';
 
 class Routes {
   static const root = '/';
-  static const main = '/main';
   static const home = '/home';
   static const splash = '/splash';
   static const workerPublish = '/worker_publish';
@@ -12,6 +11,7 @@ class Routes {
   static const selectCity = '/select_City';
   static const requirements = '/home/requirements';
   static const requirementsDetails = '/requirements_details';
+
   static const craftList = '/home/craft_list';
   static const craftDetails = '/craft_details';
   static const workGallery = '/work_gallery';
