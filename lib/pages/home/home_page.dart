@@ -5,6 +5,8 @@ import 'package:find_craft/common/common_style.dart';
 import 'package:find_craft/pages/home/home_bloc.dart';
 import 'package:find_craft/pages/home/home_event.dart';
 import 'package:find_craft/pages/home/home_state.dart';
+import 'package:find_craft/repositories/models/home_craft_models.dart';
+import 'package:find_craft/repositories/models/home_order_models.dart';
 import 'package:find_craft/route/routes.dart';
 import 'package:find_craft/widgets/craft_cell.dart';
 import 'package:flutter/material.dart';
@@ -16,62 +18,71 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Widget _createCraft(HomeState state) {
+    if (state is LoadedCraft) {
+      return Column(
+        children: state.craftList.map<Widget>((craft) {
+          return CraftCell(
+            craft: craft,
+          );
+        }).toList(),
+      );
+    }
+
+    return Container();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<HomeBloc>(context)..add(FetchOrder())..add(FetchCraft());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeBloc()..add(HomeLoadOrder()),
-      child: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          return Scaffold(
-            body: SafeArea(
-              top: false,
-              bottom: false,
-              child: Stack(
-                children: <Widget>[
-                  ListView(
-                    padding: EdgeInsets.zero,
-                    children: <Widget>[
-                      sectionHeader,
-                      RecommendTags(
-                          tags: ['找木工', '找瓦工', '找水电工', '维修安装', '接个人活']),
-                      Container(
-                        height: 10,
-                      ),
-                      MoreHeaderView(
-                        title: '业主需求',
-                        morePressed: () {
-                          Application.router
-                              .navigateTo(context, Routes.requirements);
-                        },
-                      ),
-                      OrderItem(
-                        didSelect: () {
-                          Application.router
-                              .navigateTo(context, Routes.requirementsDetails);
-                        },
-                      ),
-                      MoreHeaderView(
-                        title: '师傅列表',
-                        morePressed: () {
-                          Application.router
-                              .navigateTo(context, Routes.craftList);
-                        },
-                      ),
-                      CraftCell(
-                        didSelect: () {
-                          Application.router
-                              .navigateTo(context, Routes.craftDetails);
-                        },
-                      ),
-                    ],
-                  )
-                ],
+    return BlocListener<HomeBloc, HomeState>(
+        listener: (context, state) {},
+        child: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            return Scaffold(
+              body: SafeArea(
+                top: false,
+                bottom: false,
+                child: Stack(
+                  children: <Widget>[
+                    ListView(
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        sectionHeader,
+                        RecommendTags(
+                            tags: ['找木工', '找瓦工', '找水电工', '维修安装', '接个人活']),
+                        Container(
+                          height: 10,
+                        ),
+                        MoreHeaderView(
+                          title: '精选业主',
+                          morePressed: () {
+                            Application.router
+                                .navigateTo(context, Routes.requirements);
+                          },
+                        ),
+                        // OrderItems(state),
+                        MoreHeaderView(
+                          title: '师傅列表',
+                          morePressed: () {
+                            Application.router
+                                .navigateTo(context, Routes.craftList);
+                          },
+                        ),
+                        _createCraft(state)
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
-        },
-      ),
-    );
+            );
+          },
+        ));
   }
 
   Widget sectionHeader = Container(
@@ -162,64 +173,73 @@ class _MoreHeaderViewState extends State<MoreHeaderView> {
 }
 
 /// 精选雇主 Item
-class OrderItem extends StatefulWidget {
-  const OrderItem({
+class OrderItems extends StatefulWidget {
+  const OrderItems(
+    this.orders, {
     this.didSelect,
-    Key key,
-  }) : super(key: key);
+  });
   final Function didSelect;
+  final List<HomeOrderModel> orders;
 
   @override
-  _OrderItemState createState() => _OrderItemState();
+  _OrderItemsState createState() => _OrderItemsState();
 }
 
-class _OrderItemState extends State<OrderItem> {
+class _OrderItemsState extends State<OrderItems> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: this.widget.didSelect,
-      child: Container(
-        padding: EdgeInsets.only(left: 20, right: 20),
-        color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    if (this.widget.orders == null) {
+      return Container();
+    }
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: this.widget.orders.map<Widget>((order) {
+        return GestureDetector(
+          onTap: this.widget.didSelect,
+          child: Container(
+            padding: EdgeInsets.only(left: 20, right: 20),
+            color: Colors.white,
+            child: Column(
               children: <Widget>[
-                Column(
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      '朝阳区青年路',
-                      style: CommonStyle.black12,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          order.address,
+                          style: CommonStyle.black12,
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            order.changeData,
+                            style: CommonStyle.black12,
+                          ),
+                        )
+                      ],
                     ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
-                      alignment: Alignment.bottomLeft,
-                      child: Text(
-                        '2019-12-12',
-                        style: CommonStyle.black12,
-                      ),
+                    Spacer(),
+                    Text(
+                      order.city,
+                      style: CommonStyle.black12,
                     )
                   ],
                 ),
-                Spacer(),
-                Text(
-                  '北京',
-                  style: CommonStyle.black12,
+                SizedBox(
+                  height: 12,
+                ),
+                Container(
+                  height: 0.5,
+                  color: Color(0x80A0A0A0),
                 )
               ],
             ),
-            SizedBox(
-              height: 12,
-            ),
-            Container(
-              height: 0.5,
-              color: Color(0x80A0A0A0),
-            )
-          ],
-        ),
-      ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

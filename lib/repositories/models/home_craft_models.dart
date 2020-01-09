@@ -1,13 +1,13 @@
-class HomeOrderModels {
-  List<HomeOrderModel> data;
+class HomeCraftModels {
+  List<HomeCraftModel> data;
 
-  HomeOrderModels({this.data});
+  HomeCraftModels({this.data});
 
-  HomeOrderModels.fromJson(Map<String, dynamic> json) {
+  HomeCraftModels.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<HomeOrderModel>();
+      data = new List<HomeCraftModel>();
       json['data'].forEach((v) {
-        data.add(new HomeOrderModel.fromJson(v));
+        data.add(new HomeCraftModel.fromJson(v));
       });
     }
   }
@@ -21,63 +21,55 @@ class HomeOrderModels {
   }
 }
 
-class HomeOrderModel {
+class HomeCraftModel {
   int id;
   int userId;
-  String title;
-  String content;
-  String address;
+  String userName;
+  String userWechat;
   String city;
   String type01;
   String type02;
   String type03;
   String type04;
-  String createData;
-  String changeData;
+  String typecode;
 
-  HomeOrderModel(
+  HomeCraftModel(
       {this.id,
       this.userId,
-      this.title,
-      this.content,
-      this.address,
+      this.userName,
+      this.userWechat,
       this.city,
       this.type01,
       this.type02,
       this.type03,
       this.type04,
-      this.createData,
-      this.changeData});
+      this.typecode});
 
-  HomeOrderModel.fromJson(Map<String, dynamic> json) {
+  HomeCraftModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
-    title = json['title'];
-    content = json['content'];
-    address = json['address'];
+    userName = json['user_name'];
+    userWechat = json['user_wechat'];
     city = json['city'];
     type01 = json['type01'];
     type02 = json['type02'];
     type03 = json['type03'];
     type04 = json['type04'];
-    createData = json['create_data'];
-    changeData = json['change_data'];
+    typecode = json['typecode'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['user_id'] = this.userId;
-    data['title'] = this.title;
-    data['content'] = this.content;
-    data['address'] = this.address;
+    data['user_name'] = this.userName;
+    data['user_wechat'] = this.userWechat;
     data['city'] = this.city;
     data['type01'] = this.type01;
     data['type02'] = this.type02;
     data['type03'] = this.type03;
     data['type04'] = this.type04;
-    data['create_data'] = this.createData;
-    data['change_data'] = this.changeData;
+    data['typecode'] = this.typecode;
     return data;
   }
 }

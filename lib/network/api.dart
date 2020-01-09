@@ -4,13 +4,36 @@ class API {
   final String path;
   final Map<String, dynamic> params;
 
-  static const base = 'http://zhaogegong.beituokj.com/api/';
+  // static const base = 'http://zhaogegong.beituokj.com/api';
+  static const base =
+      'https://fd0adb60-cda8-4ca5-bd84-84379e5402e0.mock.pstmn.io';
 
+  // 登录
+  static const login = '/login';
+  // 注册
+  static const sign = '/create';
+  // 选择身份
+  static const chooseIdentity = '/role';
+  // 发布需求
+  static const publishDemand = '/listrelease';
+
+  // 首页师傅
   static const homeCraft = '/masterworker';
-  static const login = 'login/';
-  static const sign = 'create/';
-  static const employer = 'employer/';
+  // 首页业主
+  static const homeOrder = '/employer';
+  // 师傅列表
+  static const craftList = '/worker';
+  // 业主列表
+  static const orderList = '/listrelease';
+  // 师傅详情
+  static const craftDetails = '/workerinfo';
+  // 业主详情
+  static const orderDetails = '/demandinfo';
 
+  // 我的
+  static const mine = '/role';
+
+  // mock
   static final loginAPI =
       API(login, params: {'user_phone': '13581850764', 'user_pwd': '123'});
 

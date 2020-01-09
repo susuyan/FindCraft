@@ -1,7 +1,7 @@
 import 'package:find_craft/pages/craft_details_page.dart';
 import 'package:find_craft/pages/home/home_page.dart';
+import 'package:find_craft/pages/main/main_page.dart';
 
-import 'package:find_craft/pages/main_page.dart';
 import 'package:find_craft/pages/requirements_page.dart';
 import 'package:find_craft/pages/requiriments_details_page.dart';
 import 'package:find_craft/pages/select_city_page.dart';

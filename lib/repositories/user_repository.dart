@@ -50,7 +50,7 @@ class UserRepository {
         params: {'user_phone': event.username, 'user_pwd': event.password});
     var result = await Network.share.request(api);
 
-    return UserModel.fromJson(result.get());
+    return UserModel.fromJson(result.get()['data']);
   }
 
   static requestSign(SignButtonPressed event, Function() success,

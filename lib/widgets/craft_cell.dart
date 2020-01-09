@@ -1,11 +1,13 @@
+import 'package:find_craft/repositories/models/home_craft_models.dart';
 import 'package:flutter/material.dart';
 
 import 'avatar.dart';
 import 'craft_tag_view.dart';
 
 class CraftCell extends StatefulWidget {
-  const CraftCell({this.didSelect, Key key}) : super(key: key);
+  const CraftCell({this.craft, this.didSelect, Key key}) : super(key: key);
 
+  final HomeCraftModel craft;
   final Function didSelect;
 
   @override
@@ -15,6 +17,24 @@ class CraftCell extends StatefulWidget {
 class _CraftCellState extends State<CraftCell> {
   @override
   Widget build(BuildContext context) {
+    if (this.widget.craft == null) {
+      return Container();
+    }
+
+    var tags = List<String>();
+    if (this.widget.craft.type01 != null) {
+      tags.add(this.widget.craft.type01);
+    }
+    if (this.widget.craft.type02 != null) {
+      tags.add(this.widget.craft.type01);
+    }
+    if (this.widget.craft.type03 != null) {
+      tags.add(this.widget.craft.type01);
+    }
+    if (this.widget.craft.type04 != null) {
+      tags.add(this.widget.craft.type01);
+    }
+
     return GestureDetector(
       onTap: this.widget.didSelect,
       child: Container(
@@ -28,7 +48,7 @@ class _CraftCellState extends State<CraftCell> {
             padding: EdgeInsets.only(left: 15, right: 15, top: 13, bottom: 13),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
+              children: <Widget>[     
                 FLAvatar(
                   height: 50,
                   width: 50,
@@ -44,12 +64,12 @@ class _CraftCellState extends State<CraftCell> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('小名'),
+                      Text(this.widget.craft.userName),
                       Expanded(
                         child: Container(
                           alignment: Alignment.bottomLeft,
                           child: CraftTagsView(
-                            tags: ['木工', '水电', '吊顶'],
+                            tags: tags,
                           ),
                         ),
                       )
@@ -58,7 +78,7 @@ class _CraftCellState extends State<CraftCell> {
                 ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: Text('北京'),
+                  child: Text(this.widget.craft.city),
                 )
               ],
             ),

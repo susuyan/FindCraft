@@ -1,23 +1,17 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
 import 'package:find_craft/network/Task.dart';
 import 'package:find_craft/network/craft_target.dart';
 import 'package:find_craft/network/noya_error.dart';
 import 'package:find_craft/network/target_type.dart';
-import 'package:find_craft/repositories/models/user_model.dart';
-import 'package:path_provider/path_provider.dart';
+
 import 'package:result/result.dart';
 
 import 'api.dart';
 
 void main() async {
   var api =
-      API(API.employer, params: {'token': '73ea2e4943f9ab9c98d49370dcd87b8a'});
+      API(API.homeOrder, params: {'token': '73ea2e4943f9ab9c98d49370dcd87b8a'});
 
   Network.share.request(api);
 }
@@ -36,12 +30,6 @@ class Network {
     dio.options.queryParameters = targetType.parameters;
 
     dio.options.headers.addAll(targetType.headers);
-
-    var cookieJar=CookieJar();
-
-    print(cookieJar.loadForRequest(Uri.parse(targetType.path)));
-
-    dio.interceptors.add(CookieManager(cookieJar));
   }
 
   Future<Result> request<T extends API>(T api, {bool isList}) async {
@@ -62,12 +50,12 @@ class Network {
               queryParameters: targetType.parameters);
       }
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         var json = response.data;
 
         switch (json['code']) {
           case 200:
-            result = Result.success(json['data']);
+            result = Result.success(json);
             break;
           case 4001:
           case 4002:

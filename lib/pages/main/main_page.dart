@@ -1,13 +1,16 @@
 import 'dart:ui';
 
 import 'package:find_craft/application.dart';
+import 'package:find_craft/pages/home/bloc.dart';
 import 'package:find_craft/pages/home/home_page.dart';
+import 'package:find_craft/pages/main/bloc.dart';
+import 'package:find_craft/pages/mine_page.dart';
 import 'package:find_craft/route/routes.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'mine_page.dart';
 import 'package:flutter/material.dart';
 import 'package:find_craft/widgets/navigation_dot_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -15,42 +18,59 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _currentIndex = 0;
-
-  final List listbody = [HomePage(), MinePage()];
+  Widget _homePage = HomePage();
+  Widget _minePage = MinePage();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationDotBar(
-        color: Colors.white,
-        activeColor: Colors.white,
-        backgroundColor: Color(0xFF283254),
-        addPressed: () {
-          Navigator.of(context).push(PageRouteBuilder(
-              opaque: false,
-              pageBuilder: (BuildContext context, _, __) => BlurImagePage()));
+    Widget _selectedPage(MainState state) {
+      switch (state.runtimeType) {
+        case TabHomeState:
+          return BlocProvider(
+            create: (context) => HomeBloc(),
+            child: _homePage,
+          );
+        case TabMineState:
+          return _minePage;
+
+        default:
+          return Container();
+      }
+    }
+
+    return BlocProvider(
+      create: (context) => MainBloc(),
+      child: BlocBuilder<MainBloc, MainState>(
+        builder: (context, state) {
+          return Scaffold(
+            bottomNavigationBar: BottomNavigationDotBar(
+              color: Colors.white,
+              activeColor: Colors.white,
+              backgroundColor: Color(0xFF283254),
+              addPressed: () {
+                Navigator.of(context).push(PageRouteBuilder(
+                    opaque: false,
+                    pageBuilder: (BuildContext context, _, __) =>
+                        BlurImagePage()));
+              },
+              items: <BottomNavigationDotBarItem>[
+                BottomNavigationDotBarItem(
+                    icon: Icons.home,
+                    onTap: () {
+                      BlocProvider.of<MainBloc>(context).add(OnTapHome());
+                    }),
+                BottomNavigationDotBarItem(icon: IconData(0), onTap: () {}),
+                BottomNavigationDotBarItem(
+                    icon: Icons.perm_identity,
+                    onTap: () {
+                      BlocProvider.of<MainBloc>(context).add(OnTapMine());
+                    }),
+              ],
+            ),
+            body: _selectedPage(state),
+          );
         },
-        items: <BottomNavigationDotBarItem>[
-          BottomNavigationDotBarItem(
-              icon: Icons.home,
-              onTap: () {
-                print('首页');
-                setState(() {
-                  _currentIndex = 0;
-                });
-              }),
-          BottomNavigationDotBarItem(icon: IconData(0), onTap: () {}),
-          BottomNavigationDotBarItem(
-              icon: Icons.perm_identity,
-              onTap: () {
-                setState(() {
-                  _currentIndex = 1;
-                });
-              }),
-        ],
       ),
-      body: listbody[_currentIndex],
     );
   }
 }
