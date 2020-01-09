@@ -1,6 +1,7 @@
 import 'package:find_craft/common/common_style.dart';
-import 'package:find_craft/widgets/craft_cell.dart';
+
 import 'package:find_craft/widgets/filtration_header.dart';
+import 'package:find_craft/widgets/home_craft_cell.dart';
 import 'package:flutter/material.dart';
 
 class CraftListPage extends StatefulWidget {
