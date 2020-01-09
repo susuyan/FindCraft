@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:find_craft/network/Task.dart';
+import 'package:find_craft/network/task.dart';
 import 'package:find_craft/network/noya.dart';
 
 abstract class TargetType {

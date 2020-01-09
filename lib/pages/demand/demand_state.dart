@@ -12,6 +12,8 @@ class InitialDemandState extends DemandState {
   List<Object> get props => [];
 }
 
+class Loading extends DemandState {}
+
 class LoadedDemandList extends DemandState {
   final List<DemandModel> demandList;
 

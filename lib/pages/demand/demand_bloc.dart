@@ -14,6 +14,7 @@ class DemandBloc extends Bloc<DemandEvent, DemandState> {
     DemandEvent event,
   ) async* {
     if (event is FetchDemand) {
+      yield Loading();
       var demandList = await repository.requestDemandList();
       yield LoadedDemandList(demandList);
     }

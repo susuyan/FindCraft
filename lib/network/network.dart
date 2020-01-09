@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import 'package:find_craft/network/Task.dart';
+import 'package:find_craft/network/task.dart';
 import 'package:find_craft/network/craft_target.dart';
 import 'package:find_craft/network/noya_error.dart';
 import 'package:find_craft/network/target_type.dart';
