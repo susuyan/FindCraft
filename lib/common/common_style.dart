@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CommonStyle {
-  static const TextStyle white12 = TextStyle(fontSize: 12, color: Colors.white);
+  static const TextStyle white12 = TextStyle(
+      fontSize: 12, color: Colors.white, decoration: TextDecoration.none);
 
   static const TextStyle black12 = TextStyle(fontSize: 12, color: Colors.black);
 
