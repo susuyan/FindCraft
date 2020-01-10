@@ -21,79 +21,88 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   @override
-  void initState() {
-    super.initState();
+  bool get wantKeepAlive => true;
 
-    BlocProvider.of<HomeBloc>(context)..add(FetchOrder())..add(FetchCraft());
-  }
+  List<HomeCraftModel> _craftList;
+  List<HomeOrderModel> _orderList;
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<HomeBloc, HomeState>(
-        listener: (context, state) {},
-        child: BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            return Scaffold(
-              body: SafeArea(
-                top: false,
-                bottom: false,
-                child: Stack(
-                  children: <Widget>[
-                    ListView(
-                      padding: EdgeInsets.zero,
-                      children: <Widget>[
-                        HomeHeader(),
-                        HomeRecommend(
-                          tags: ['找木工', '找瓦工', '找水电工', '维修安装', '接个人活'],
-                          onPressedTag: () {
-                            Application.router.navigateTo(
-                                context, Routes.craftList,
-                                transition: TransitionType.cupertino);
-                          },
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        HomeSectionMore(
-                          '精选业主',
-                          morePressed: () {
-                            Application.router.navigateTo(
-                                context, Routes.demandList,
-                                transition: TransitionType.cupertino);
-                          },
-                        ),
-                        _createOrder(state, context),
-                        HomeSectionMore(
-                          '师傅列表',
-                          morePressed: () {
-                            Application.router.navigateTo(
-                                context, Routes.craftList,
-                                transition: TransitionType.cupertino);
-                          },
-                        ),
-                        _createCraft(state, context)
-                      ],
-                    )
-                  ],
-                ),
+    super.build(context);
+    return BlocProvider(
+      create: (context) => HomeBloc()..add(FetchOrder())..add(FetchCraft()),
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          if (state is LoadedCraft) {
+            _craftList = state.craftList;
+          }
+
+          if (state is LoadedOrder) {
+            _orderList = state.orderList;
+          }
+
+          return Scaffold(
+            body: SafeArea(
+              top: false,
+              bottom: false,
+              child: Stack(
+                children: <Widget>[
+                  ListView(
+                    padding: EdgeInsets.zero,
+                    children: <Widget>[
+                      HomeHeader(),
+                      HomeRecommend(
+                        tags: ['找木工', '找瓦工', '找水电工', '维修安装', '接个人活'],
+                        onPressedTag: () {
+                          Application.router.navigateTo(
+                              context, Routes.craftList,
+                              transition: TransitionType.cupertino);
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      HomeSectionMore(
+                        '精选业主',
+                        morePressed: () {
+                          Application.router.navigateTo(
+                              context, Routes.demandList,
+                              transition: TransitionType.cupertino);
+                        },
+                      ),
+                      _createOrder(context),
+                      HomeSectionMore(
+                        '师傅列表',
+                        morePressed: () {
+                          Application.router.navigateTo(
+                              context, Routes.craftList,
+                              transition: TransitionType.cupertino);
+                        },
+                      ),
+                      _createCraft(context)
+                    ],
+                  )
+                ],
               ),
-            );
-          },
-        ));
+            ),
+          );
+        },
+      ),
+    );
   }
 
-  _createOrder(HomeState state, BuildContext context) {
-    if (state is LoadedOrder) {
+  _createOrder(BuildContext context) {
+    if (_orderList != null) {
       return Column(
-        children: state.orderList.map<Widget>((order) {
+        children: _orderList.map<Widget>((order) {
           return HomeOrderCell(
             order: order,
             didSelected: () {
-              Application.router.navigateTo(
-                                context, Routes.demandDetails,
-                                transition: TransitionType.cupertino);
+              Application.router.navigateTo(context, Routes.demandDetails,
+                  transition: TransitionType.cupertino);
             },
           );
         }).toList(),
@@ -103,10 +112,10 @@ class _HomePageState extends State<HomePage> {
     return Container();
   }
 
-  _createCraft(HomeState state, BuildContext context) {
-    if (state is LoadedCraft) {
+  _createCraft(BuildContext context) {
+    if (_craftList != null) {
       return Column(
-        children: state.craftList.map<Widget>((craft) {
+        children: _craftList.map<Widget>((craft) {
           return CraftCell(
             craft: craft,
             didSelected: () {

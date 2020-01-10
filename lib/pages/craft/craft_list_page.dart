@@ -1,8 +1,10 @@
 import 'package:find_craft/common/common_style.dart';
+import 'package:find_craft/pages/craft/bloc.dart';
 
 import 'package:find_craft/widgets/filtration_header.dart';
 import 'package:find_craft/widgets/home_craft_cell.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CraftListPage extends StatefulWidget {
   CraftListPage({Key key}) : super(key: key);
@@ -14,21 +16,24 @@ class CraftListPage extends StatefulWidget {
 class _CraftListPageState extends State<CraftListPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('师傅列表'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          FiltrationHeader(),
-          CraftCategoryView(['找瓦工','找木工','找电工','找瓦工','找木工','找电工']),
-          Expanded(
-            child: ListView(
-              children: <Widget>[CraftCell()],
-            ),
-          )
-        ],
+    return BlocProvider(
+      create: (context) => CraftBloc(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('师傅列表'),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            FiltrationHeader(),
+            CraftCategoryView(['找瓦工', '找木工', '找电工', '找瓦工', '找木工', '找电工']),
+            Expanded(
+              child: ListView(
+                children: <Widget>[],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -47,7 +52,7 @@ class _CraftCategoryViewState extends State<CraftCategoryView> {
   Widget build(BuildContext context) {
     return Container(
       height: 65,
-      padding: EdgeInsets.only(top: 15,bottom: 15,left: 10),
+      padding: EdgeInsets.only(top: 15, bottom: 15, left: 10),
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: this.widget.categories.map<Widget>((item) {
