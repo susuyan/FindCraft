@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:find_craft/repositories/user_repository.dart';
+
 import './bloc.dart';
 
 class SignBloc extends Bloc<SignEvent, SignState> {
@@ -24,7 +24,6 @@ class SignBloc extends Bloc<SignEvent, SignState> {
         yield SignFailure('密码不一致');
       } else {
         // UserRepository.requestSign(event);
-
 
       }
     }

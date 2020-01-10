@@ -1,9 +1,6 @@
 import 'package:find_craft/network/api.dart';
-import 'package:find_craft/network/craft_target.dart';
 import 'package:find_craft/network/network.dart';
-
 import 'package:find_craft/pages/login/login_bloc/login_event.dart';
-import 'package:find_craft/pages/login/login_bloc/login_state.dart';
 import 'package:find_craft/pages/login/sign_bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';

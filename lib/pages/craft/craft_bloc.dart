@@ -12,7 +12,7 @@ class CraftBloc extends Bloc<CraftEvent, CraftState> {
   Stream<CraftState> mapEventToState(
     CraftEvent event,
   ) async* {
-    if (event is FetchCraft) {
+    if (event is FetchCraftList) {
       var craftList = await repository.requestCraftList();
 
       yield LoadedCraftList(craftList);

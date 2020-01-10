@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:find_craft/repositories/user_repository.dart';
 
 import './bloc.dart';
-import 'package:meta/meta.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {

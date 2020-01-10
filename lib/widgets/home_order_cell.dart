@@ -17,6 +17,9 @@ class HomeOrderCell extends StatefulWidget {
 class _HomeOrderCellState extends State<HomeOrderCell> {
   @override
   Widget build(BuildContext context) {
+
+    var order = this.widget.order;
+
     return GestureDetector(
       onTap: this.widget.didSelected,
       child: Container(
@@ -31,14 +34,14 @@ class _HomeOrderCellState extends State<HomeOrderCell> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'order.address',
+                      order.address,
                       style: CommonStyle.black12,
                     ),
                     Container(
                       padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
                       alignment: Alignment.bottomLeft,
                       child: Text(
-                        'order.changeData',
+                        order.changeData,
                         style: CommonStyle.black12,
                       ),
                     )
@@ -46,7 +49,7 @@ class _HomeOrderCellState extends State<HomeOrderCell> {
                 ),
                 Spacer(),
                 Text(
-                  'order.city',
+                  order.city,
                   style: CommonStyle.black12,
                 )
               ],

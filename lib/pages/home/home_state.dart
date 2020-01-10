@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:find_craft/repositories/models/home_craft_models.dart';
+import 'package:find_craft/repositories/models/craft_models.dart';
+
 import 'package:find_craft/repositories/models/home_order_models.dart';
 
 abstract class HomeState extends Equatable {
@@ -25,7 +26,7 @@ class LoadedOrder extends HomeState {
 }
 
 class LoadedCraft extends HomeState {
-  final List<HomeCraftModel> craftList;
+  final List<CraftModel> craftList;
 
   LoadedCraft(this.craftList);
 

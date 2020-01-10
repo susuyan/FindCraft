@@ -3,10 +3,12 @@ import 'package:find_craft/application.dart';
 import 'package:find_craft/pages/home/home_bloc.dart';
 import 'package:find_craft/pages/home/home_event.dart';
 import 'package:find_craft/pages/home/home_state.dart';
-import 'package:find_craft/repositories/models/home_craft_models.dart';
+import 'package:find_craft/repositories/models/craft_models.dart';
+
 import 'package:find_craft/repositories/models/home_order_models.dart';
 import 'package:find_craft/route/routes.dart';
-import 'package:find_craft/widgets/home_craft_cell.dart';
+import 'package:find_craft/widgets/craft_cell.dart';
+
 import 'package:find_craft/widgets/home_header.dart';
 import 'package:find_craft/widgets/home_order_cell.dart';
 import 'package:find_craft/widgets/home_recommend.dart';
@@ -26,7 +28,7 @@ class _HomePageState extends State<HomePage>
   @override
   bool get wantKeepAlive => true;
 
-  List<HomeCraftModel> _craftList;
+  List<CraftModel> _craftList;
   List<HomeOrderModel> _orderList;
 
   @override

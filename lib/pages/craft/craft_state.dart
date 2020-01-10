@@ -15,7 +15,7 @@ class InitialCraftState extends CraftState {
 class Loading extends CraftState {}
 
 class LoadedCraftList extends CraftState {
-  final List<CraftModel> demandList;
+  final List<CraftModel> craftList;
 
-  LoadedCraftList(this.demandList);
+  LoadedCraftList(this.craftList);
 }

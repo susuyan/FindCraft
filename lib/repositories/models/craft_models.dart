@@ -34,9 +34,9 @@ class CraftModel {
   String userWechat;
   String city;
   String type01;
-  Null type02;
-  Null type03;
-  Null type04;
+  String type02;
+  String type03;
+  String type04;
   String typecode;
 
   CraftModel(

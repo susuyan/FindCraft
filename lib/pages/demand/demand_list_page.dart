@@ -18,45 +18,48 @@ class _DemandListPageState extends State<DemandListPage> {
 
   @override
   Widget build(BuildContext context) {
-    void _onRefresh() {
-      _refreshController.refreshCompleted();
-    }
-
     return BlocProvider(
       create: (context) => DemandBloc()..add(FetchDemand()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('需求列表'),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            FiltrationHeader(),
-            Expanded(
-              child: SmartRefresher(
-                controller: _refreshController,
-                enablePullDown: true,
-                onRefresh: _onRefresh,
-                child: BlocBuilder<DemandBloc, DemandState>(
-                  builder: (context, state) {
-                    if (state is LoadedDemandList) {
-                      return ListView.builder(
-                        itemBuilder: (BuildContext context, int index) {
-                          return DemandCell(
-                            demand: state.demandList[index],
-                          );
-                        },
-                        itemCount: state.demandList.length,
-                      );
-                    }
-                    return Container();
-                  },
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
+      child: BlocListener<DemandBloc, DemandState>(listener: (context, state) {
+        if (state is LoadedDemandList) {
+          _refreshController.refreshCompleted();
+        }
+      }, child: BlocBuilder<DemandBloc, DemandState>(
+        builder: (context, state) {
+          void _onRefresh() {
+            BlocProvider.of<DemandBloc>(context).add(FetchDemand());
+          }
+
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('需求列表'),
+            ),
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FiltrationHeader(),
+                Expanded(
+                  child: SmartRefresher(
+                    controller: _refreshController,
+                    enablePullDown: true,
+                    onRefresh: _onRefresh,
+                    child: state is LoadedDemandList
+                        ? ListView.builder(
+                            itemBuilder: (BuildContext context, int index) {
+                              return DemandCell(
+                                demand: state.demandList[index],
+                              );
+                            },
+                            itemCount: state.demandList.length,
+                          )
+                        : Container(),
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      )),
     );
   }
 }
