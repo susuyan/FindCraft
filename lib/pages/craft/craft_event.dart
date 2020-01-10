@@ -7,3 +7,5 @@ abstract class CraftEvent extends Equatable {
 }
 
 class FetchCraftList extends CraftEvent {}
+
+class FetchCraftDetails extends CraftEvent {}

@@ -19,3 +19,9 @@ class LoadedCraftList extends CraftState {
 
   LoadedCraftList(this.craftList);
 }
+
+class LoadedCraftDetails extends CraftState {
+  final CraftModel craftDetails;
+
+  LoadedCraftDetails(this.craftDetails);
+}

@@ -38,6 +38,7 @@ class CraftModel {
   String type03;
   String type04;
   String typecode;
+  String userPhone;
 
   CraftModel(
       {this.id,
@@ -49,7 +50,9 @@ class CraftModel {
       this.type02,
       this.type03,
       this.type04,
-      this.typecode});
+      this.typecode,
+      this.userPhone});
+      
 
   CraftModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -62,6 +65,8 @@ class CraftModel {
     type03 = json['type03'];
     type04 = json['type04'];
     typecode = json['typecode'];
+    userPhone = json['user_phone'];
+    
   }
 
   Map<String, dynamic> toJson() {
@@ -76,6 +81,7 @@ class CraftModel {
     data['type03'] = this.type03;
     data['type04'] = this.type04;
     data['typecode'] = this.typecode;
+    data['user_phone'] = this.userPhone;
     return data;
   }
 }
