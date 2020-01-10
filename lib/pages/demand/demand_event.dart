@@ -7,3 +7,5 @@ abstract class DemandEvent extends Equatable {
 }
 
 class FetchDemand extends DemandEvent {}
+
+class FetchDemandDetails extends DemandEvent {}

@@ -34,10 +34,14 @@ class DemandModel {
   String type04;
   String createData;
   String changeData;
+  String userPhone;
+  String userWechat;
+  String userName;
 
   DemandModel(
       {this.id,
       this.userId,
+      this.userName,
       this.title,
       this.content,
       this.address,
@@ -47,7 +51,9 @@ class DemandModel {
       this.type03,
       this.type04,
       this.createData,
-      this.changeData});
+      this.changeData,
+      this.userPhone,
+      this.userWechat});
 
   DemandModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -62,6 +68,9 @@ class DemandModel {
     type04 = json['type04'];
     createData = json['create_data'];
     changeData = json['change_data'];
+    userPhone = json['user_phone'];
+    userWechat = json['user_wechat'];
+    userName = json['user_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -78,6 +87,9 @@ class DemandModel {
     data['type04'] = this.type04;
     data['create_data'] = this.createData;
     data['change_data'] = this.changeData;
+    data['user_phone'] = this.userPhone;
+    data['user_wechat'] = this.userWechat;
+    data['user_name'] = this.userName;
     return data;
   }
 }

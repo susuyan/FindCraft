@@ -1,62 +1,80 @@
 import 'package:find_craft/common/common_style.dart';
+import 'package:find_craft/pages/demand/bloc.dart';
+import 'package:find_craft/repositories/models/demand_models.dart';
 import 'package:find_craft/widgets/avatar.dart';
 import 'package:find_craft/widgets/contack_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DemandDetailsPage extends StatefulWidget {
   DemandDetailsPage({Key key}) : super(key: key);
 
   @override
-  _DemandDetailsPageState createState() =>
-      _DemandDetailsPageState();
+  _DemandDetailsPageState createState() => _DemandDetailsPageState();
 }
 
 class _DemandDetailsPageState extends State<DemandDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('需求详情'),
+    return BlocProvider(
+      create: (context) => DemandBloc()..add(FetchDemandDetails()),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('需求详情'),
+        ),
+        body: Container(
+            color: Colors.white,
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: BlocBuilder<DemandBloc, DemandState>(
+              builder: (context, state) {
+                DemandModel demand;
+                if (state is LoadedDemandDetails) {
+                  demand = state.demandDetails;
+                }
+
+                if (demand == null) {
+                  return Container();
+                }
+
+                return ListView(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: FLAvatar(
+                        height: 140,
+                        width: 140,
+                        radius: 70,
+                        color: Colors.blue,
+                        text: 'TE',
+                        textStyle: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 18, bottom: 30),
+                      child: Center(
+                        child: Text(demand.userName),
+                      ),
+                    ),
+                    _createDetailsInfo(demand.title, demand.content),
+                    ContactInfo(
+                      icon: Icons.location_city,
+                      info: demand.address,
+                    ),
+                    ContactInfo(
+                      icon: Icons.phone,
+                      info: demand.userPhone,
+                    ),
+                    ContactInfo(
+                      icon: Icons.access_alarm,
+                      info: demand.userWechat,
+                    )
+                  ],
+                );
+              },
+            )),
       ),
-      body: Container(
-          color: Colors.white,
-          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: ListView(
-            children: <Widget>[
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: FLAvatar(
-                  height: 140,
-                  width: 140,
-                  radius: 70,
-                  color: Colors.blue,
-                  text: 'TE',
-                  textStyle: TextStyle(color: Colors.white),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 18, bottom: 30),
-                child: Center(
-                  child: Text('小名'),
-                ),
-              ),
-              _createDetailsInfo('工作标题', '工作内容'),
-              ContactInfo(
-                icon: Icons.location_city,
-                info: '北京朝阳区',
-              ),
-              ContactInfo(
-                icon: Icons.phone,
-                info: '1231231',
-              ),
-              ContactInfo(
-                icon: Icons.access_alarm,
-                info: '123123123',
-              )
-            ],
-          )),
     );
   }
 

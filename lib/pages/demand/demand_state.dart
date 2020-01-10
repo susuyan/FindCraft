@@ -19,3 +19,9 @@ class LoadedDemandList extends DemandState {
 
   LoadedDemandList(this.demandList);
 }
+
+class LoadedDemandDetails extends DemandState {
+  final DemandModel demandDetails;
+
+  LoadedDemandDetails(this.demandDetails);
+}
