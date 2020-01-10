@@ -55,4 +55,6 @@ class UserRepository {
     var api = API(API.sign,
         params: {'user_phone': event.username, 'user_pwd': event.password});
   }
+
+  
 }

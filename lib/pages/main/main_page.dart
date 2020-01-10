@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:find_craft/application.dart';
 import 'package:find_craft/pages/home/home_page.dart';
+import 'package:find_craft/pages/mine/mine_page.dart';
 
-import 'package:find_craft/pages/mine_page.dart';
 import 'package:find_craft/route/routes.dart';
 import 'package:flutter/cupertino.dart';
 

@@ -1,9 +1,12 @@
 import 'package:find_craft/application.dart';
 import 'package:find_craft/common/common_style.dart';
+import 'package:find_craft/pages/mine/bloc.dart';
+import 'package:find_craft/repositories/models/mine_models.dart';
 import 'package:find_craft/widgets/avatar.dart';
 import 'package:find_craft/widgets/craft_tag_view.dart';
 import 'package:flutter/material.dart';
 import 'package:find_craft/route/routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -18,55 +21,70 @@ class _MinePageState extends State<MinePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('我的'),
-      ),
-      body: Container(
-        padding: EdgeInsets.zero,
-        child: ListView(
-          children: <Widget>[
-            _createHeader(),
-            Container(
-              height: 69,
-              color: Colors.white,
-              alignment: Alignment.center,
-              child: _createEditButton(),
-            ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(left: 40),
-                  child: Text(
-                    '施工图',
-                    style: CommonStyle.black12,
+    return BlocProvider(
+      create: (context) => MineBloc()..add(FetchMine()),
+      child: Scaffold(
+        body: Container(
+          padding: EdgeInsets.zero,
+          child: BlocBuilder<MineBloc, MineState>(
+            builder: (context, state) {
+              MineModel mine;
+
+              if (state is LoadedMine) {
+                mine = state.mine;
+              }
+
+              if (mine == null) {
+                return Container();
+              }
+
+              return ListView(
+                children: <Widget>[
+                  _createHeader(mine),
+                  Container(
+                    height: 69,
+                    color: Colors.white,
+                    alignment: Alignment.center,
+                    child: _createEditButton(),
                   ),
-                ),
-                Spacer(),
-                Padding(
-                  padding: EdgeInsets.only(top: 34, right: 20, bottom: 17),
-                  child: GestureDetector(
-                    onTap: () {
-                      // Todo: 上传图片
-                      Application.router
-                          .navigateTo(context, Routes.workGallery);
-                    },
-                    child: Image(
-                      image: AssetImage('assets/images/upload_icon.png'),
-                    ),
+                  Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 40),
+                        child: Text(
+                          '施工图',
+                          style: CommonStyle.black12,
+                        ),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(top: 34, right: 20, bottom: 17),
+                        child: GestureDetector(
+                          onTap: () {
+                            // Todo: 上传图片
+                            Application.router
+                                .navigateTo(context, Routes.workGallery);
+                          },
+                          child: Image(
+                            image: AssetImage('assets/images/upload_icon.png'),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-            _createWorkGallery()
-          ],
+                  _createWorkGallery()
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
   }
 
 // 创建头部
-  Widget _createHeader() => Stack(
+  Widget _createHeader(MineModel mine) => Stack(
         alignment: Alignment.center,
         overflow: Overflow.visible,
         children: <Widget>[
@@ -120,12 +138,12 @@ class _MinePageState extends State<MinePage>
           ),
           Positioned(
             bottom: 68,
-            child: Text('小名'),
+            child: Text(mine.userName),
           ),
           Positioned(
             bottom: 25,
             child: CraftTagsView(
-              tags: ['吊顶'],
+              tags: mine.tags,
             ),
           ),
           // 设置按钮
