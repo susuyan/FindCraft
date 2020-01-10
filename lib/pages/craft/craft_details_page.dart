@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CraftDetailsPage extends StatefulWidget {
-  CraftDetailsPage({Key key}) : super(key: key);
+  CraftDetailsPage({Key key, @required this.craftId}) : super(key: key);
+  final String craftId;
 
   @override
   _CraftDetailsPageState createState() => _CraftDetailsPageState();
@@ -17,7 +18,7 @@ class _CraftDetailsPageState extends State<CraftDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CraftBloc()..add(FetchCraftDetails()),
+      create: (context) => CraftBloc()..add(FetchCraftDetails(this.widget.craftId)),
       child: Scaffold(
         appBar: AppBar(
           title: Text('师傅主页'),

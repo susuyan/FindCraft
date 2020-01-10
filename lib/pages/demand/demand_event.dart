@@ -8,4 +8,8 @@ abstract class DemandEvent extends Equatable {
 
 class FetchDemand extends DemandEvent {}
 
-class FetchDemandDetails extends DemandEvent {}
+class FetchDemandDetails extends DemandEvent {
+  final String orderId;
+
+  FetchDemandDetails(this.orderId);
+}

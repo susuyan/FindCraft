@@ -8,4 +8,8 @@ abstract class CraftEvent extends Equatable {
 
 class FetchCraftList extends CraftEvent {}
 
-class FetchCraftDetails extends CraftEvent {}
+class FetchCraftDetails extends CraftEvent {
+  final String craftId;
+
+  FetchCraftDetails(this.craftId);
+}

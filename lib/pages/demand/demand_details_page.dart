@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DemandDetailsPage extends StatefulWidget {
-  DemandDetailsPage({Key key}) : super(key: key);
+  DemandDetailsPage({Key key, @required this.orderId}) : super(key: key);
+  final String orderId;
 
   @override
   _DemandDetailsPageState createState() => _DemandDetailsPageState();
@@ -17,7 +18,8 @@ class _DemandDetailsPageState extends State<DemandDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DemandBloc()..add(FetchDemandDetails()),
+      create: (context) =>
+          DemandBloc()..add(FetchDemandDetails(this.widget.orderId)),
       child: Scaffold(
         appBar: AppBar(
           title: Text('需求详情'),

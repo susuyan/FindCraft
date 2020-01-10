@@ -103,7 +103,8 @@ class _HomePageState extends State<HomePage>
           return HomeOrderCell(
             order: order,
             didSelected: () {
-              Application.router.navigateTo(context, Routes.demandDetails,
+              var orderId = order.id;
+              Application.router.navigateTo(context, Routes.demandDetails + '?order_id=$orderId',
                   transition: TransitionType.cupertino);
             },
           );
@@ -121,7 +122,8 @@ class _HomePageState extends State<HomePage>
           return CraftCell(
             craft: craft,
             didSelected: () {
-              Application.router.navigateTo(context, Routes.craftDetails,
+              var craftId = craft.id;
+              Application.router.navigateTo(context, Routes.craftDetails + '?craft_id=$craftId',
                   transition: TransitionType.cupertino);
             },
           );

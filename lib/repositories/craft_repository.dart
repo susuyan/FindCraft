@@ -14,10 +14,10 @@ class CraftRepository {
     return CraftModels.fromJson(result.get()).data;
   }
 
-  Future<CraftModel> requestCraftDetails() async {
+  Future<CraftModel> requestCraftDetails(String craftId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    var api = API(API.craftDetails, params: {'token': token, 'id': '2'});
+    var api = API(API.craftDetails, params: {'token': token, 'id': craftId});
 
     var result = await Network.share.request(api);
 

@@ -40,7 +40,8 @@ var requirementsHandler = Handler(
 
 var requimentsDetailsHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return DemandDetailsPage();
+  String orderId = params['order_id'].first;
+  return DemandDetailsPage(orderId: orderId,);
 });
 
 var craftListHandler = Handler(
@@ -50,7 +51,10 @@ var craftListHandler = Handler(
 
 var craftDetailsHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return CraftDetailsPage();
+  String craftId = params['craft_id'].first;
+  return CraftDetailsPage(
+    craftId: craftId,
+  );
 });
 
 var workgalleryHandler = Handler(

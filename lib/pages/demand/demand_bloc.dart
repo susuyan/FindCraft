@@ -20,7 +20,7 @@ class DemandBloc extends Bloc<DemandEvent, DemandState> {
     }
     if (event is FetchDemandDetails) {
       yield Loading();
-      var demandDetails = await repository.requestDemandDetails();
+      var demandDetails = await repository.requestDemandDetails(event.orderId);
       yield LoadedDemandDetails(demandDetails);
     }
   }

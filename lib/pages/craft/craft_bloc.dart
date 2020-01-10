@@ -18,7 +18,7 @@ class CraftBloc extends Bloc<CraftEvent, CraftState> {
     }
 
     if (event is FetchCraftDetails) {
-      var craftDetails = await repository.requestCraftDetails();
+      var craftDetails = await repository.requestCraftDetails(event.craftId);
       yield LoadedCraftDetails(craftDetails);
     }
   }

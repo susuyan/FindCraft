@@ -14,10 +14,10 @@ class DemandRepository {
     return DemandModels.fromJson(result.get()).data;
   }
 
-  Future<DemandModel> requestDemandDetails() async {
+  Future<DemandModel> requestDemandDetails(String orderId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    var api = API(API.demandDetails, params: {'token': token, 'id': '2'});
+    var api = API(API.demandDetails, params: {'token': token, 'id': orderId});
 
     var result = await Network.share.request(api);
 
