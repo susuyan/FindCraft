@@ -59,10 +59,10 @@ class _CraftCellState extends State<CraftCell> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   margin:
-                      EdgeInsets.only(top: 12, left: 20, right: 20, bottom: 12),
+                      EdgeInsets.only(top: 12, left: 20, right: 20, bottom: 0),
                   child: Padding(
                     padding: EdgeInsets.only(
-                        left: 15, right: 15, top: 13, bottom: 13),
+                        left: 15, right: 15, top: 8, bottom: 10),
                     child: _craftCellBody(),
                   ),
                 )),

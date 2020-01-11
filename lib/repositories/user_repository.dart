@@ -52,9 +52,7 @@ class UserRepository {
 
   static requestSign(SignButtonPressed event, Function() success,
       Function(String error) failure) async {
-    var api = API(API.sign,
-        params: {'user_phone': event.username, 'user_pwd': event.password});
+    // var api = API(API.sign,
+    //     params: {'user_phone': event.username, 'user_pwd': event.password});
   }
-
-  
 }

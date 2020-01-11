@@ -35,8 +35,7 @@ class _CraftListPageState extends State<CraftListPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 FiltrationHeader(),
-                CraftCategoryView(
-                    ['找木工', '找瓦工', '找水电工', '找瓦工', '维修安装', '接个人活']),
+                CraftCategoryView(['找木工', '找瓦工', '找水电工', '维修安装', '接个人活']),
                 Expanded(
                   child: SmartRefresher(
                     controller: _refreshController,
@@ -73,28 +72,39 @@ class CraftCategoryView extends StatefulWidget {
 }
 
 class _CraftCategoryViewState extends State<CraftCategoryView> {
+  int _seletedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 65,
-      padding: EdgeInsets.only(top: 15, bottom: 15, left: 10),
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: this.widget.categories.map<Widget>((item) {
-          return Container(
-            margin: EdgeInsets.only(left: 10),
-            constraints: BoxConstraints(minWidth: 74, minHeight: 35),
-            decoration: BoxDecoration(
-                color: Color(0xFF8D9DB5),
-                borderRadius: BorderRadius.circular(20)),
-            alignment: Alignment.center,
-            child: Text(
-              item,
-              style: CommonStyle.white12,
-            ),
-          );
-        }).toList(),
-      ),
-    );
+        height: 65,
+        padding: EdgeInsets.only(top: 15, bottom: 15, left: 10),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: this.widget.categories.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  _seletedIndex = index;
+                });
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 10),
+                constraints: BoxConstraints(minWidth: 74, minHeight: 35),
+                decoration: BoxDecoration(
+                    color: _seletedIndex == index
+                        ? Color(0xFF253364)
+                        : Color(0xFF8D9DB5),
+                    borderRadius: BorderRadius.circular(20)),
+                alignment: Alignment.center,
+                child: Text(
+                  this.widget.categories[index],
+                  style: CommonStyle.white12,
+                ),
+              ),
+            );
+          },
+        ));
   }
 }

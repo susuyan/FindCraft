@@ -23,60 +23,66 @@ class _MinePageState extends State<MinePage>
     super.build(context);
     return BlocProvider(
       create: (context) => MineBloc()..add(FetchMine()),
-      child: Scaffold(
-        body: Container(
-          padding: EdgeInsets.zero,
-          child: BlocBuilder<MineBloc, MineState>(
-            builder: (context, state) {
-              MineModel mine;
+      child: SafeArea(
+        top: false,
+        bottom: false,
+        child: Scaffold(
+          body: Container(
+            padding: EdgeInsets.zero,
+            child: BlocBuilder<MineBloc, MineState>(
+              builder: (context, state) {
+                MineModel mine;
 
-              if (state is LoadedMine) {
-                mine = state.mine;
-              }
+                if (state is LoadedMine) {
+                  mine = state.mine;
+                }
 
-              if (mine == null) {
-                return Container();
-              }
+                if (mine == null) {
+                  return Container();
+                }
 
-              return ListView(
-                children: <Widget>[
-                  _createHeader(mine),
-                  Container(
-                    height: 69,
-                    color: Colors.white,
-                    alignment: Alignment.center,
-                    child: _createEditButton(),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(left: 40),
-                        child: Text(
-                          '施工图',
-                          style: CommonStyle.black12,
-                        ),
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: 34, right: 20, bottom: 17),
-                        child: GestureDetector(
-                          onTap: () {
-                            // Todo: 上传图片
-                            Application.router
-                                .navigateTo(context, Routes.workGallery);
-                          },
-                          child: Image(
-                            image: AssetImage('assets/images/upload_icon.png'),
+                return ListView(
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    _createHeader(mine),
+                    Container(
+                      height: 69,
+                      color: Colors.white,
+                      alignment: Alignment.center,
+                      child: _createEditButton(),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(left: 40),
+                          child: Text(
+                            '施工图',
+                            style: CommonStyle.black12,
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                  _createWorkGallery()
-                ],
-              );
-            },
+                        Spacer(),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: 34, right: 20, bottom: 17),
+                          child: GestureDetector(
+                            onTap: () {
+                              // Todo: 上传图片
+                              Application.router
+                                  .navigateTo(context, Routes.workGallery);
+                            },
+                            child: Image(
+                              image:
+                                  AssetImage('assets/images/upload_icon.png'),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    _createWorkGallery()
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
