@@ -1,4 +1,7 @@
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:find_craft/helper/storage_helper.dart';
 
 import 'package:find_craft/network/task.dart';
 import 'package:find_craft/network/craft_target.dart';
@@ -28,6 +31,8 @@ class Network {
     dio.options.baseUrl = targetType.baseUrl;
     dio.options.method = targetType.method.value;
     dio.options.queryParameters = targetType.parameters;
+    dio.interceptors.add(CookieManager(
+        PersistCookieJar(dir: StorageHelper.temporaryDirectory.path)));
 
     dio.options.headers.addAll(targetType.headers);
   }

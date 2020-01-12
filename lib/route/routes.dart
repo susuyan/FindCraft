@@ -7,7 +7,7 @@ class Routes {
   static const home = '/home';
   static const splash = '/splash';
   static const workerPublish = '/worker_publish';
-  static const ownerPublish = '/wonerPublish';
+  static const ownerPublish = '/home/onerPublish';
   static const selectCity = '/select_city';
   static const demandList = '/home/demand_list';
   static const demandDetails = '/demand_details';
@@ -27,7 +27,7 @@ class Routes {
 
     router.define(home, handler: homeHandler);
 
-    router.define(workerPublish, handler: workPublishHandler);
+    router.define(ownerPublish, handler: ownerPublishHandler);
 
     router.define(selectCity, handler: selectCityHandler);
 

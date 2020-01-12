@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:find_craft/pages/home/home_page.dart';
 import 'package:find_craft/pages/mine/mine_page.dart';
-import 'package:find_craft/pages/publish_page.dart';
+import 'package:find_craft/pages/publish/publish_page.dart';
 
 import 'package:flutter/cupertino.dart';
 

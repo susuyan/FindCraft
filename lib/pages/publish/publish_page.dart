@@ -1,6 +1,10 @@
 import 'dart:ui';
 
+import 'package:find_craft/application.dart';
+import 'package:find_craft/route/routes.dart';
 import 'package:find_craft/widgets/publish_button.dart';
+import 'package:fluro/fluro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PublishPage extends StatefulWidget {
@@ -27,16 +31,9 @@ class _PublishPageState extends State<PublishPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 50),
-            child: RaisedButton(
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5))),
-              color: Colors.orangeAccent,
-              child: Text(
-                '关闭',
-                style: TextStyle(fontSize: 16),
-              ),
+            padding: EdgeInsets.only(bottom: 20),
+            child: CupertinoButton(
+              child: Image.asset('assets/images/publish_close_icon.png'),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -48,6 +45,10 @@ class _PublishPageState extends State<PublishPage> {
               title: '找个工\n我要找个人施工',
               image: Image.asset('assets/images/worker_icon.png'),
               colors: [Color(0xFF1F8FE5), Color(0xFF3BA7FD)],
+              tapPublish: () {
+                Application.router
+                    .navigateTo(context, Routes.craftList, replace: true);
+              },
             ),
           ),
           Padding(
@@ -56,6 +57,10 @@ class _PublishPageState extends State<PublishPage> {
               title: '发布需求\n我要发布用工信息',
               image: Image.asset('assets/images/owner_icon.png'),
               color: Color(0xFF563BFD),
+              tapPublish: () {
+                Application.router.navigateTo(context, Routes.ownerPublish,
+                    transition: TransitionType.cupertinoFullScreenDialog);
+              },
             ),
           ),
         ],

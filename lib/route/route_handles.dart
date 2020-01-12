@@ -5,11 +5,13 @@ import 'package:find_craft/pages/demand/demand_list_page.dart';
 
 import 'package:find_craft/pages/home/home_page.dart';
 import 'package:find_craft/pages/main/main_page.dart';
+import 'package:find_craft/pages/publish/owner_publish_page.dart';
+
 
 import 'package:find_craft/pages/select_city_page.dart';
 import 'package:find_craft/pages/settings_page.dart';
 import 'package:find_craft/pages/work_gallery_page.dart';
-import 'package:find_craft/pages/worker_publish_page.dart';
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
@@ -23,9 +25,9 @@ var homeHandler = Handler(
   return HomePage();
 });
 
-var workPublishHandler = Handler(
+var ownerPublishHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return WorkerPublishPage();
+  return OwnerPublshPage();
 });
 
 var selectCityHandler = Handler(
