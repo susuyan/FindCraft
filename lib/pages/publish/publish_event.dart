@@ -13,5 +13,5 @@ class PublishDemand extends PublishEvent {
   final String city;
   final String address;
 
-  PublishDemand(this.title, this.content, this.city, this.address);
+  PublishDemand({this.title, this.content, this.city, this.address});
 }

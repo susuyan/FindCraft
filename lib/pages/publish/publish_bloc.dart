@@ -15,7 +15,7 @@ class PublishBloc extends Bloc<PublishEvent, PublishState> {
   ) async* {
     if (event is PublishDemand) {
       yield Publishing();
-      repository.requestPublishDemand();
+      // repository.requestPublishDemand();
       yield PublishSuccess();
     }
   }

@@ -11,4 +11,5 @@ class CommonStyle {
 
   static const TextStyle blue12 =
       TextStyle(fontSize: 12, color: Color(0xFF3388FF));
+  static const TextStyle gray12 = TextStyle(fontSize: 12, color: Colors.grey);
 }
