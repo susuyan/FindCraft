@@ -44,6 +44,9 @@ class Network {
 
     Response response;
     Result<dynamic, NoyaError> result;
+
+    FormData();
+
     try {
       switch (targetType.task) {
         case Task.multipart:

@@ -15,11 +15,12 @@ class CraftTarget extends TargetType {
   String get baseUrl => API.base;
 
   @override
-  Map<String, String> get headers => {'Connection':'keep-alive'};
+  Map<String, String> get headers => {};
 
   @override
-  Map<String, dynamic> get parameters =>
-      api.params.isNotEmpty ? api.params : {};
+  Map<String, dynamic> get parameters => api.params.isNotEmpty
+      ? api.params
+      : {'Token': 'edc6ffa2ba5f739f343975aaefb4896e'};
 
   @override
   String get path => api.path;
@@ -30,6 +31,10 @@ class CraftTarget extends TargetType {
       case API.login:
       case API.sign:
         return HttpMethod.POST;
+        break;
+      case API.orderList:
+        return HttpMethod.GET;
+        break;
       default:
         return HttpMethod.GET;
     }
@@ -56,6 +61,4 @@ class CraftTarget extends TargetType {
         return Task.multipart;
     }
   }
-
-  
 }

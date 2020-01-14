@@ -4,34 +4,35 @@ class API {
   final String path;
   final Map<String, dynamic> params;
 
-  // static const base = 'http://zhaogegong.beituokj.com/api';
-  static const base =
-      'https://fd0adb60-cda8-4ca5-bd84-84379e5402e0.mock.pstmn.io';
+  // static const base = 'http://zhaogegong.beituokj.com/api/';
+  static const base = 'http://127.0.0.1:8000/api/';
+  // static const base =
+  //     'https://fd0adb60-cda8-4ca5-bd84-84379e5402e0.mock.pstmn.io';
 
   // 登录
-  static const login = '/login';
+  static const login = '/login/';
   // 注册
-  static const sign = '/create';
+  static const sign = '/create/';
   // 选择身份
-  static const chooseIdentity = '/role';
+  static const chooseIdentity = '/role/';
   // 发布需求
-  static const publishDemand = '/listrelease';
+  static const publishDemand = '/listrelease/';
 
   // 首页师傅
-  static const homeCraft = '/masterworker';
+  static const homeCraft = '/masterworker/';
   // 首页业主
-  static const homeOrder = '/employer';
+  static const homeOrder = '/employer/';
   // 师傅列表
-  static const craftList = '/worker';
+  static const craftList = '/worker/';
   // 业主列表
-  static const orderList = '/listrelease';
+  static const orderList = '/listrelease/';
   // 师傅详情
-  static const craftDetails = '/workerinfo';
+  static const craftDetails = '/workerinfo/';
 
   // 需求列表
-  static const demandList = '/listrelease';
+  static const demandList = '/listrelease/';
   // 需求详情
-  static const demandDetails = '/demandinfo';
+  static const demandDetails = '/demandinfo/';
 
 
 

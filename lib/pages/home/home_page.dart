@@ -50,12 +50,27 @@ class _HomePageState extends State<HomePage>
             body: SafeArea(
               top: false,
               bottom: false,
-              child: Stack(
-                children: <Widget>[
-                  ListView(
-                    padding: EdgeInsets.zero,
-                    children: <Widget>[
-                      HomeHeader(),
+              child: CustomScrollView(
+                slivers: <Widget>[
+                  SliverAppBar(
+                    stretch: false,
+                    expandedHeight: 220,
+                    flexibleSpace: HomeHeader(),
+                  ),
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      Container(
+                        height: 50,
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.only(left: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20))),
+                        child: Text('推荐',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
                       HomeRecommend(
                         tags: ['找木工', '找瓦工', '找水电工', '维修安装', '接个人活'],
                         onPressedTag: () {
@@ -85,7 +100,7 @@ class _HomePageState extends State<HomePage>
                         },
                       ),
                       _createCraft(context)
-                    ],
+                    ]),
                   )
                 ],
               ),
@@ -104,7 +119,8 @@ class _HomePageState extends State<HomePage>
             order: order,
             didSelected: () {
               var orderId = order.id;
-              Application.router.navigateTo(context, Routes.demandDetails + '?order_id=$orderId',
+              Application.router.navigateTo(
+                  context, Routes.demandDetails + '?order_id=$orderId',
                   transition: TransitionType.cupertino);
             },
           );
@@ -123,7 +139,8 @@ class _HomePageState extends State<HomePage>
             craft: craft,
             didSelected: () {
               var craftId = craft.id;
-              Application.router.navigateTo(context, Routes.craftDetails + '?craft_id=$craftId',
+              Application.router.navigateTo(
+                  context, Routes.craftDetails + '?craft_id=$craftId',
                   transition: TransitionType.cupertino);
             },
           );
