@@ -18,3 +18,5 @@ class SignFailure extends SignState {
 
   SignFailure(this.error);
 }
+
+class SignedAccount extends SignState {}

@@ -4,9 +4,14 @@ import 'package:find_craft/pages/demand/demand_details_page.dart';
 import 'package:find_craft/pages/demand/demand_list_page.dart';
 
 import 'package:find_craft/pages/home/home_page.dart';
+import 'package:find_craft/pages/login/login_page.dart';
+import 'package:find_craft/pages/login/sign_craft_info.dart';
+import 'package:find_craft/pages/login/sign_owner_info.dart';
+
+import 'package:find_craft/pages/login/sign_role_page.dart';
+import 'package:find_craft/pages/login/sign_page.dart';
 import 'package:find_craft/pages/main/main_page.dart';
 import 'package:find_craft/pages/publish/owner_publish_page.dart';
-
 
 import 'package:find_craft/pages/select_city_page.dart';
 import 'package:find_craft/pages/settings_page.dart';
@@ -18,6 +23,33 @@ import 'package:flutter/material.dart';
 var rootHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return MainPage();
+});
+
+// 登录、注册
+
+var loginHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return LoginPage();
+});
+
+var signAccountHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return Signpage();
+});
+
+var signRoleHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return SignRolePage();
+});
+
+var signOrderInfoHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return SignOwnerInfoPage();
+});
+
+var signCraftInfoHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return SignCraftInfoPage();
 });
 
 var homeHandler = Handler(
@@ -43,7 +75,9 @@ var requirementsHandler = Handler(
 var requimentsDetailsHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   String orderId = params['order_id'].first;
-  return DemandDetailsPage(orderId: orderId,);
+  return DemandDetailsPage(
+    orderId: orderId,
+  );
 });
 
 var craftListHandler = Handler(

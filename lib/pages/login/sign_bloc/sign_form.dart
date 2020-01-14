@@ -1,5 +1,8 @@
+import 'package:find_craft/application.dart';
 import 'package:find_craft/common/common_style.dart';
 import 'package:find_craft/pages/login/sign_bloc/bloc.dart';
+import 'package:find_craft/route/routes.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +38,10 @@ class _SignFormState extends State<SignForm> {
                 backgroundColor: Colors.red,
               ),
             );
+          }
+
+          if (state is SignedAccount) {
+            Application.router.navigateTo(context, Routes.signRole, transition: TransitionType.cupertino);
           }
         },
         child: BlocProvider(

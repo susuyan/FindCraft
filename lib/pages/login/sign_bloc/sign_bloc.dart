@@ -24,7 +24,7 @@ class SignBloc extends Bloc<SignEvent, SignState> {
         yield SignFailure('密码不一致');
       } else {
         // UserRepository.requestSign(event);
-
+        yield SignedAccount();
       }
     }
   }

@@ -17,6 +17,12 @@ class Routes {
   static const workGallery = '/work_gallery';
   static const settings = '/settings';
 
+  static const login = '/login';
+  static const signAccount = '/login/sign_account';
+  static const signRole = '/login/sign_account/sign_role';
+  static const signOrderInfo = '/login/sign_account/sign_role/sign_order_info';
+  static const signCraftInfo = '/login/sign_account/sign_role/sign_craft_info';
+
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -24,6 +30,14 @@ class Routes {
     });
 
     router.define(root, handler: rootHandler);
+
+    router.define(signAccount, handler: signAccountHandler);
+
+    router.define(signRole, handler: signRoleHandler);
+
+    router.define(signOrderInfo, handler: signOrderInfoHandler);
+
+    router.define(signCraftInfo, handler: signCraftInfoHandler);
 
     router.define(home, handler: homeHandler);
 
