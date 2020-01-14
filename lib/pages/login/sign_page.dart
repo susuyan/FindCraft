@@ -9,13 +9,9 @@ class Signpage extends StatefulWidget {
   _SignpageState createState() => _SignpageState();
 }
 
-class _SignpageState extends State<Signpage>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
+class _SignpageState extends State<Signpage> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BlocProvider(
       create: (context) => SignBloc(),
       child: Scaffold(

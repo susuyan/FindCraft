@@ -34,6 +34,7 @@ class _SignFormState extends State<SignForm> {
           if (state is SignFailure) {
             Scaffold.of(context).showSnackBar(
               SnackBar(
+                duration: Duration(milliseconds: 700),
                 content: Text('${state.error}'),
                 backgroundColor: Colors.red,
               ),
