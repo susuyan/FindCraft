@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:find_craft/repositories/user_repository.dart';
 
 import './bloc.dart';
 
 class SignBloc extends Bloc<SignEvent, SignState> {
+  final repository = UserRepository();
+
   @override
   SignState get initialState => InitialSignState();
 
@@ -23,8 +26,8 @@ class SignBloc extends Bloc<SignEvent, SignState> {
       } else if (event.password != event.repeatPassword) {
         yield SignFailure('密码不一致');
       } else {
-        // UserRepository.requestSign(event);
-        yield SignedAccount();
+        repository.requestSign(event);
+        // yield SignedAccount();
       }
     }
   }

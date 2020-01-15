@@ -20,7 +20,7 @@ class CraftTarget extends TargetType {
   @override
   Map<String, dynamic> get parameters => api.params.isNotEmpty
       ? api.params
-      : {'Token': 'edc6ffa2ba5f739f343975aaefb4896e'};
+      : {};
 
   @override
   String get path => api.path;
@@ -30,10 +30,12 @@ class CraftTarget extends TargetType {
     switch (api.path) {
       case API.login:
       case API.sign:
+      case API.sign:
+      case API.homeCraft:
+      case API.homeOrder:
+      case API.demandList:
+      case API.craftList:
         return HttpMethod.POST;
-        break;
-      case API.orderList:
-        return HttpMethod.GET;
         break;
       default:
         return HttpMethod.GET;

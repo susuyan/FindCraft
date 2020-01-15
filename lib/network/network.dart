@@ -30,7 +30,8 @@ class Network {
     dio.interceptors.addAll(targetType.interceptors);
     dio.options.baseUrl = targetType.baseUrl;
     dio.options.method = targetType.method.value;
-    dio.options.queryParameters = targetType.parameters;
+    // dio.options.queryParameters = targetType.parameters;
+
     dio.interceptors.add(CookieManager(
         PersistCookieJar(dir: StorageHelper.temporaryDirectory.path)));
 
@@ -50,6 +51,7 @@ class Network {
     try {
       switch (targetType.task) {
         case Task.multipart:
+
           response = await dio.request(targetType.path,
               data: FormData.fromMap(targetType.parameters));
           break;
@@ -57,6 +59,8 @@ class Network {
           response = await dio.request(targetType.path,
               queryParameters: targetType.parameters);
       }
+
+      
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var json = response.data;

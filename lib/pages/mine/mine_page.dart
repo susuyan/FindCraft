@@ -1,5 +1,6 @@
 import 'package:find_craft/application.dart';
 import 'package:find_craft/common/common_style.dart';
+import 'package:find_craft/pages/authentication/bloc.dart';
 import 'package:find_craft/pages/mine/bloc.dart';
 import 'package:find_craft/repositories/models/mine_models.dart';
 import 'package:find_craft/widgets/avatar.dart';
@@ -21,8 +22,15 @@ class _MinePageState extends State<MinePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocProvider(
-      create: (context) => MineBloc()..add(FetchMine()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<MineBloc>(
+          create: (context) => MineBloc()..add(FetchMine()),
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => AuthenticationBloc(),
+        ),
+      ],
       child: SafeArea(
         top: false,
         bottom: false,
@@ -38,7 +46,17 @@ class _MinePageState extends State<MinePage>
                 }
 
                 if (mine == null) {
-                  return Container();
+                  return Container(
+                    child: Center(
+                      child: FlatButton(
+                        onPressed: () {
+                          BlocProvider.of<AuthenticationBloc>(context)
+                              .add(LoggedOut());
+                        },
+                        child: Text('退出登录'),
+                      ),
+                    ),
+                  );
                 }
 
                 return ListView(
