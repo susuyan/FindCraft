@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
+
 class API {
   API(this.path, {this.params});
 
-  final String path;
+  final APIPath path;
+
   final Map<String, dynamic> params;
 
   // static const base = 'http://zhaogegong.beituokj.com/api/';
@@ -10,39 +13,37 @@ class API {
   //     'https://fd0adb60-cda8-4ca5-bd84-84379e5402e0.mock.pstmn.io';
 
   // 登录
-  static const login = '/login/';
+  static const login = APIPath('/login/', name: 'login');
   // 注册
-  static const sign = '/create/';
+  static const sign = APIPath('/create/', name: 'sign');
   // 选择身份
-  static const signInfo = '/role/';
+  static const signInfo = APIPath('/role/', name: 'signInfo');
   // 发布需求
-  static const publishDemand = '/listrelease/';
+  static const publishDemand = APIPath('/listrelease/', name: 'publishDemand');
 
   // 首页师傅
-  static const homeCraft = '/masterworker/';
+  static const homeCraft = APIPath('/masterworker/', name: 'homeCraft');
   // 首页业主
-  static const homeOrder = '/employer/';
+  static const homeOrder = APIPath('/employer/', name: 'homeOrder');
   // 师傅列表
-  static const craftList = '/worker/';
+  static const craftList = APIPath('/worker/', name: 'craftList');
   // 业主列表
-  static const orderList = '/listrelease/';
+  static const orderList = APIPath('/listrelease/', name: 'orderList');
   // 师傅详情
-  static const craftDetails = '/workerinfo/';
+  static const craftDetails = APIPath('/workerinfo/', name: 'craftDetails');
 
   // 需求列表
-  static const demandList = '/listrelease/';
+  static const demandList = APIPath('/listrelease/', name: 'demandList');
   // 需求详情
-  static const demandDetails = '/demandinfo/';
-
-
+  static const demandDetails = APIPath('/demandinfo/', name: 'demandDetails');
 
   // 我的
-  static const mine = '/role';
+  static const mine = APIPath('/role', name: 'mine');
+}
 
-  // mock
-  static final loginAPI =
-      API(login, params: {'user_phone': '13581850764', 'user_pwd': '123'});
+class APIPath {
+  final String name;
+  final String path;
 
-  static final homeCraftAPI =
-      API(homeCraft, params: {'token': 'd538640ac68a5122855b04367f98f2b0'});
+  const APIPath(this.path, {this.name});
 }

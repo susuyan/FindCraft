@@ -15,6 +15,8 @@ class _ContactInfoState extends State<ContactInfo> {
   @override
   Widget build(BuildContext context) {
     return GrayBackground(
+      margin: EdgeInsets.only(top: 20),
+      padding: EdgeInsets.fromLTRB(15, 12, 12, 15),
       child: Row(
         children: <Widget>[
           Icon(this.widget.icon),

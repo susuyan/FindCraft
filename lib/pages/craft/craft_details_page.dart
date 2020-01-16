@@ -18,7 +18,8 @@ class _CraftDetailsPageState extends State<CraftDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CraftBloc()..add(FetchCraftDetails(this.widget.craftId)),
+      create: (context) =>
+          CraftBloc()..add(FetchCraftDetails(this.widget.craftId)),
       child: Scaffold(
         appBar: AppBar(
           title: Text('师傅主页'),
@@ -59,7 +60,7 @@ class _CraftDetailsPageState extends State<CraftDetailsPage> {
                     ),
                   ),
                   Center(
-                    child: CraftTagsView(tags: ['木工', '水电', '吊顶']),
+                    child: CraftTagsView(tags: craft.tags),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 20, right: 20),

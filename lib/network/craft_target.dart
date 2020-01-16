@@ -15,15 +15,21 @@ class CraftTarget extends TargetType {
   String get baseUrl => API.base;
 
   @override
-  Map<String, String> get headers => {};
+  Map<String, String> get headers {
+    Map<String, String>  _header = {};
+    switch (api.path) {
+      case API.demandList:
+      default:
+    }
+    return _header;
+  }
 
   @override
-  Map<String, dynamic> get parameters => api.params.isNotEmpty
-      ? api.params
-      : {};
+  Map<String, dynamic> get parameters =>
+      api.params.isNotEmpty ? api.params : {};
 
   @override
-  String get path => api.path;
+  String get path => api.path.path;
 
   @override
   HttpMethod get method {
@@ -33,7 +39,6 @@ class CraftTarget extends TargetType {
       case API.signInfo:
       case API.homeCraft:
       case API.homeOrder:
-      case API.demandList:
       case API.craftList:
       case API.publishDemand:
         return HttpMethod.POST;

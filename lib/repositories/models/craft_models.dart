@@ -40,6 +40,24 @@ class CraftModel {
   String typecode;
   String userPhone;
 
+  List<String> get tags {
+    var _tags = List<String>();
+    if (this.type01 != null) {
+      _tags.add(this.type01);
+    }
+    if (this.type02 != null) {
+      _tags.add(this.type02);
+    }
+    if (this.type03 != null) {
+      _tags.add(this.type03);
+    }
+    if (this.type04 != null) {
+      _tags.add(this.type04);
+    }
+
+    return _tags;
+  }
+
   CraftModel(
       {this.id,
       this.userId,
@@ -52,7 +70,6 @@ class CraftModel {
       this.type04,
       this.typecode,
       this.userPhone});
-      
 
   CraftModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -66,7 +83,6 @@ class CraftModel {
     type04 = json['type04'];
     typecode = json['typecode'];
     userPhone = json['user_phone'];
-    
   }
 
   Map<String, dynamic> toJson() {
