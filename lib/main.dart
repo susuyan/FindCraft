@@ -3,7 +3,6 @@ import 'package:find_craft/helper/storage_helper.dart';
 import 'package:find_craft/pages/authentication/bloc.dart';
 
 import 'package:find_craft/pages/login/login_page.dart';
-
 import 'package:find_craft/pages/splash_page.dart';
 
 import 'package:find_craft/route/routes.dart';
@@ -31,27 +30,33 @@ void main() async {
   ));
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-      builder: (context, state) {
-        if (state is AuthenticationAuthenticated) {
-          return OKToast(
-            child: MaterialApp(
-                home: MainPage(),
-                onGenerateRoute: Application.router.generator),
-          );
-        }
+    return OKToast(
+      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, state) {
+          Widget _currentHome = SplashPage();
 
-        if (state is AuthenticationUnauthenticated) {
-          return OKToast(
-            child: MaterialApp(home: LoginPage()),
-          );
-        }
+          if (state is AuthenticationAuthenticated) {
+            _currentHome = MainPage();
+          }
 
-        return SplashPage();
-      },
+          if (state is AuthenticationUnauthenticated) {
+            _currentHome = LoginPage();
+          }
+
+          return MaterialApp(
+            home: _currentHome,
+            onGenerateRoute: Application.router.generator,
+          );
+        },
+      ),
     );
   }
 }

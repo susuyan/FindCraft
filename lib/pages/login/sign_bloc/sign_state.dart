@@ -20,3 +20,6 @@ class SignFailure extends SignState {
 }
 
 class SignedAccount extends SignState {}
+
+class SignedOwnerInfo extends SignState {}
+class SignedCraftInfo extends SignState {}

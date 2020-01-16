@@ -31,6 +31,8 @@ class Routes {
 
     router.define(root, handler: rootHandler);
 
+    router.define(splash, handler: splashHandler);
+
     router.define(signAccount, handler: signAccountHandler);
 
     router.define(signRole, handler: signRoleHandler);
@@ -56,5 +58,7 @@ class Routes {
     router.define(workGallery, handler: workgalleryHandler);
 
     router.define(settings, handler: settingsHandler);
+
+    router.define(login, handler: loginHandler);
   }
 }

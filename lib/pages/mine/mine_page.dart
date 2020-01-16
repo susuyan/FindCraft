@@ -27,9 +27,6 @@ class _MinePageState extends State<MinePage>
         BlocProvider<MineBloc>(
           create: (context) => MineBloc()..add(FetchMine()),
         ),
-        BlocProvider<AuthenticationBloc>(
-          create: (context) => AuthenticationBloc(),
-        ),
       ],
       child: SafeArea(
         top: false,

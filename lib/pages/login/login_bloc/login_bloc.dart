@@ -21,6 +21,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginEvent event,
   ) async* {
     if (event is LoginButtonPressed) {
+      yield LoginLoading();
       if (event.username.isEmpty || event.password.isEmpty) {
         yield LoginFailure(error: '手机号和密码不能为空');
       } else {

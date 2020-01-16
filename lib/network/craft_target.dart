@@ -30,7 +30,7 @@ class CraftTarget extends TargetType {
     switch (api.path) {
       case API.login:
       case API.sign:
-      case API.sign:
+      case API.signInfo:
       case API.homeCraft:
       case API.homeOrder:
       case API.demandList:

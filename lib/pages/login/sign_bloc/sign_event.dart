@@ -20,3 +20,20 @@ class SignButtonPressed extends SignEvent {
         assert(password != null),
         assert(repeatPassword != null);
 }
+
+class SignOwnerInfo extends SignEvent {
+  final String username;
+  final String wechat;
+  final String city;
+
+  SignOwnerInfo(
+      {@required this.username, @required this.wechat, @required this.city});
+}
+
+class SignCraftInfo extends SignEvent {
+  final String username;
+  final String wechat;
+  final String city;
+  SignCraftInfo(
+      {@required this.username, @required this.wechat, @required this.city});
+}

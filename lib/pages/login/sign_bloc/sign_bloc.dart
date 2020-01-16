@@ -26,9 +26,25 @@ class SignBloc extends Bloc<SignEvent, SignState> {
       } else if (event.password != event.repeatPassword) {
         yield SignFailure('密码不一致');
       } else {
-        repository.requestSign(event);
-        // yield SignedAccount();
+        try {
+          await repository.requestSign(event);
+          yield SignedAccount();
+        } catch (e) {
+          yield SignFailure('网络错误');
+        }
       }
     }
+
+    if (event is SignOwnerInfo) {
+      yield SignLoading();
+      try {
+        await repository.requestSignOwner(event);
+        yield SignedOwnerInfo();
+      } catch (e) {
+        yield SignFailure('网络错误');
+      }
+    }
+
+    if (event is SignCraftInfo) {}
   }
 }

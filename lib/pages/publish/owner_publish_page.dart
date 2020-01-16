@@ -3,7 +3,7 @@ import 'package:find_craft/common/common_style.dart';
 import 'package:find_craft/pages/publish/bloc.dart';
 import 'package:find_craft/widgets/demand_tag.dart';
 import 'package:find_craft/widgets/gray_background.dart';
-import 'package:find_craft/widgets/modal_body.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oktoast/oktoast.dart';

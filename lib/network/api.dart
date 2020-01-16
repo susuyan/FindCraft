@@ -14,7 +14,7 @@ class API {
   // 注册
   static const sign = '/create/';
   // 选择身份
-  static const chooseIdentity = '/role/';
+  static const signInfo = '/role/';
   // 发布需求
   static const publishDemand = '/listrelease/';
 
