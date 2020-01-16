@@ -4,7 +4,6 @@ import 'package:find_craft/common/common_style.dart';
 import 'package:find_craft/pages/authentication/bloc.dart';
 import 'package:find_craft/pages/login/login_bloc/bloc.dart';
 
-import 'package:find_craft/pages/login/sign_page.dart';
 import 'package:find_craft/route/routes.dart';
 import 'package:fluro/fluro.dart';
 
@@ -50,7 +49,8 @@ class SignButton extends StatelessWidget {
       height: 50,
       child: CupertinoButton(
         onPressed: () {
-         Application.router.navigateTo(context, Routes.signAccount,transition: TransitionType.cupertino);
+          Application.router.navigateTo(context, Routes.signAccount,
+              transition: TransitionType.cupertino);
         },
         color: Color(0xFF3F8FFF),
         padding: EdgeInsets.fromLTRB(38, 14, 38, 14),
@@ -84,10 +84,6 @@ class _LoginFormState extends State<LoginForm> {
           password: _passwordController.text,
         ),
       );
-    }
-
-    void _showLoading() async {
-      ProgressHud.of(context).show(ProgressHudType.loading, "");
     }
 
     return BlocListener<LoginBloc, LoginState>(listener: (context, state) {
@@ -174,9 +170,8 @@ class _LoginFormState extends State<LoginForm> {
                         margin: EdgeInsets.fromLTRB(41, 30, 41, 0),
                         child: CupertinoButton(
                           color: Colors.white,
-                          onPressed: state is! LoginLoading
-                              ? _onLoginPress
-                              : null,
+                          onPressed:
+                              state is! LoginLoading ? _onLoginPress : null,
                           borderRadius: BorderRadius.circular(6),
                           child: Align(
                             child: Text(

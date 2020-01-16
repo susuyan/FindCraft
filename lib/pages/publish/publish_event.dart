@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 abstract class PublishEvent extends Equatable {
   const PublishEvent();
@@ -13,5 +14,9 @@ class PublishDemand extends PublishEvent {
   final String city;
   final String address;
 
-  PublishDemand({this.title, this.content, this.city, this.address});
+  PublishDemand(
+      {@required this.title,
+      @required this.content,
+      @required this.city,
+      @required this.address});
 }

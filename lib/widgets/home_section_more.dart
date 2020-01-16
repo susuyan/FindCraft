@@ -11,8 +11,7 @@ class HomeSectionMore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
-      height: 62,
+      padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 10),
       color: Colors.white,
       child: Row(
         children: <Widget>[

@@ -35,6 +35,7 @@ class CraftTarget extends TargetType {
       case API.homeOrder:
       case API.demandList:
       case API.craftList:
+      case API.publishDemand:
         return HttpMethod.POST;
         break;
       default:

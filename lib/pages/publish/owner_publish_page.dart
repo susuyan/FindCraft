@@ -21,6 +21,8 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
   TextEditingController _contentController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
 
+  List<Tag> _seletedTags = List();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,14 +34,17 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
         child:
             BlocListener<PublishBloc, PublishState>(listener: (context, state) {
           if (state is PublishSuccess) {
-            Future.microtask(() {
-              showToast("message", context: context);
-            });
+            showToast("发布成功", context: context);
+            Application.router.pop(context);
           }
         }, child: BlocBuilder<PublishBloc, PublishState>(
           builder: (context, state) {
             _publishDemand() {
-              BlocProvider.of<PublishBloc>(context).add(PublishDemand());
+              BlocProvider.of<PublishBloc>(context).add(PublishDemand(
+                  title: _titleController.text,
+                  content: _contentController.text,
+                  address: _addressController.text,
+                  city: '北京'));
             }
 
             return Container(
@@ -95,6 +100,9 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
                             Tag('维修安装'),
                             Tag('接个人活')
                           ],
+                          selectedTags: (list) {
+                            _seletedTags = list;
+                          },
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 10, left: 20),

@@ -5,12 +5,10 @@ class DemandTag extends StatefulWidget {
   DemandTag({
     Key key,
     this.tags,
-    this.onPressedTag,
     this.selectedTags,
   }) : super(key: key);
 
   final List<Tag> tags;
-  final Function onPressedTag;
 
   final Function(List<Tag>) selectedTags;
 
@@ -52,10 +50,10 @@ class _DemandTagState extends State<DemandTag> {
                         onTap: () {
                           setState(() {
                             tag.isSelected = !tag.isSelected;
-                            if (widget.selectedTags != null) {
-                              widget.selectedTags(
-                                  widget.tags.where((tag) => tag.isSelected));
-                            }
+                            // if (widget.selectedTags != null) {
+                            //   widget.selectedTags(
+                            //       widget.tags.where((tag) => tag.isSelected));
+                            // }
                           });
                         },
                         child: TagItem(

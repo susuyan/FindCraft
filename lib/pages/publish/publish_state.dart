@@ -11,4 +11,5 @@ class InitialPublishState extends PublishState {
 }
 
 class PublishSuccess extends PublishState {}
+class PublishFailure extends PublishState {}
 class Publishing extends PublishState {}

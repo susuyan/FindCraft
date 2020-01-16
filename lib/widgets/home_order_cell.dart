@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 /// 精选雇主 Item
 class HomeOrderCell extends StatefulWidget {
   const HomeOrderCell({
-    this.didSelected, this.order,
+    this.didSelected,
+    this.order,
   });
   final Function didSelected;
   final HomeOrderModel order;
@@ -17,7 +18,6 @@ class HomeOrderCell extends StatefulWidget {
 class _HomeOrderCellState extends State<HomeOrderCell> {
   @override
   Widget build(BuildContext context) {
-
     var order = this.widget.order;
 
     return GestureDetector(
@@ -27,6 +27,9 @@ class _HomeOrderCellState extends State<HomeOrderCell> {
         color: Colors.white,
         child: Column(
           children: <Widget>[
+            SizedBox(
+              height: 12,
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
