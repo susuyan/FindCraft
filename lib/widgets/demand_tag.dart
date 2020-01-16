@@ -5,9 +5,10 @@ class DemandTag extends StatefulWidget {
   DemandTag({
     Key key,
     this.tags,
-    this.selectedTags,
-  }) : super(key: key);
+    this.selectedTags, this.padding = EdgeInsets.zero
 
+  }) : super(key: key);
+  final EdgeInsets padding;
   final List<Tag> tags;
 
   final Function(List<Tag>) selectedTags;
@@ -32,7 +33,7 @@ class _DemandTagState extends State<DemandTag> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+      padding: widget.padding,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

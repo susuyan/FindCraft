@@ -62,13 +62,32 @@ class UserRepository {
   }
 
   Future<UserEntity> requestSignOwner(SignOwnerInfo event) async {
-    SignAccountModel account =  SignAccountModel.fromJson(
+    SignAccountModel account = SignAccountModel.fromJson(
         StorageHelper.localStorage.getItem('SignAccount'));
     var api = API(API.signInfo, params: {
       'user_name': event.username,
       'user_wechat': event.wechat,
       'city': event.city,
       'user_id': account.id
+    });
+
+    var result = await Network.share.request(api);
+
+    var entity = UserEntity.fromJson(result.get()['data']);
+
+    return entity;
+  }
+
+  Future<UserEntity> requestSignCraft(SignCraftInfo event) async {
+    SignAccountModel account = SignAccountModel.fromJson(
+        StorageHelper.localStorage.getItem('SignAccount'));
+    var api = API(API.signInfo, params: {
+      'user_name': event.username,
+      'user_wechat': event.wechat,
+      'city': event.city,
+      'user_id': account.id,
+      'type01': '找木工',
+      'type02': '找瓦工'
     });
 
     var result = await Network.share.request(api);

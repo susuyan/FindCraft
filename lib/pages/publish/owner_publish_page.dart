@@ -93,6 +93,7 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
                           ),
                         ),
                         DemandTag(
+                          padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
                           tags: [
                             Tag('找木工'),
                             Tag('找瓦工'),

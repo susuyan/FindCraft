@@ -45,6 +45,14 @@ class SignBloc extends Bloc<SignEvent, SignState> {
       }
     }
 
-    if (event is SignCraftInfo) {}
+    if (event is SignCraftInfo) {
+      yield SignLoading();
+      try {
+        await repository.requestSignCraft(event);
+        yield SignedCraftInfo();
+      } catch (e) {
+        yield SignFailure('网络错误');
+      }
+    }
   }
 }
