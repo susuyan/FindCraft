@@ -1,26 +1,37 @@
 import 'package:find_craft/common/common_style.dart';
 import 'package:flutter/material.dart';
 
+class Tag {
+  Tag(this.title, {this.type,this.isSelected = false});
+  bool isSelected;
+  final String title;
+  final String type;
+}
+
+class DemandTagContrller extends ValueNotifier<List<Tag>> {
+  List<Tag> get selectedTags => value;
+  DemandTagContrller({List<Tag> tags}) : super(tags == null ? List() : tags);
+}
+
 class DemandTag extends StatefulWidget {
   DemandTag({
     Key key,
     this.tags,
-    this.selectedTags, this.padding = EdgeInsets.zero
-
+    this.padding = EdgeInsets.zero,
+    this.contrller,
   }) : super(key: key);
   final EdgeInsets padding;
   final List<Tag> tags;
+  final DemandTagContrller contrller;
 
-  final Function(List<Tag>) selectedTags;
+  List<Tag> get _selectedTags => tags.where((item) {
+        return item.isSelected;
+      }).toList();
+
+
 
   @override
   _DemandTagState createState() => _DemandTagState();
-}
-
-class Tag {
-  Tag(this.title, {this.isSelected = false});
-  bool isSelected;
-  final String title;
 }
 
 class _DemandTagState extends State<DemandTag> {
@@ -51,10 +62,9 @@ class _DemandTagState extends State<DemandTag> {
                         onTap: () {
                           setState(() {
                             tag.isSelected = !tag.isSelected;
-                            // if (widget.selectedTags != null) {
-                            //   widget.selectedTags(
-                            //       widget.tags.where((tag) => tag.isSelected));
-                            // }
+                            if (widget.contrller != null) {
+                              widget.contrller.value = widget._selectedTags;
+                            }
                           });
                         },
                         child: TagItem(

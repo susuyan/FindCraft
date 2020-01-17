@@ -11,16 +11,21 @@ class PublishRepository {
     SignAccountModel account = SignAccountModel.fromJson(
         StorageHelper.localStorage.getItem('SignAccount'));
     var token = StorageHelper.sharedPreferences.getString('token');
-    var api = API(API.publishDemand, params: {
+
+    var params = {
       'title': event.title,
       'content': event.content,
       'city': event.city,
       'user_id': account.id,
       'token': token,
       'address': event.address,
-      'type01': '找木工',
-      'type02': '找瓦工'
+    };
+    
+    event.tags.forEach((tag){
+      params[tag.type] = tag.title;
     });
+
+    var api = API(API.publishDemand, params: params);
 
     var result = await Network.share.request(api);
 

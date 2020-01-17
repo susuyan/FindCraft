@@ -21,7 +21,7 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
   TextEditingController _contentController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
 
-  List<Tag> _seletedTags = List();
+  DemandTagContrller _tagContrller = DemandTagContrller();
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +40,28 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
         }, child: BlocBuilder<PublishBloc, PublishState>(
           builder: (context, state) {
             _publishDemand() {
+              if (_titleController.text.isEmpty) {
+                showToast("标题不能为空", context: context);
+                return;
+              }
+
+              if (_contentController.text.isEmpty) {
+                showToast("需求不能为空", context: context);
+                return;
+              }
+
+              if (_tagContrller.selectedTags.length == 0) {
+                showToast("请选择需求类型", context: context);
+                return;
+              }
+
+              print(_tagContrller.selectedTags);
               BlocProvider.of<PublishBloc>(context).add(PublishDemand(
                   title: _titleController.text,
                   content: _contentController.text,
                   address: _addressController.text,
-                  city: '北京'));
+                  city: '北京',
+                  tags: _tagContrller.selectedTags));
             }
 
             return Container(
@@ -95,15 +112,13 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
                         DemandTag(
                           padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
                           tags: [
-                            Tag('找木工'),
-                            Tag('找瓦工'),
-                            Tag('找水电工'),
-                            Tag('维修安装'),
-                            Tag('接个人活')
+                            Tag('找木工', type: 'type01'),
+                            Tag('找瓦工', type: 'type02'),
+                            Tag('找水电工', type: 'type03'),
+                            Tag('维修安装', type: 'type04'),
+                            Tag('接个人活', type: 'type05')
                           ],
-                          selectedTags: (list) {
-                            _seletedTags = list;
-                          },
+                          contrller: _tagContrller,
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 10, left: 20),
