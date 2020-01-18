@@ -13,6 +13,9 @@ class SignAccountModel {
       this.dataJoined});
 
   SignAccountModel.fromJson(Map<String, dynamic> json) {
+    if (json == null) {
+      return;
+    }
     id = json['id'];
     userPhone = json['user_phone'];
     userPwd = json['user_pwd'];

@@ -95,12 +95,10 @@ class _LoginFormState extends State<LoginForm> {
           ),
         );
       }
+
+
     }, child: BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
-        // if (state is LoginLoading) {
-        //   _showLoading();
-        // }
-
         return Stack(
           children: <Widget>[
             Positioned.fill(
@@ -139,7 +137,7 @@ class _LoginFormState extends State<LoginForm> {
                               hintText: '手机号',
                               hintStyle: TextStyle(
                                   color: Color(0x47FFFFFF), fontSize: 12),
-                              hasFloatingPlaceholder: false,
+                              floatingLabelBehavior: FloatingLabelBehavior.never,
                               hoverColor: Colors.white,
                               border: InputBorder.none,
                             )),

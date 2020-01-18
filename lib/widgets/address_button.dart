@@ -8,27 +8,30 @@ class AddressButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.only(left: 15, right: 15),
-      decoration: BoxDecoration(
-          color: Color(0xFFF8F5F9),
-          border: Border.all(color: Color(0x47FFFFFF)),
-          borderRadius: BorderRadius.all(Radius.circular(6))),
-      child: Row(
-        children: <Widget>[
-          Text(
-            '所在位置',
-            style: CommonStyle.gray12,
-          ),
-          Spacer(),
-          Text('北京', style: CommonStyle.black12),
-          Icon(
-            Icons.arrow_right,
-            color: Colors.grey,
-          )
-        ],
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        height: 50,
+        margin: EdgeInsets.only(top: 20),
+        padding: EdgeInsets.only(left: 15, right: 15),
+        decoration: BoxDecoration(
+            color: Color(0xFFF8F5F9),
+            border: Border.all(color: Color(0x47FFFFFF)),
+            borderRadius: BorderRadius.all(Radius.circular(6))),
+        child: Row(
+          children: <Widget>[
+            Text(
+              '所在位置',
+              style: CommonStyle.gray12,
+            ),
+            Spacer(),
+            Text('北京', style: CommonStyle.black12),
+            Icon(
+              Icons.arrow_right,
+              color: Colors.grey,
+            )
+          ],
+        ),
       ),
     );
   }

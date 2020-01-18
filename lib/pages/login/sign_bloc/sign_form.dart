@@ -95,7 +95,7 @@ class _SignFormState extends State<SignForm> {
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: TextStyle(color: Color(0x47FFFFFF), fontSize: 12),
-            hasFloatingPlaceholder: false,
+            floatingLabelBehavior: FloatingLabelBehavior.never,
             hoverColor: Colors.white,
             border: InputBorder.none,
           )),

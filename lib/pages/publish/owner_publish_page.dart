@@ -82,7 +82,8 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
                                 hintText: '需求标题',
                                 hintStyle:
                                     TextStyle(color: Colors.grey, fontSize: 12),
-                                hasFloatingPlaceholder: false,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
                                 hoverColor: Colors.black,
                                 border: InputBorder.none,
                               )),
@@ -97,7 +98,7 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
                                 hintText: '描述你具体的需求',
                                 hintStyle:
                                     TextStyle(color: Colors.grey, fontSize: 12),
-                                hasFloatingPlaceholder: false,
+                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                 hoverColor: Colors.black,
                                 border: InputBorder.none,
                               )),
@@ -143,7 +144,7 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
                                 hintText: '详细地址',
                                 hintStyle:
                                     TextStyle(color: Colors.grey, fontSize: 12),
-                                hasFloatingPlaceholder: false,
+                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                 hoverColor: Colors.black,
                                 border: InputBorder.none,
                               )),

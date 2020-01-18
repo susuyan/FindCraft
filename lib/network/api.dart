@@ -14,6 +14,9 @@ class API {
   static const login = APIPath('/login/', name: 'login');
   // 注册
   static const sign = APIPath('/create/', name: 'sign');
+  // 获取所有用户
+  static const userInfo = APIPath('/create/', name: 'userInfo');
+
   // 选择身份
   static const signInfo = APIPath('/role/', name: 'signInfo');
   // 发布需求

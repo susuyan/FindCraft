@@ -27,24 +27,6 @@ class _SignpageState extends State<Signpage> {
                         fit: BoxFit.fill)),
               ),
             ),
-            Positioned(
-              left: 10,
-              top: 20,
-              child: Container(
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(left: 4, top: 10),
-                child: CupertinoButton(
-                  onPressed: () {
-                    Application.router.pop(context);
-                  },
-                  child: Image(
-                    width: 22,
-                    height: 22,
-                    image: AssetImage('assets/images/nav_back.png'),
-                  ),
-                ),
-              ),
-            ),
             ListView(
               children: <Widget>[
                 Container(

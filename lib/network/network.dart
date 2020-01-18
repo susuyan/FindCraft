@@ -1,26 +1,50 @@
-import 'package:cookie_jar/cookie_jar.dart';
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
-import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:find_craft/helper/storage_helper.dart';
+import 'package:dio/native_imp.dart';
 
 import 'package:find_craft/network/task.dart';
 import 'package:find_craft/network/craft_target.dart';
 import 'package:find_craft/network/noya_error.dart';
 import 'package:find_craft/network/target_type.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:result/result.dart';
 
 import 'api.dart';
 
-void main() async {
-  var api =
-      API(API.homeOrder, params: {'token': '73ea2e4943f9ab9c98d49370dcd87b8a'});
-
-  Network.share.request(api);
+// 必须是顶层函数
+_parseAndDecode(String response) {
+  return jsonDecode(response);
 }
 
-typedef SuccessCallback = Function(dynamic json);
-typedef FaliureCallback = Function(NoyaError error);
+parseJson(String text) {
+  return compute(_parseAndDecode, text);
+}
+
+abstract class NoyaProvider extends DioForNative {
+  NoyaProvider() {
+    (transformer as DefaultTransformer).jsonDecodeCallback = parseJson;
+  }
+
+  init<T extends TargetType>(T targetType);
+}
+
+/// 子类需要重写
+abstract class ResponseData {
+  int code = 0;
+  String message;
+  dynamic data;
+
+  bool get success;
+
+  ResponseData({this.code, this.message, this.data});
+
+  @override
+  String toString() {
+    return 'RespData{code: $code, message: $message, data: $data}';
+  }
+}
 
 class Network {
   static Network share = Network();
@@ -31,17 +55,11 @@ class Network {
     dio.options.baseUrl = targetType.baseUrl;
     dio.options.method = targetType.method.value;
     dio.options.queryParameters = targetType.parameters;
-
-    dio.interceptors.add(CookieManager(
-        PersistCookieJar(dir: StorageHelper.temporaryDirectory.path)));
-
     dio.options.headers.addAll(targetType.headers);
   }
 
-  Future<Result> request<T extends API>(T api, {bool isList}) async {
+  Future<Result> request<T extends API>(T api) async {
     var targetType = CraftTarget(api);
-
-    setupDio(targetType);
 
     Response response;
     Result<dynamic, NoyaError> result;

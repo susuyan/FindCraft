@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:find_craft/widgets/demand_tag.dart';
 import 'package:meta/meta.dart';
 
 abstract class SignEvent extends Equatable {
@@ -26,14 +27,21 @@ class SignOwnerInfo extends SignEvent {
   final String wechat;
   final String city;
 
-  SignOwnerInfo(
-      {@required this.username, @required this.wechat, @required this.city});
+  SignOwnerInfo({
+    @required this.username,
+    @required this.wechat,
+    @required this.city,
+  });
 }
 
 class SignCraftInfo extends SignEvent {
   final String username;
   final String wechat;
   final String city;
+  final List<Tag> tags;
   SignCraftInfo(
-      {@required this.username, @required this.wechat, @required this.city});
+      {@required this.username,
+      @required this.wechat,
+      @required this.city,
+      @required this.tags});
 }

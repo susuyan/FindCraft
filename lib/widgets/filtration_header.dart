@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FiltrationHeader extends StatefulWidget {
-  FiltrationHeader({Key key}) : super(key: key);
+  FiltrationHeader({Key key, this.onSelectCity}) : super(key: key);
+  final Function onSelectCity;
 
   @override
   _FiltrationHeaderState createState() => _FiltrationHeaderState();
@@ -31,8 +32,12 @@ class _FiltrationHeaderState extends State<FiltrationHeader> {
                   ),
                   Text('最新'),
                   Spacer(),
-                  Text('北京'),
-                  Icon(Icons.arrow_right)
+                  GestureDetector(
+                    onTap: widget.onSelectCity,
+                    child: Row(
+                      children: <Widget>[Text('北京'), Icon(Icons.arrow_right)],
+                    ),
+                  )
                 ],
               ),
             )

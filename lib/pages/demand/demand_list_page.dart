@@ -1,3 +1,4 @@
+import 'package:city_pickers/city_pickers.dart';
 import 'package:find_craft/pages/demand/bloc.dart';
 import 'package:find_craft/widgets/demand_cell.dart';
 import 'package:find_craft/widgets/filtration_header.dart';
@@ -30,6 +31,12 @@ class _DemandListPageState extends State<DemandListPage> {
             BlocProvider.of<DemandBloc>(context).add(FetchDemand());
           }
 
+          _showSelectCity() async {
+            CityPickers.showCitiesSelector(
+              context: context,
+            );
+          }
+
           return Scaffold(
             appBar: AppBar(
               title: Text('需求列表'),
@@ -37,7 +44,11 @@ class _DemandListPageState extends State<DemandListPage> {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                FiltrationHeader(),
+                FiltrationHeader(
+                  onSelectCity: () {
+                    _showSelectCity();
+                  },
+                ),
                 Expanded(
                   child: SmartRefresher(
                     controller: _refreshController,

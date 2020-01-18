@@ -42,7 +42,7 @@ class UserRepository {
     await prefs.setString('token', model.token);
   }
 
-  static Future<UserModel> requestLogin(
+  Future<UserModel> requestLogin(
     LoginButtonPressed event,
   ) async {
     var api = API(API.login,
@@ -50,6 +50,11 @@ class UserRepository {
     var result = await Network.share.request(api);
 
     return UserModel.fromJson(result.get()['data']);
+  }
+
+  Future requestUserInfo() async {
+    var api = API(API.userInfo);
+    Network.share.request(api);
   }
 
   Future<SignAccountModel> requestSign(SignButtonPressed event) async {
@@ -78,22 +83,27 @@ class UserRepository {
     return entity;
   }
 
-  Future<UserEntity> requestSignCraft(SignCraftInfo event) async {
+  Future requestSignCraft(SignCraftInfo event) async {
     SignAccountModel account = SignAccountModel.fromJson(
         StorageHelper.localStorage.getItem('SignAccount'));
-    var api = API(API.signInfo, params: {
+
+    var params = {
       'user_name': event.username,
       'user_wechat': event.wechat,
       'city': event.city,
       'user_id': account.id,
-      'type01': '找木工',
-      'type02': '找瓦工'
+    };
+
+    event.tags.forEach((tag) {
+      params[tag.type] = tag.title;
     });
 
-    var result = await Network.share.request(api);
+    var api = API(API.signInfo, params: params);
 
-    var entity = UserEntity.fromJson(result.get()['data']);
+    await Network.share.request(api);
 
-    return entity;
+    // var entity = UserEntity.fromJson(result.get()['data']);
+
+    // return entity;
   }
 }

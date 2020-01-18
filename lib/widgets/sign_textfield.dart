@@ -30,7 +30,7 @@ class SignTextField extends StatelessWidget {
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: TextStyle(color: Colors.grey, fontSize: 12),
-            hasFloatingPlaceholder: false,
+            floatingLabelBehavior: FloatingLabelBehavior.never,
             hoverColor: Colors.grey,
             border: InputBorder.none,
           )),

@@ -1,4 +1,5 @@
 import 'package:find_craft/application.dart';
+import 'package:find_craft/pages/authentication/bloc.dart';
 import 'package:find_craft/pages/login/sign_bloc/bloc.dart';
 import 'package:find_craft/route/routes.dart';
 import 'package:find_craft/widgets/address_button.dart';
@@ -19,6 +20,7 @@ class SignCraftInfoPage extends StatefulWidget {
 class _SignCraftInfoPageState extends State<SignCraftInfoPage> {
   TextEditingController _usernameContrller = TextEditingController();
   TextEditingController _wechatContrller = TextEditingController();
+  DemandTagContrller _tagContrller = DemandTagContrller();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,8 @@ class _SignCraftInfoPageState extends State<SignCraftInfoPage> {
         title: Text('身份信息'),
       ),
       body: BlocProvider(
-        create: (context) => SignBloc(),
+        create: (context) => SignBloc(
+            authenticationBloc: BlocProvider.of<AuthenticationBloc>(context)),
         child: BlocListener<SignBloc, SignState>(listener: (context, state) {
           if (state is SignedCraftInfo) {
             showToast('注册完成');
@@ -37,9 +40,23 @@ class _SignCraftInfoPageState extends State<SignCraftInfoPage> {
         }, child: BlocBuilder<SignBloc, SignState>(
           builder: (context, state) {
             _onCommit() {
+              if (_tagContrller.selectedTags.length == 0) {
+                showToast('请选择擅长的技能');
+                return;
+              }
+              if (_usernameContrller.text.isEmpty) {
+                showToast('请输入你的名字');
+                return;
+              }
+              if (_wechatContrller.text.isEmpty) {
+                showToast('请输入你的微信号');
+                return;
+              }
+
               BlocProvider.of<SignBloc>(context).add(SignCraftInfo(
                   username: _usernameContrller.text,
                   wechat: _wechatContrller.text,
+                  tags: _tagContrller.selectedTags,
                   city: '北京'));
             }
 
@@ -73,13 +90,14 @@ class _SignCraftInfoPageState extends State<SignCraftInfoPage> {
                     ),
                   ),
                   DemandTag(
+                    contrller: _tagContrller,
                     padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
                     tags: [
-                      Tag('找木工'),
-                      Tag('找瓦工'),
-                      Tag('找水电工'),
-                      Tag('维修安装'),
-                      Tag('接个人活')
+                      Tag('找木工', type: 'type01'),
+                      Tag('找瓦工', type: 'type02'),
+                      Tag('找水电工', type: 'type03'),
+                      Tag('维修安装', type: 'type04'),
+                      Tag('接个人活', type: 'type05')
                     ],
                   ),
                   SignTextField(

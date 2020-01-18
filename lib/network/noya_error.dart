@@ -1,3 +1,5 @@
+import 'package:find_craft/network/network.dart';
+
 enum NoyaErrorType { SERVER, DEFAULT }
 
 class NoyaError implements Exception {
@@ -5,6 +7,10 @@ class NoyaError implements Exception {
     this.type = NoyaErrorType.DEFAULT,
     this.error,
   });
+
+  NoyaError.fromRespData(ResponseData respData) {
+    error = respData.message;
+  }
 
   NoyaErrorType type;
 

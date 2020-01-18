@@ -9,6 +9,7 @@ import 'package:meta/meta.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthenticationBloc authenticationBloc;
+  final UserRepository userRepository = UserRepository();
 
   LoginBloc({@required this.authenticationBloc})
       : assert(authenticationBloc != null);
@@ -26,9 +27,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield LoginFailure(error: '手机号和密码不能为空');
       } else {
         try {
-          var model = await UserRepository.requestLogin(event);
+          var model = await userRepository.requestLogin(event);
           await UserRepository.storeToken(model);
+          await userRepository.requestUserInfo();
           authenticationBloc.add(LoggedIn());
+
+          print('开始登陆');
           yield LoginSuccess();
         } catch (_) {
           yield LoginFailure(error: '网络错误');
