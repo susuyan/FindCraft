@@ -28,152 +28,143 @@ class _MinePageState extends State<MinePage>
           create: (context) => MineBloc()..add(FetchMine()),
         ),
       ],
-      child: SafeArea(
-        top: false,
-        bottom: false,
-        child: Scaffold(
-          body: Container(
-            padding: EdgeInsets.zero,
-            child: BlocBuilder<MineBloc, MineState>(
-              builder: (context, state) {
-                MineModel mine;
+      child: Scaffold(
+        body: Container(
+          child: BlocBuilder<MineBloc, MineState>(
+            builder: (context, state) {
+              MineModel mine;
 
-                if (state is LoadedMine) {
-                  mine = state.mine;
-                }
+              if (state is LoadedMine) {
+                mine = state.mine;
+              }
 
-                if (mine == null) {
-                  return Container(
-                    child: Center(
-                      child: FlatButton(
-                        onPressed: () {
-                          BlocProvider.of<AuthenticationBloc>(context)
-                              .add(LoggedOut());
-                        },
-                        child: Text('退出登录'),
-                      ),
+              if (mine == null) {
+                return Container(
+                  child: Center(
+                    child: FlatButton(
+                      onPressed: () {
+                        BlocProvider.of<AuthenticationBloc>(context)
+                            .add(LoggedOut());
+                      },
+                      child: Text('退出登录'),
                     ),
-                  );
-                }
+                  ),
+                );
+              }
 
-                return ListView(
-                  padding: EdgeInsets.zero,
+              return Container(
+                child: ListView(
                   children: <Widget>[
                     _createHeader(mine),
                     Container(
-                      height: 69,
                       color: Colors.white,
+                      height: 69,
                       alignment: Alignment.center,
                       child: _createEditButton(),
                     ),
-                    Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(left: 40),
-                          child: Text(
-                            '施工图',
-                            style: CommonStyle.black12,
-                          ),
-                        ),
-                        Spacer(),
-                        Padding(
-                          padding:
-                              EdgeInsets.only(top: 34, right: 20, bottom: 17),
-                          child: GestureDetector(
-                            onTap: () {
-                              // Todo: 上传图片
-                              Application.router
-                                  .navigateTo(context, Routes.workGallery);
-                            },
-                            child: Image(
-                              image:
-                                  AssetImage('assets/images/upload_icon.png'),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                    _createSection(),
                     _createWorkGallery()
                   ],
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),
     );
   }
 
-// 创建头部
-  Widget _createHeader(MineModel mine) => Stack(
-        alignment: Alignment.center,
-        overflow: Overflow.visible,
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              height: 269,
+  Widget _createSection() {
+    return Row(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(left: 40),
+          child: Text(
+            '施工图',
+            style: CommonStyle.black12,
+          ),
+        ),
+        Spacer(),
+        Padding(
+          padding: EdgeInsets.only(top: 34, right: 20, bottom: 17),
+          child: GestureDetector(
+            onTap: () {
+              // Todo: 上传图片
+              Application.router.navigateTo(context, Routes.workGallery);
+            },
+            child: Image(
+              image: AssetImage('assets/images/upload_icon.png'),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _createHeader(MineModel mine) => Container(
+        height: mine.tags.length != 0 ? 269 : 200,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Positioned.fill(
               child: Image(
                 image: AssetImage('assets/images/mine_header_bg.png'),
+                fit: BoxFit.fill,
               ),
             ),
-          ),
-          Positioned(
-            top: 46,
-            child: Container(
-              height: 120,
-              width: 120,
+            Positioned(
+              top: 46,
+              child: Container(
+                height: 120,
+                width: 120,
+                decoration: BoxDecoration(
+                    color: Color(0x51A0FAaa),
+                    borderRadius: BorderRadius.circular(60)),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 112, 0, 0),
               decoration: BoxDecoration(
-                  color: Color(0x51A0FAaa),
-                  borderRadius: BorderRadius.circular(60)),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.zero,
+                    bottomRight: Radius.zero,
+                    topRight: Radius.circular(20)),
+                color: Colors.white,
+              ),
             ),
-          ),
-          Positioned(
-            height: 157,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      bottomLeft: Radius.zero,
-                      bottomRight: Radius.zero,
-                      topRight: Radius.circular(20)),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(offset: Offset(0, 5), color: Color(0x33BEBEBE))
-                  ]),
+            // 头像
+            Positioned(
+              top: 51,
+              child: FLAvatar(
+                height: 110,
+                width: 110,
+                radius: 55,
+                color: Colors.blue,
+                text: 'TE',
+                textStyle: TextStyle(color: Colors.white),
+              ),
             ),
-          ),
-          Positioned(
-            bottom: 109,
-            child: FLAvatar(
-              height: 110,
-              width: 110,
-              radius: 55,
-              color: Colors.blue,
-              text: 'TE',
-              textStyle: TextStyle(color: Colors.white),
+            // 用户名
+            Positioned(
+              top: 181,
+              child: Text(mine.userName),
             ),
-          ),
-          Positioned(
-            bottom: 68,
-            child: Text(mine.userName),
-          ),
-          Positioned(
-            bottom: 25,
-            child: CraftTagsView(
-              tags: mine.tags,
+            // 标签
+            Positioned(
+              bottom: 25,
+              child: CraftTagsView(
+                tags: mine.tags,
+              ),
             ),
-          ),
-          // 设置按钮
-          Positioned(
-            bottom: 110,
-            right: 20,
-            child: _createSettingsButton(),
-          )
-        ],
+            // 设置按钮
+            Positioned(
+              top: 127,
+              right: 20,
+              child: _createSettingsButton(),
+            )
+          ],
+        ),
       );
 
 // 设置按钮
