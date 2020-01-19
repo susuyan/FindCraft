@@ -75,19 +75,18 @@ class _BottomNavigationDotBarState extends State<BottomNavigationDotBar> {
                       curve: Curves.fastOutSlowIn,
                       left: _positionLeftIndicatorDot,
                       bottom: 0),
-                  Positioned(
-                      bottom: 1,
-                      child: Center(
-                        widthFactor: 10,
-                        child: GestureDetector(
-                          onTap: this.widget.addPressed,
-                          child: ImageIcon(
-                            AssetImage('assets/images/tab_add_icon.png'),
-                            color: _activeColor,
-                            size: 35,
-                          ),
-                        ),
-                      ))
+                  Container(
+                    height: 35,
+                    alignment: Alignment.center,
+                    child: GestureDetector(
+                      onTap: this.widget.addPressed,
+                      child: ImageIcon(
+                        AssetImage('assets/images/tab_add_icon.png'),
+                        color: _activeColor,
+                        size: 35,
+                      ),
+                    ),
+                  )
                 ],
               ),
             )),
