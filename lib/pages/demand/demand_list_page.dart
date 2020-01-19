@@ -1,7 +1,10 @@
 import 'package:city_pickers/city_pickers.dart';
+import 'package:find_craft/application.dart';
 import 'package:find_craft/pages/demand/bloc.dart';
+import 'package:find_craft/route/routes.dart';
 import 'package:find_craft/widgets/demand_cell.dart';
 import 'package:find_craft/widgets/filtration_header.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -58,6 +61,14 @@ class _DemandListPageState extends State<DemandListPage> {
                         ? ListView.builder(
                             itemBuilder: (BuildContext context, int index) {
                               return DemandCell(
+                                onPressed: () {
+                                  var demandId = state.demandList[index].id;
+                                  Application.router.navigateTo(
+                                      context,
+                                      Routes.demandDetails +
+                                          '?order_id=$demandId',
+                                      transition: TransitionType.cupertino);
+                                },
                                 demand: state.demandList[index],
                               );
                             },
