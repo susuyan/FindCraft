@@ -65,14 +65,14 @@ class _CraftDetailsPageState extends State<CraftDetailsPage> {
                   Padding(
                     padding: EdgeInsets.only(left: 20, right: 20),
                     child: ContactInfo(
-                      icon: Icons.phone,
+                      icon: 'assets/images/address_icon.png',
                       info: craft.userPhone,
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 20, right: 20),
                     child: ContactInfo(
-                      icon: Icons.phone,
+                      icon: 'assets/images/wechat_icon.png',
                       info: craft.userWechat,
                     ),
                   ),

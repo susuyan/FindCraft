@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ContactInfo extends StatefulWidget {
   ContactInfo({this.icon, this.info, Key key}) : super(key: key);
-  final IconData icon;
+  final String icon;
   final String info;
   @override
   _ContactInfoState createState() => _ContactInfoState();
@@ -19,7 +19,10 @@ class _ContactInfoState extends State<ContactInfo> {
       padding: EdgeInsets.fromLTRB(15, 12, 12, 15),
       child: Row(
         children: <Widget>[
-          Icon(this.widget.icon),
+          Image(
+            width: 20,
+            image: AssetImage(this.widget.icon),
+          ),
           SizedBox(
             width: 20,
           ),

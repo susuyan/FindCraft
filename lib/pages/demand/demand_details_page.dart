@@ -59,17 +59,18 @@ class _DemandDetailsPageState extends State<DemandDetailsPage> {
                         child: Text(demand.userName),
                       ),
                     ),
+                    
                     _createDetailsInfo(demand.title, demand.content),
                     ContactInfo(
-                      icon: Icons.location_city,
+                      icon: 'assets/images/address_icon.png',
                       info: demand.address,
                     ),
                     ContactInfo(
-                      icon: Icons.phone,
+                      icon: 'assets/images/phone_icon.png',
                       info: demand.userPhone,
                     ),
                     ContactInfo(
-                      icon: Icons.access_alarm,
+                      icon: 'assets/images/wechat_icon.png',
                       info: demand.userWechat,
                     )
                   ],
