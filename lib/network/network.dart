@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/native_imp.dart';
 
@@ -72,6 +74,11 @@ class Network extends NoyaProvider {
         compact: true,
         maxWidth: 90);
     interceptors.add(log);
+
+    (httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+    client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return client;
+};
   }
 
   // 配置Dio

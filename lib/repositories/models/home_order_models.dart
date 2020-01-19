@@ -1,26 +1,3 @@
-class HomeOrderModels {
-  List<HomeOrderModel> data;
-
-  HomeOrderModels({this.data});
-
-  HomeOrderModels.fromJson(Map<String, dynamic> json) {
-    if (json['data'] != null) {
-      data = new List<HomeOrderModel>();
-      json['data'].forEach((v) {
-        data.add(new HomeOrderModel.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
 class HomeOrderModel {
   int id;
   int userId;

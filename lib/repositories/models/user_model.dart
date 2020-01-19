@@ -23,10 +23,10 @@ class UserEntity {
   String userName;
   String userWechat;
   String city;
-  Null type01;
-  Null type02;
-  Null type03;
-  Null type04;
+  String type01;
+  String type02;
+  String type03;
+  String type04;
   String typecode;
 
   UserEntity(

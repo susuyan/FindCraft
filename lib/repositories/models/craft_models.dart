@@ -1,32 +1,3 @@
-class CraftModels {
-  int code;
-  String msg;
-  List<CraftModel> data;
-
-  CraftModels({this.code, this.msg, this.data});
-
-  CraftModels.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    msg = json['msg'];
-    if (json['data'] != null) {
-      data = new List<CraftModel>();
-      json['data'].forEach((v) {
-        data.add(new CraftModel.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
-    data['msg'] = this.msg;
-    if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
 class CraftModel {
   int id;
   int userId;

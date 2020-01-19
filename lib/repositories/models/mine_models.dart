@@ -1,32 +1,3 @@
-class MineModels {
-  int code;
-  String msg;
-  List<MineModel> data;
-
-  MineModels({this.code, this.msg, this.data});
-
-  MineModels.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    msg = json['msg'];
-    if (json['data'] != null) {
-      data = new List<MineModel>();
-      json['data'].forEach((v) {
-        data.add(new MineModel.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
-    data['msg'] = this.msg;
-    if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
 class MineModel {
   int id;
   int userId;
