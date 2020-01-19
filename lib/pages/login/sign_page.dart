@@ -30,7 +30,19 @@ class _SignpageState extends State<Signpage> {
             ListView(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.fromLTRB(42, 100, 0, 0),
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(left: 10, top: 10),
+                  child: CupertinoButton(
+                    onPressed: () {
+                      Application.router.pop(context);
+                    },
+                    child: Image(
+                      image: AssetImage('assets/images/nav_back.png'),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(42, 50, 0, 0),
                   child: Text(
                     '注册账号',
                     style: TextStyle(color: Colors.white, fontSize: 12),

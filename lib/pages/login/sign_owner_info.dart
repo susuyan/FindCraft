@@ -84,7 +84,7 @@ class _SignOwnerInfoPageState extends State<SignOwnerInfoPage> {
                     margin: EdgeInsets.only(top: 20),
                     controller: _wechatContrller,
                   ),
-                  AddressButton(),
+                  AddressButton(onPressed: (){},),
                   CommitButton(
                       onPressed: state is! SignLoading ? _onCommit : null)
                 ],

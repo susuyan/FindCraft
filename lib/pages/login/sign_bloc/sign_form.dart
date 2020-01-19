@@ -42,7 +42,8 @@ class _SignFormState extends State<SignForm> {
           }
 
           if (state is SignedAccount) {
-            Application.router.navigateTo(context, Routes.signRole, transition: TransitionType.cupertino);
+            Application.router.navigateTo(context, Routes.signRole,
+                transition: TransitionType.cupertino);
           }
         },
         child: BlocProvider(

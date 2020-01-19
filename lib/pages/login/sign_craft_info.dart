@@ -34,6 +34,7 @@ class _SignCraftInfoPageState extends State<SignCraftInfoPage> {
         child: BlocListener<SignBloc, SignState>(listener: (context, state) {
           if (state is SignedCraftInfo) {
             showToast('注册完成');
+
             Application.router
                 .navigateTo(context, Routes.login, clearStack: true);
           }
@@ -110,7 +111,9 @@ class _SignCraftInfoPageState extends State<SignCraftInfoPage> {
                     hintText: '输入微信号便于客户联系',
                     margin: EdgeInsets.only(top: 20),
                   ),
-                  AddressButton(),
+                  AddressButton(
+                    onPressed: () {},
+                  ),
                   CommitButton(
                       onPressed: state is! SignLoading ? _onCommit : null)
                 ],

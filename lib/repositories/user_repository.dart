@@ -50,7 +50,10 @@ class UserRepository {
   Future<SignAccountModel> requestUserInfo(String username) async {
     var api = API(API.userInfo, params: {});
     var result = await network.requestApi(api);
-    List<SignAccountModel> model = UsersInfoModel.fromJson(result.get()).data;
+    List list = result.get();
+    List<SignAccountModel> model = list
+        .map<SignAccountModel>((item) => SignAccountModel.fromJson(item))
+        .toList();
     model.retainWhere((user) => user.userPhone == username);
     var currentAccount = model.first;
     StorageHelper.localStorage.setItem('SignAccount', currentAccount.toJson());

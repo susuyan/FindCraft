@@ -45,7 +45,7 @@ class SignBloc extends Bloc<SignEvent, SignState> {
       try {
         await repository.requestSignOwner(event);
         authenticationBloc.add(AppStarted());
-        // yield SignedOwnerInfo();
+        yield SignedOwnerInfo();
       } catch (e) {
         yield SignFailure('网络错误');
       }
@@ -55,8 +55,8 @@ class SignBloc extends Bloc<SignEvent, SignState> {
       yield SignLoading();
       try {
         await repository.requestSignCraft(event);
-        authenticationBloc.add(AppStarted());
-        // yield SignedCraftInfo();
+        yield SignedCraftInfo();
+        
       } catch (e) {
         yield SignFailure('网络错误');
       }
