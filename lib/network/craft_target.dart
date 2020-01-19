@@ -26,7 +26,7 @@ class CraftTarget extends TargetType {
 
   @override
   Map<String, dynamic> get parameters =>
-      api.params.isNotEmpty ? api.params : {};
+      api.params != null ? api.params : {};
 
   @override
   String get path => api.path.path;

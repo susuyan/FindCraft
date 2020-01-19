@@ -25,43 +25,44 @@ class UserRepository {
     return;
   }
 
-  Future<void> persistToken(String token) async {
-    /// write to keystore/keychain
-    await Future.delayed(Duration(seconds: 1));
-    return;
-  }
-
   Future<bool> hasToken() async {
     /// read from keystore/keychain
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.containsKey('token');
   }
 
-  static Future<void> storeToken(UserModel model) async {
+  Future<void> storeToken(UserModel model) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', model.token);
   }
 
+  // 登录
   Future<UserModel> requestLogin(
     LoginButtonPressed event,
   ) async {
     var api = API(API.login,
         params: {'user_phone': event.username, 'user_pwd': event.password});
-    var result = await Network.share.request(api);
+    var result = await network.requestApi(api);
 
-    return UserModel.fromJson(result.get()['data']);
+    return UserModel.fromJson(result.get());
   }
 
-  Future requestUserInfo() async {
-    var api = API(API.userInfo);
-    Network.share.request(api);
+  Future<SignAccountModel> requestUserInfo(String username) async {
+    var api = API(API.userInfo, params: {});
+    var result = await network.requestApi(api);
+    List<SignAccountModel> model = UsersInfoModel.fromJson(result.get()).data;
+    model.retainWhere((user) => user.userPhone == username);
+    var currentAccount = model.first;
+    StorageHelper.localStorage.setItem('SignAccount', currentAccount.toJson());
+
+    return currentAccount;
   }
 
   Future<SignAccountModel> requestSign(SignButtonPressed event) async {
     var api = API(API.sign,
         params: {'user_phone': event.username, 'user_pwd': event.password});
-    var result = await Network.share.request(api);
-    var model = SignAccountModel.fromJson(result.get()['data']);
+    var result = await network.requestApi(api);
+    var model = SignAccountModel.fromJson(result.get());
     StorageHelper.localStorage.setItem('SignAccount', model.toJson());
     return model;
   }
@@ -76,9 +77,9 @@ class UserRepository {
       'user_id': account.id
     });
 
-    var result = await Network.share.request(api);
+    var result = await network.requestApi(api);
 
-    var entity = UserEntity.fromJson(result.get()['data']);
+    var entity = UserEntity.fromJson(result.get());
 
     return entity;
   }
@@ -100,7 +101,7 @@ class UserRepository {
 
     var api = API(API.signInfo, params: params);
 
-    await Network.share.request(api);
+    await network.requestApi(api);
 
     // var entity = UserEntity.fromJson(result.get()['data']);
 

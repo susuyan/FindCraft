@@ -11,15 +11,18 @@ class HomeRepository {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     var api = API(API.homeOrder, params: {'token': token});
-    var result = await Network.share.request(api);
-    return HomeOrderModels.fromJson(result.get()).data;
+    var result = await network.requestApi(api);
+    List list = result.get();
+    return list.map<HomeOrderModel>((item) => HomeOrderModel.fromJson(item)).toList();
   }
 
   static Future<List<CraftModel>> requestCraft() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     var api = API(API.homeCraft, params: {'token': token});
-    var result = await Network.share.request(api);
-    return CraftModels.fromJson(result.get()).data;
+    var result = await network.requestApi(api);
+    List list = result.get();
+
+    return list.map<CraftModel>((item) => CraftModel.fromJson(item)).toList();
   }
 }

@@ -9,9 +9,9 @@ class CraftRepository {
     var token = prefs.getString('token');
     var api = API(API.craftList, params: {'token': token, 'city': '北京'});
 
-    var result = await Network.share.request(api);
-
-    return CraftModels.fromJson(result.get()).data;
+    var result = await network.requestApi(api);
+    List list = result.get();
+    return list.map<CraftModel>((item) => CraftModel.fromJson(item)).toList();
   }
 
   Future<CraftModel> requestCraftDetails(String craftId) async {
@@ -19,8 +19,13 @@ class CraftRepository {
     var token = prefs.getString('token');
     var api = API(API.craftDetails, params: {'token': token, 'id': craftId});
 
-    var result = await Network.share.request(api);
+    var result = await network.requestApi(api);
 
-    return CraftModels.fromJson(result.get()).data.first;
+    List list = result.get();
+
+    return list
+        .map<CraftModel>((item) => CraftModel.fromJson(item))
+        .toList()
+        .first;
   }
 }

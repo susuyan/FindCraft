@@ -27,7 +27,7 @@ class PublishRepository {
 
     var api = API(API.publishDemand, params: params);
 
-    var result = await Network.share.request(api);
+    var result = await network.requestApi(api);
 
     return DemandModel.fromJson(result.get()['data']);
   }

@@ -9,9 +9,9 @@ class DemandRepository {
     var token = prefs.getString('token');
     var api = API(API.demandList, params: {'token': token, 'city': '北京'});
 
-    var result = await Network.share.request(api);
-
-    return DemandModels.fromJson(result.get()).data;
+    var result = await network.requestApi(api);
+    List list = result.get();
+    return list.map<DemandModel>((item) => DemandModel.fromJson(item)).toList();
   }
 
   Future<DemandModel> requestDemandDetails(String orderId) async {
@@ -19,8 +19,13 @@ class DemandRepository {
     var token = prefs.getString('token');
     var api = API(API.demandDetails, params: {'token': token, 'id': orderId});
 
-    var result = await Network.share.request(api);
+    var result = await network.requestApi(api);
 
-    return DemandModels.fromJson(result.get()).data.first;
+    List list = result.get();
+
+    return list
+        .map<DemandModel>((item) => DemandModel.fromJson(item))
+        .toList()
+        .first;
   }
 }

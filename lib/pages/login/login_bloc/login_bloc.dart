@@ -28,13 +28,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } else {
         try {
           var model = await userRepository.requestLogin(event);
-          await UserRepository.storeToken(model);
-          await userRepository.requestUserInfo();
+          await userRepository.storeToken(model);
           authenticationBloc.add(LoggedIn());
+          await userRepository.requestUserInfo(event.username);
 
-          print('开始登陆');
           yield LoginSuccess();
-        } catch (_) {
+        } catch (e) {
           yield LoginFailure(error: '网络错误');
         }
       }

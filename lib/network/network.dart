@@ -8,6 +8,7 @@ import 'package:find_craft/network/craft_target.dart';
 import 'package:find_craft/network/noya_error.dart';
 import 'package:find_craft/network/target_type.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'package:result/result.dart';
 
@@ -25,20 +26,21 @@ parseJson(String text) {
 abstract class NoyaProvider extends DioForNative {
   NoyaProvider() {
     (transformer as DefaultTransformer).jsonDecodeCallback = parseJson;
+    init();
   }
 
-  init<T extends TargetType>(T targetType);
+  init();
 }
 
 /// 子类需要重写
-abstract class ResponseData {
+abstract class NoyaResponseData {
   int code = 0;
   String message;
   dynamic data;
 
   bool get success;
 
-  ResponseData({this.code, this.message, this.data});
+  NoyaResponseData({this.code, this.message, this.data});
 
   @override
   String toString() {
@@ -46,54 +48,72 @@ abstract class ResponseData {
   }
 }
 
-class Network {
-  static Network share = Network();
-  final Dio dio = Dio();
-  // 配置Dio
-  void setupDio(TargetType targetType) async {
-    dio.interceptors.addAll(targetType.interceptors);
-    dio.options.baseUrl = targetType.baseUrl;
-    dio.options.method = targetType.method.value;
-    dio.options.queryParameters = targetType.parameters;
-    dio.options.headers.addAll(targetType.headers);
+class ResponseData extends NoyaResponseData {
+  bool get success => 0 == code;
+
+  ResponseData.fromJson(Map<String, dynamic> json) {
+    code = json['code'];
+    message = json['msg'];
+    data = json['data'];
+  }
+}
+
+final Network network = Network();
+
+class Network extends NoyaProvider {
+  @override
+  init() {
+    var log = PrettyDioLogger(
+        requestHeader: false,
+        requestBody: false,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90);
+    interceptors.add(log);
   }
 
-  Future<Result> request<T extends API>(T api) async {
-    var targetType = CraftTarget(api);
+  // 配置Dio
+  void setupDio(TargetType targetType) async {
+    options.baseUrl = targetType.baseUrl;
+    options.method = targetType.method.value;
+    if (targetType.parameters != null || targetType.parameters.isNotEmpty) {
+      options.queryParameters = targetType.parameters;
+    }
 
+    options.headers.addAll(targetType.headers);
+  }
+
+  Future<Result<dynamic, NoyaError>> requestApi(API api) async {
+    var targetType = CraftTarget(api);
+    setupDio(targetType);
     Response response;
     Result<dynamic, NoyaError> result;
-
-    FormData();
-
     try {
       switch (targetType.task) {
         case Task.multipart:
           FormData formData = FormData.fromMap(targetType.parameters);
-          response = await dio.request(targetType.path, data: formData);
+          response = await request(targetType.path, data: formData);
           break;
         default:
-          response = await dio.request(targetType.path,
+          response = await request(targetType.path,
               queryParameters: targetType.parameters);
       }
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        var json = response.data;
+      switch (response.data['code']) {
+        case 200:
+          result = Result.success(response.data['data']);
+          break;
+        case 4001:
+        case 4002:
+        case 5001:
+        case 5002:
+          result = Result.failure(NoyaError(error: response.data['msg']));
+          break;
 
-        switch (json['code']) {
-          case 200:
-            result = Result.success(json);
-            break;
-          case 4001:
-          case 4002:
-          case 5001:
-          case 5002:
-            result = Result.failure(NoyaError(error: json['msg']));
-            break;
-
-          default:
-            result = Result.failure(NoyaError(error: '网络异常'));
-        }
+        default:
+          result = Result.failure(NoyaError(error: '网络异常'));
       }
     } on NoyaError catch (e) {
       result = Result.failure(NoyaError(error: e));
