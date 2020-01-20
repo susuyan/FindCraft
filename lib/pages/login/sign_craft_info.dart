@@ -11,7 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oktoast/oktoast.dart';
 
 class SignCraftInfoPage extends StatefulWidget {
-  SignCraftInfoPage({Key key}) : super(key: key);
+  SignCraftInfoPage(this.signBloc, {Key key}) : super(key: key);
+
+  final SignBloc signBloc;
 
   @override
   _SignCraftInfoPageState createState() => _SignCraftInfoPageState();
@@ -29,8 +31,7 @@ class _SignCraftInfoPageState extends State<SignCraftInfoPage> {
         title: Text('身份信息'),
       ),
       body: BlocProvider(
-        create: (context) => SignBloc(
-            authenticationBloc: BlocProvider.of<AuthenticationBloc>(context)),
+        create: (context) => widget.signBloc,
         child: BlocListener<SignBloc, SignState>(listener: (context, state) {
           if (state is SignedCraftInfo) {
             showToast('注册完成');

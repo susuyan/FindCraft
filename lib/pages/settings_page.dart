@@ -15,17 +15,14 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthenticationBloc(),
-      child: Scaffold(
-        body: Center(
-          child: FlatButton(
-            onPressed: () {
-              BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
-              Application.router.pop(context);
-            },
-            child: Text('退出登录'),
-          ),
+    return Scaffold(
+      body: Center(
+        child: FlatButton(
+          onPressed: () {
+            BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+            Application.router.pop(context);
+          },
+          child: Text('退出登录'),
         ),
       ),
     );

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 
 class Routes {
-  static const root = '/';
+  static const root = '/tab';
   static const home = '/home';
   static const splash = '/splash';
   static const workerPublish = '/worker_publish';
@@ -18,15 +18,19 @@ class Routes {
   static const settings = '/settings';
 
   static const login = '/login';
-  static const signAccount = '/login/sign_account';
-  static const signRole = '/login/sign_account/sign_role';
-  static const signOrderInfo = '/login/sign_account/sign_role/sign_order_info';
-  static const signCraftInfo = '/login/sign_account/sign_role/sign_craft_info';
+  static const signAccount = '/sign_account';
+  static const signRole = '/sign_role';
+  static const signOrderInfo = '/sign_order_info';
+  static const signCraftInfo = '/sign_craft_info';
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      print("ROUTE WAS NOT FOUND !!!");
+      return Scaffold(
+        body: Center(
+          child: Text('No route defined for'),
+        ),
+      );
     });
 
     router.define(root, handler: rootHandler);

@@ -29,46 +29,45 @@ class _MinePageState extends State<MinePage>
         ),
       ],
       child: Scaffold(
-        body: Container(
-          child: BlocBuilder<MineBloc, MineState>(
-            builder: (context, state) {
-              MineModel mine;
+        body: BlocBuilder<MineBloc, MineState>(
+          builder: (context, state) {
+            MineModel mine;
 
-              if (state is LoadedMine) {
-                mine = state.mine;
-              }
+            if (state is LoadedMine) {
+              mine = state.mine;
+            }
 
-              if (mine == null) {
-                return Container(
-                  child: Center(
-                    child: FlatButton(
-                      onPressed: () {
-                        BlocProvider.of<AuthenticationBloc>(context)
-                            .add(LoggedOut());
-                      },
-                      child: Text('退出登录'),
-                    ),
-                  ),
-                );
-              }
-
+            if (mine == null) {
               return Container(
-                child: ListView(
-                  children: <Widget>[
-                    _createHeader(mine),
-                    Container(
-                      color: Colors.white,
-                      height: 69,
-                      alignment: Alignment.center,
-                      child: _createEditButton(),
-                    ),
-                    _createSection(),
-                    _createWorkGallery()
-                  ],
+                child: Center(
+                  child: FlatButton(
+                    onPressed: () {
+                      BlocProvider.of<AuthenticationBloc>(context)
+                          .add(LoggedOut());
+                    },
+                    child: Text('退出登录'),
+                  ),
                 ),
               );
-            },
-          ),
+            }
+
+            return Container(
+              child: ListView(
+                padding: EdgeInsets.only(top: 0),
+                children: <Widget>[
+                  _createHeader(mine),
+                  Container(
+                    color: Colors.white,
+                    height: 69,
+                    alignment: Alignment.center,
+                    child: _createEditButton(),
+                  ),
+                  _createSection(),
+                  _createWorkGallery()
+                ],
+              ),
+            );
+          },
         ),
       ),
     );

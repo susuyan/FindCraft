@@ -5,8 +5,8 @@ class API {
 
   final Map<String, dynamic> params;
 
-  static const base = 'https://zhaogegong.beituokj.com/api/';
-  // static const base = 'http://127.0.0.1:8000/api/';
+  // static const base = 'https://zhaogegong.beituokj.com/api/';
+  static const base = 'http://127.0.0.1:8000/api/';
   // static const base =
   //     'https://fd0adb60-cda8-4ca5-bd84-84379e5402e0.mock.pstmn.io';
 

@@ -27,9 +27,7 @@ class LoginPage extends StatelessWidget {
             create: (context) => LoginBloc(
                 authenticationBloc:
                     BlocProvider.of<AuthenticationBloc>(context)),
-            child: ProgressHud(
-              child: LoginForm(),
-            ),
+            child: LoginForm(),
           ),
         ));
   }
@@ -95,8 +93,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
         );
       }
-
-
+     
     }, child: BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         return Stack(
@@ -137,7 +134,8 @@ class _LoginFormState extends State<LoginForm> {
                               hintText: '手机号',
                               hintStyle: TextStyle(
                                   color: Color(0x47FFFFFF), fontSize: 12),
-                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
                               hoverColor: Colors.white,
                               border: InputBorder.none,
                             )),

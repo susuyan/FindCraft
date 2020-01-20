@@ -1,5 +1,6 @@
 import 'package:find_craft/application.dart';
 import 'package:find_craft/common/common_style.dart';
+import 'package:find_craft/pages/authentication/bloc.dart';
 import 'package:find_craft/pages/login/sign_bloc/bloc.dart';
 import 'package:find_craft/route/routes.dart';
 import 'package:fluro/fluro.dart';

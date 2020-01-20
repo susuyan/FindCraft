@@ -23,13 +23,10 @@ class _SignOwnerInfoPageState extends State<SignOwnerInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('身份信息'),
-      ),
-      body: BlocProvider(
-        create: (context) => SignBloc(
-            authenticationBloc: BlocProvider.of<AuthenticationBloc>(context)),
-        child: BlocListener<SignBloc, SignState>(listener: (context, state) {
+        appBar: AppBar(
+          title: Text('身份信息'),
+        ),
+        body: BlocListener<SignBloc, SignState>(listener: (context, state) {
           if (state is SignedOwnerInfo) {
             showToast('注册完成');
             Application.router
@@ -84,15 +81,15 @@ class _SignOwnerInfoPageState extends State<SignOwnerInfoPage> {
                     margin: EdgeInsets.only(top: 20),
                     controller: _wechatContrller,
                   ),
-                  AddressButton(onPressed: (){},),
+                  AddressButton(
+                    onPressed: () {},
+                  ),
                   CommitButton(
                       onPressed: state is! SignLoading ? _onCommit : null)
                 ],
               ),
             );
           },
-        )),
-      ),
-    );
+        )));
   }
 }

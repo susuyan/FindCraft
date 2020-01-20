@@ -8,6 +8,7 @@ import 'package:find_craft/pages/splash_page.dart';
 import 'package:find_craft/route/routes.dart';
 import 'package:find_craft/widgets/simple_bloc_delegate.dart';
 import 'package:fluro/fluro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oktoast/oktoast.dart';
@@ -34,23 +35,21 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OKToast(
-      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          Widget _currentHome = SplashPage();
+      child: MaterialApp(
+        home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            if (state is AuthenticationAuthenticated) {
+              return MainPage();
+            }
 
-          if (state is AuthenticationAuthenticated) {
-            _currentHome = MainPage();
-          }
+            if (state is AuthenticationUnauthenticated) {
+              return LoginPage();
+            }
 
-          if (state is AuthenticationUnauthenticated) {
-            _currentHome = LoginPage();
-          }
-
-          return MaterialApp(
-            home: _currentHome,
-            onGenerateRoute: Application.router.generator,
-          );
-        },
+            return Container();
+          },
+        ),
+        onGenerateRoute: Application.router.generator,
       ),
     );
   }

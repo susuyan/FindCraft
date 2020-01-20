@@ -5,6 +5,7 @@ import 'package:find_craft/pages/demand/demand_list_page.dart';
 
 import 'package:find_craft/pages/home/home_page.dart';
 import 'package:find_craft/pages/login/login_page.dart';
+import 'package:find_craft/pages/login/sign_bloc/bloc.dart';
 import 'package:find_craft/pages/login/sign_craft_info.dart';
 import 'package:find_craft/pages/login/sign_owner_info.dart';
 
@@ -20,6 +21,7 @@ import 'package:find_craft/pages/work_gallery_page.dart';
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 var rootHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -55,7 +57,7 @@ var signOrderInfoHandler = Handler(
 
 var signCraftInfoHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return SignCraftInfoPage();
+  return SignCraftInfoPage(BlocProvider.of<SignBloc>(context));
 });
 
 var homeHandler = Handler(

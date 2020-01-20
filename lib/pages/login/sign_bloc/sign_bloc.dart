@@ -8,10 +8,6 @@ import './bloc.dart';
 class SignBloc extends Bloc<SignEvent, SignState> {
   final repository = UserRepository();
 
-  final AuthenticationBloc authenticationBloc;
-
-  SignBloc({this.authenticationBloc});
-
   @override
   SignState get initialState => InitialSignState();
 
@@ -44,7 +40,7 @@ class SignBloc extends Bloc<SignEvent, SignState> {
       yield SignLoading();
       try {
         await repository.requestSignOwner(event);
-        authenticationBloc.add(AppStarted());
+
         yield SignedOwnerInfo();
       } catch (e) {
         yield SignFailure('网络错误');
@@ -56,7 +52,6 @@ class SignBloc extends Bloc<SignEvent, SignState> {
       try {
         await repository.requestSignCraft(event);
         yield SignedCraftInfo();
-        
       } catch (e) {
         yield SignFailure('网络错误');
       }
