@@ -98,8 +98,8 @@ class _CraftCellState extends State<CraftCell> {
           width: 50,
           radius: 25,
           color: Colors.blue,
-          text: 'TE',
-          textStyle: TextStyle(color: Colors.white),
+          text: '师傅',
+          textStyle: CommonStyle.white12,
         ),
         SizedBox(
           width: 10,

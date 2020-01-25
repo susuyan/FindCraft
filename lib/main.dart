@@ -10,6 +10,7 @@ import 'package:find_craft/widgets/simple_bloc_delegate.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oktoast/oktoast.dart';
 
@@ -22,6 +23,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageHelper.init();
   BlocSupervisor.delegate = SimpleBlocDelegate();
+
+  // 强制竖屏
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   runApp(BlocProvider<AuthenticationBloc>(
     create: (context) {

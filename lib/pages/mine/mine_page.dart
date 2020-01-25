@@ -5,6 +5,7 @@ import 'package:find_craft/pages/mine/bloc.dart';
 import 'package:find_craft/repositories/models/mine_models.dart';
 import 'package:find_craft/widgets/avatar.dart';
 import 'package:find_craft/widgets/craft_tag_view.dart';
+import 'package:find_craft/widgets/mine_gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:find_craft/route/routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,14 +57,14 @@ class _MinePageState extends State<MinePage>
                 padding: EdgeInsets.only(top: 0),
                 children: <Widget>[
                   _createHeader(mine),
-                  Container(
-                    color: Colors.white,
-                    height: 69,
-                    alignment: Alignment.center,
-                    child: _createEditButton(),
-                  ),
+                  // Container(
+                  //   color: Colors.white,
+                  //   height: 69,
+                  //   alignment: Alignment.center,
+                  //   child: _createEditButton(),
+                  // ),
                   _createSection(),
-                  _createWorkGallery()
+                  MineGallery()
                 ],
               ),
             );
@@ -140,7 +141,7 @@ class _MinePageState extends State<MinePage>
                 width: 110,
                 radius: 55,
                 color: Colors.blue,
-                text: 'TE',
+                text: mine.tags.length > 0 ? '师傅' : '业主',
                 textStyle: TextStyle(color: Colors.white),
               ),
             ),
@@ -226,20 +227,6 @@ class _MinePageState extends State<MinePage>
         padding: EdgeInsets.only(left: 20, right: 20),
         scrollDirection: Axis.horizontal,
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(right: 8, left: 0),
-            decoration: BoxDecoration(
-                color: Colors.red, borderRadius: BorderRadius.circular(8)),
-            width: 130,
-            height: 170,
-          ),
-          Container(
-            margin: EdgeInsets.only(right: 8, left: 0),
-            decoration: BoxDecoration(
-                color: Colors.red, borderRadius: BorderRadius.circular(8)),
-            width: 130,
-            height: 150,
-          ),
           Container(
             margin: EdgeInsets.only(right: 8, left: 0),
             decoration: BoxDecoration(

@@ -1,4 +1,3 @@
-import 'package:bmprogresshud/progresshud.dart';
 import 'package:find_craft/application.dart';
 import 'package:find_craft/common/common_style.dart';
 import 'package:find_craft/pages/authentication/bloc.dart';
@@ -93,7 +92,6 @@ class _LoginFormState extends State<LoginForm> {
           ),
         );
       }
-     
     }, child: BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         return Stack(

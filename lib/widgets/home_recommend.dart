@@ -5,7 +5,7 @@ class HomeRecommend extends StatelessWidget {
   const HomeRecommend({this.tags, Key key, this.onPressedTag})
       : super(key: key);
   final List<String> tags;
-  final Function onPressedTag;
+  final Function(int selectedIndex) onPressedTag;
 
   @override
   Widget build(BuildContext context) {
@@ -23,27 +23,42 @@ class HomeRecommend extends StatelessWidget {
           Wrap(
             spacing: 15,
             runSpacing: 15,
-            children: tags.map<Widget>((tag) {
-              return GestureDetector(
-                onTap: onPressedTag,
-                child: Container(
-                  alignment: Alignment.center,
-                  constraints: BoxConstraints(
-                      maxWidth: _minWidth, minWidth: _minWidth, minHeight: 44),
-                  decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(5),
-                      gradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [Color(0xFF3C4A7C), Color(0xFF253364)])),
-                  child: Text(
-                    '$tag',
-                    style: CommonStyle.white12,
-                  ),
-                ),
-              );
-            }).toList(),
+            children: tags
+                .asMap()
+                .map<int, Widget>((index, tag) {
+                  return MapEntry(
+                      index,
+                      GestureDetector(
+                        onTap: () {
+                          if (onPressedTag != null) {
+                            onPressedTag(index);
+                          }
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: BoxConstraints(
+                              maxWidth: _minWidth,
+                              minWidth: _minWidth,
+                              minHeight: 44),
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(5),
+                              gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                    Color(0xFF3C4A7C),
+                                    Color(0xFF253364)
+                                  ])),
+                          child: Text(
+                            '$tag',
+                            style: CommonStyle.white12,
+                          ),
+                        ),
+                      ));
+                })
+                .values
+                .toList(),
           )
         ],
       ),

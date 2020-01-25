@@ -72,10 +72,10 @@ class _HomePageState extends State<HomePage>
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                       HomeRecommend(
-                        tags: ['找木工', '找瓦工', '找水电工', '维修安装', '接个人活'],
-                        onPressedTag: () {
+                        tags: ['找木工', '找瓦工', '找水电工', '维修安装'],
+                        onPressedTag: (index) {
                           Application.router.navigateTo(
-                              context, Routes.craftList,
+                              context, Routes.craftList + '?tag_index=$index',
                               transition: TransitionType.cupertino);
                         },
                       ),

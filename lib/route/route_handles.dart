@@ -90,7 +90,10 @@ var requimentsDetailsHandler = Handler(
 
 var craftListHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return CraftListPage();
+  String tagIndex = params.containsKey('tag_index') ? params['tag_index'].first : '0';
+  return CraftListPage(
+    tagIndex: int.parse(tagIndex),
+  );
 });
 
 var craftDetailsHandler = Handler(
