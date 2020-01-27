@@ -10,9 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oktoast/oktoast.dart';
 
 class SignCraftInfoPage extends StatefulWidget {
-  SignCraftInfoPage(this.signBloc, {Key key}) : super(key: key);
-
-  final SignBloc signBloc;
+  SignCraftInfoPage({Key key}) : super(key: key);
 
   @override
   _SignCraftInfoPageState createState() => _SignCraftInfoPageState();
@@ -30,7 +28,7 @@ class _SignCraftInfoPageState extends State<SignCraftInfoPage> {
         title: Text('身份信息'),
       ),
       body: BlocProvider(
-        create: (context) => widget.signBloc,
+        create: (context) => SignBloc(),
         child: BlocListener<SignBloc, SignState>(listener: (context, state) {
           if (state is SignedCraftInfo) {
             showToast('注册完成');
@@ -109,7 +107,7 @@ class _SignCraftInfoPageState extends State<SignCraftInfoPage> {
                   SignTextField(
                     controller: _wechatContrller,
                     hintText: '输入微信号便于客户联系',
-                    margin: EdgeInsets.only(top: 20), 
+                    margin: EdgeInsets.only(top: 20),
                   ),
                   AddressButton(
                     onPressed: () {},

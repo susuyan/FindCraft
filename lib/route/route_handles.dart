@@ -5,9 +5,8 @@ import 'package:find_craft/pages/demand/demand_list_page.dart';
 
 import 'package:find_craft/pages/home/home_page.dart';
 import 'package:find_craft/pages/login/login_page.dart';
-import 'package:find_craft/pages/login/sign_bloc/bloc.dart';
-import 'package:find_craft/pages/login/sign_craft_info.dart';
-import 'package:find_craft/pages/login/sign_owner_info.dart';
+import 'package:find_craft/pages/login/sign_craft_page.dart';
+import 'package:find_craft/pages/login/sign_owner_page.dart';
 
 import 'package:find_craft/pages/login/sign_role_page.dart';
 import 'package:find_craft/pages/login/sign_page.dart';
@@ -52,12 +51,12 @@ var signRoleHandler = Handler(
 
 var signOrderInfoHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return SignOwnerInfoPage(BlocProvider.of<SignBloc>(context));
+  return SignOwnerInfoPage();
 });
 
 var signCraftInfoHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return SignCraftInfoPage(BlocProvider.of<SignBloc>(context));
+  return SignCraftInfoPage();
 });
 
 var homeHandler = Handler(
