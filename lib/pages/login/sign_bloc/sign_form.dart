@@ -31,52 +31,49 @@ class _SignFormState extends State<SignForm> {
     }
 
     return BlocListener<SignBloc, SignState>(
-        listener: (context, state) {
-          if (state is SignFailure) {
-            Scaffold.of(context).showSnackBar(
-              SnackBar(
-                duration: Duration(milliseconds: 700),
-                content: Text('${state.error}'),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }
+      listener: (context, state) {
+        if (state is SignFailure) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              duration: Duration(milliseconds: 700),
+              content: Text('${state.error}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
 
-          if (state is SignedAccount) {
-            Application.router.navigateTo(context, Routes.signRole,
-                transition: TransitionType.cupertino);
-          }
-        },
-        child: BlocProvider(
-          create: (context) => SignBloc(),
-          child: BlocBuilder<SignBloc, SignState>(
-            builder: (context, state) {
-              return Form(
-                child: Column(
-                  children: <Widget>[
-                    _createTextFormField(
-                        hintText: '手机号', controller: _usernameController),
-                    _createTextFormField(
-                        hintText: '密码', controller: _passwordController),
-                    _createTextFormField(
-                        hintText: '再输入一遍密码',
-                        controller: _repeatPasswordController),
-                    SignButton(
-                      onPressed: state is! SignLoading ? _onSignpressd : null,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Text(
-                        '阅读并同意使用条款和隐私协议',
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    )
-                  ],
+        if (state is SignedAccount) {
+          Application.router.navigateTo(context, Routes.signRole,
+              transition: TransitionType.cupertino);
+        }
+      },
+      child: BlocBuilder<SignBloc, SignState>(
+        builder: (context, state) {
+          return Form(
+            child: Column(
+              children: <Widget>[
+                _createTextFormField(
+                    hintText: '手机号', controller: _usernameController),
+                _createTextFormField(
+                    hintText: '密码', controller: _passwordController),
+                _createTextFormField(
+                    hintText: '再输入一遍密码', controller: _repeatPasswordController),
+                SignButton(
+                  onPressed: state is! SignLoading ? _onSignpressd : null,
                 ),
-              );
-            },
-          ),
-        ));
+                Container(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Text(
+                    '阅读并同意使用条款和隐私协议',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Widget _createTextFormField(

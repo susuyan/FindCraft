@@ -98,7 +98,8 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
                                 hintText: '描述你具体的需求',
                                 hintStyle:
                                     TextStyle(color: Colors.grey, fontSize: 12),
-                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
                                 hoverColor: Colors.black,
                                 border: InputBorder.none,
                               )),
@@ -117,7 +118,6 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
                             Tag('找瓦工', type: 'type02'),
                             Tag('找水电工', type: 'type03'),
                             Tag('维修安装', type: 'type04'),
-                            Tag('接个人活', type: 'type05')
                           ],
                           contrller: _tagContrller,
                         ),
@@ -144,7 +144,8 @@ class _OwnerPublshPageState extends State<OwnerPublshPage> {
                                 hintText: '详细地址',
                                 hintStyle:
                                     TextStyle(color: Colors.grey, fontSize: 12),
-                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
                                 hoverColor: Colors.black,
                                 border: InputBorder.none,
                               )),

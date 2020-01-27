@@ -10,7 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oktoast/oktoast.dart';
 
 class SignOwnerInfoPage extends StatefulWidget {
-  SignOwnerInfoPage({Key key}) : super(key: key);
+  SignOwnerInfoPage(this.signBloc, {Key key}) : super(key: key);
+  final SignBloc signBloc;
 
   @override
   _SignOwnerInfoPageState createState() => _SignOwnerInfoPageState();

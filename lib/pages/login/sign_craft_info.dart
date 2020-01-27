@@ -109,7 +109,7 @@ class _SignCraftInfoPageState extends State<SignCraftInfoPage> {
                   SignTextField(
                     controller: _wechatContrller,
                     hintText: '输入微信号便于客户联系',
-                    margin: EdgeInsets.only(top: 20),
+                    margin: EdgeInsets.only(top: 20), 
                   ),
                   AddressButton(
                     onPressed: () {},

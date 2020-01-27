@@ -34,8 +34,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
           yield LoginSuccess();
         } catch (e) {
-
-          
           yield LoginFailure(error: '网络错误');
         }
       }

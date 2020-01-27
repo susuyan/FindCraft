@@ -52,7 +52,7 @@ var signRoleHandler = Handler(
 
 var signOrderInfoHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return SignOwnerInfoPage();
+  return SignOwnerInfoPage(BlocProvider.of<SignBloc>(context));
 });
 
 var signCraftInfoHandler = Handler(
@@ -90,7 +90,8 @@ var requimentsDetailsHandler = Handler(
 
 var craftListHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  String tagIndex = params.containsKey('tag_index') ? params['tag_index'].first : '0';
+  String tagIndex =
+      params.containsKey('tag_index') ? params['tag_index'].first : '0';
   return CraftListPage(
     tagIndex: int.parse(tagIndex),
   );
