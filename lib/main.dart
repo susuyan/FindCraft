@@ -3,7 +3,6 @@ import 'package:find_craft/helper/storage_helper.dart';
 import 'package:find_craft/pages/authentication/bloc.dart';
 
 import 'package:find_craft/pages/login/login_page.dart';
-import 'package:find_craft/pages/splash_page.dart';
 
 import 'package:find_craft/route/routes.dart';
 import 'package:find_craft/widgets/simple_bloc_delegate.dart';

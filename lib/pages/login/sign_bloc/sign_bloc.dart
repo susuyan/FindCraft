@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:find_craft/pages/authentication/bloc.dart';
+import 'package:dio/dio.dart';
+
 import 'package:find_craft/repositories/user_repository.dart';
 
 import './bloc.dart';
@@ -30,8 +31,8 @@ class SignBloc extends Bloc<SignEvent, SignState> {
         try {
           await repository.requestSign(event);
           yield SignedAccount();
-        } catch (e) {
-          yield SignFailure('网络错误');
+        } on DioError catch (e) {
+          yield SignFailure('${e.response.data['msg']}');
         }
       }
     }
@@ -40,10 +41,9 @@ class SignBloc extends Bloc<SignEvent, SignState> {
       yield SignLoading();
       try {
         await repository.requestSignOwner(event);
-
         yield SignedOwnerInfo();
-      } catch (e) {
-        yield SignFailure('网络错误');
+      } on DioError catch (e) {
+        yield SignFailure('${e.response.data['msg']}');
       }
     }
 
@@ -52,8 +52,8 @@ class SignBloc extends Bloc<SignEvent, SignState> {
       try {
         await repository.requestSignCraft(event);
         yield SignedCraftInfo();
-      } catch (e) {
-        yield SignFailure('网络错误');
+      } on DioError catch (e) {
+        yield SignFailure('${e.response.data['msg']}');
       }
     }
   }

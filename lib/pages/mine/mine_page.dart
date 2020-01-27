@@ -202,40 +202,4 @@ class _MinePageState extends State<MinePage>
           ),
         ),
       );
-
-// 编辑信息
-  _createEditButton() => GestureDetector(
-        child: Container(
-          height: 31,
-          width: 84,
-          decoration: BoxDecoration(
-              color: Color(0xFF3388FF).withAlpha(20),
-              borderRadius: BorderRadius.circular(8)),
-          child: Center(
-            child: Text(
-              '编辑信息',
-              style: CommonStyle.blue12,
-            ),
-          ),
-        ),
-      );
-
-  _createWorkGallery() {
-    return SizedBox(
-      height: 160,
-      child: ListView(
-        padding: EdgeInsets.only(left: 20, right: 20),
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(right: 8, left: 0),
-            decoration: BoxDecoration(
-                color: Colors.red, borderRadius: BorderRadius.circular(8)),
-            width: 130,
-            height: 170,
-          ),
-        ],
-      ),
-    );
-  }
 }
