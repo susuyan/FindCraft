@@ -3,10 +3,11 @@ import 'package:find_craft/helper/storage_helper.dart';
 import 'package:find_craft/pages/authentication/bloc.dart';
 
 import 'package:find_craft/pages/login/login_page.dart';
+import 'package:find_craft/pages/splash_page.dart';
 
 import 'package:find_craft/route/routes.dart';
 import 'package:find_craft/widgets/simple_bloc_delegate.dart';
-import 'package:fluro/fluro.dart';
+import 'package:find_craft/common/fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,7 +51,7 @@ class App extends StatelessWidget {
               return LoginPage();
             }
 
-            return Container();
+            return SplashPage();
           },
         ),
         onGenerateRoute: Application.router.generator,

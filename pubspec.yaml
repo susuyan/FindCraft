@@ -40,7 +40,7 @@ dependencies:
   dio: ^3.0.8
   pretty_dio_logger: ^1.0.8
   # 路由管理
-  fluro: ^1.5.1
+  # fluro: ^1.5.1
   # 屏幕适配
   flutter_screenutil: ^0.6.0
   cached_network_image: ^2.0.0-rc.1

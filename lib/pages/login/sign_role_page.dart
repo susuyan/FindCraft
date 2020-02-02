@@ -1,6 +1,6 @@
 import 'package:find_craft/application.dart';
 import 'package:find_craft/route/routes.dart';
-import 'package:fluro/fluro.dart';
+import 'package:find_craft/common/fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,7 @@
 import 'package:find_craft/application.dart';
 import 'package:find_craft/pages/login/sign_bloc/sign_bloc.dart';
-import 'package:find_craft/pages/login/sign_bloc/sign_form.dart';
+import 'package:find_craft/widgets/sign_form.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
