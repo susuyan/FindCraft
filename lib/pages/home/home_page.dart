@@ -17,6 +17,7 @@ import 'package:find_craft/common/fluro/fluro.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -30,7 +31,8 @@ class _HomePageState extends State<HomePage>
 
   List<CraftModel> _craftList;
   List<HomeOrderModel> _orderList;
-
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -50,60 +52,62 @@ class _HomePageState extends State<HomePage>
             body: SafeArea(
               top: false,
               bottom: false,
-              child: CustomScrollView(
-                slivers: <Widget>[
-                  SliverAppBar(
-                    stretch: false,
-                    expandedHeight: 220,
-                    flexibleSpace: HomeHeader(),
-                  ),
-                  SliverList(
-                    delegate: SliverChildListDelegate([
-                      Container(
-                        height: 50,
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(left: 20),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20))),
-                        child: Text('推荐',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+              child: SmartRefresher(
+                  controller: _refreshController,
+                  child: CustomScrollView(
+                    slivers: <Widget>[
+                      SliverAppBar(
+                        stretch: false,
+                        expandedHeight: 220,
+                        flexibleSpace: HomeHeader(),
                       ),
-                      HomeRecommend(
-                        tags: ['找木工', '找瓦工', '找水电工', '维修安装'],
-                        onPressedTag: (index) {
-                          Application.router.navigateTo(
-                              context, Routes.craftList + '?tag_index=$index',
-                              transition: TransitionType.cupertino);
-                        },
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      HomeSectionMore(
-                        '精选业主',
-                        morePressed: () {
-                          Application.router.navigateTo(
-                              context, Routes.demandList,
-                              transition: TransitionType.cupertino);
-                        },
-                      ),
-                      _createOrder(context),
-                      HomeSectionMore(
-                        '师傅列表',
-                        morePressed: () {
-                          Application.router.navigateTo(
-                              context, Routes.craftList,
-                              transition: TransitionType.cupertino);
-                        },
-                      ),
-                      _createCraft(context)
-                    ]),
-                  )
-                ],
-              ),
+                      SliverList(
+                        delegate: SliverChildListDelegate([
+                          Container(
+                            height: 50,
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.only(left: 20),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20))),
+                            child: Text('推荐',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          ),
+                          HomeRecommend(
+                            tags: ['找木工', '找瓦工', '找水电工', '维修安装'],
+                            onPressedTag: (index) {
+                              Application.router.navigateTo(context,
+                                  Routes.craftList + '?tag_index=$index',
+                                  transition: TransitionType.cupertino);
+                            },
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          HomeSectionMore(
+                            '精选业主',
+                            morePressed: () {
+                              Application.router.navigateTo(
+                                  context, Routes.demandList,
+                                  transition: TransitionType.cupertino);
+                            },
+                          ),
+                          _createOrder(context),
+                          HomeSectionMore(
+                            '师傅列表',
+                            morePressed: () {
+                              Application.router.navigateTo(
+                                  context, Routes.craftList,
+                                  transition: TransitionType.cupertino);
+                            },
+                          ),
+                          _createCraft(context)
+                        ]),
+                      )
+                    ],
+                  )),
             ),
           );
         },

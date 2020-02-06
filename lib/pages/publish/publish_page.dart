@@ -46,8 +46,8 @@ class _PublishPageState extends State<PublishPage> {
               image: Image.asset('assets/images/worker_icon.png'),
               colors: [Color(0xFF1F8FE5), Color(0xFF3BA7FD)],
               tapPublish: () {
-                Application.router
-                    .navigateTo(context, Routes.craftList, replace: true);
+                Application.router.navigateTo(context, Routes.craftList,
+                    transition: TransitionType.cupertinoFullScreenDialog);
               },
             ),
           ),

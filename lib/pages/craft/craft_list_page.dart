@@ -26,10 +26,16 @@ class _CraftListPageState extends State<CraftListPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CraftBloc()..add(FetchCraftList()),
-      child: BlocBuilder<CraftBloc, CraftState>(
+      child: BlocListener<CraftBloc, CraftState>(listener: (context, state) {
+        if (state is LoadedCraftList) {
+          _refreshController.refreshCompleted();
+        }
+      }, child: BlocBuilder<CraftBloc, CraftState>(
         builder: (context, state) {
           void _onRefresh() {
             BlocProvider.of<CraftBloc>(context).add(FetchCraftList());
+            _refreshController.refreshCompleted();
+            
           }
 
           return Scaffold(
@@ -74,7 +80,7 @@ class _CraftListPageState extends State<CraftListPage> {
             ),
           );
         },
-      ),
+      )),
     );
   }
 }

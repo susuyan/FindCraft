@@ -102,7 +102,7 @@ class _MinePageState extends State<MinePage>
   }
 
   Widget _createHeader(MineModel mine) => Container(
-        height: mine.tags.length != 0 ? 269 : 200,
+        height: mine.tags.length != 0 ? 269 : 220,
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
