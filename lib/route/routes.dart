@@ -1,6 +1,6 @@
 import 'package:find_craft/route/route_handles.dart';
 import 'package:flutter/material.dart';
-import 'package:find_craft/common/fluro/fluro.dart';
+import 'package:fluro/fluro.dart';
 
 class Routes {
   static const root = '/tab';

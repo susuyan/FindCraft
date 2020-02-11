@@ -3,7 +3,7 @@ import 'package:find_craft/common/common_style.dart';
 
 import 'package:find_craft/pages/login/sign_bloc/bloc.dart';
 import 'package:find_craft/route/routes.dart';
-import 'package:find_craft/common/fluro/fluro.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

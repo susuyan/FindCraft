@@ -4,7 +4,7 @@ import 'package:find_craft/route/routes.dart';
 import 'package:find_craft/widgets/craft_category.dart';
 import 'package:find_craft/widgets/craft_cell.dart';
 import 'package:find_craft/widgets/filtration_header.dart';
-import 'package:find_craft/common/fluro/fluro.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';

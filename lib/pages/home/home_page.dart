@@ -13,7 +13,7 @@ import 'package:find_craft/widgets/home_header.dart';
 import 'package:find_craft/widgets/home_order_cell.dart';
 import 'package:find_craft/widgets/home_recommend.dart';
 import 'package:find_craft/widgets/home_section_more.dart';
-import 'package:find_craft/common/fluro/fluro.dart';
+import 'package:fluro/fluro.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

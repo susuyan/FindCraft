@@ -1,4 +1,4 @@
-import 'package:find_craft/common/fluro/fluro.dart';
+import 'package:fluro/fluro.dart';
 
 class Application {
   static Router router;

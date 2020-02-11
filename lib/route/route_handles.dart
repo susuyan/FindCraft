@@ -17,8 +17,9 @@ import 'package:find_craft/pages/select_city_page.dart';
 import 'package:find_craft/pages/settings_page.dart';
 import 'package:find_craft/pages/splash_page.dart';
 import 'package:find_craft/pages/work_gallery_page.dart';
+import 'package:fluro/fluro.dart';
 
-import 'package:find_craft/common/fluro/fluro.dart';
+
 import 'package:flutter/material.dart';
 
 var rootHandler = Handler(
