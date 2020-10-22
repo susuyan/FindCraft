@@ -5,9 +5,9 @@ import './bloc.dart';
 
 class CraftBloc extends Bloc<CraftEvent, CraftState> {
   final CraftRepository repository = CraftRepository();
-  @override
-  CraftState get initialState => InitialCraftState();
 
+  CraftBloc(CraftState initialState) : super(initialState);
+  
   @override
   Stream<CraftState> mapEventToState(
     CraftEvent event,

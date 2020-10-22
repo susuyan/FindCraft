@@ -6,7 +6,7 @@ import 'package:find_craft/pages/login/login_page.dart';
 import 'package:find_craft/pages/splash_page.dart';
 
 import 'package:find_craft/route/routes.dart';
-import 'package:find_craft/widgets/simple_bloc_delegate.dart';
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,6 @@ void main() async {
   Application.router = router;
   WidgetsFlutterBinding.ensureInitialized();
   await StorageHelper.init();
-  BlocSupervisor.delegate = SimpleBlocDelegate();
 
   // 强制竖屏
   SystemChrome.setPreferredOrientations(
